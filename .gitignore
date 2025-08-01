@@ -3,3 +3,4 @@ temp.*
 temp/
 *.zip
 .env
+old-assets

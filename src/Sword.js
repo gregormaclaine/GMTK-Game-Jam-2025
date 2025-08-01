@@ -10,15 +10,26 @@ class Sword {
     this.swinging = 0; // 0 for not swinging, 1 for swinging right, -1 for swinging left
     this.swing_callback = null;
     this.swing_speed = 0.4;
+
+    this.hitbox = new HitBox();
+    this.update_hitbox();
   }
 
   async swing() {
     if (this.swinging !== 0) return; // Already swinging
-    console.log('Swinging sword');
     this.swinging = this.arc_pos * -1;
     return new Promise(resolve => {
       this.swing_callback = resolve;
     });
+  }
+
+  update_hitbox() {
+    const sword_pos = this.player.pos.copy();
+    sword_pos.x += this.arc_length * cos(this.arc_angle);
+    sword_pos.y += this.arc_length * sin(this.arc_angle);
+    this.hitbox.set_pos([sword_pos.x, sword_pos.y]);
+    this.hitbox.size = [95, 25];
+    this.hitbox.set_angle(this.arc_angle);
   }
 
   update() {
@@ -33,19 +44,25 @@ class Sword {
         }
       }
     }
+
+    this.update_hitbox();
+  }
+
+  get arc_angle() {
+    return this.player.vel.heading() + this.arc_pos * (PI / 4);
   }
 
   show() {
     push();
     translate(this.player.pos.x, this.player.pos.y);
-    rotate(this.player.vel.heading() + this.arc_pos * (PI / 4));
+    rotate(this.arc_angle);
     translate(this.arc_length, 0);
     rotate((3 * PI) / 4);
-
-    // rotate(this.angle);
 
     imageMode(CENTER);
     image(images['sword'], 0, 0, this.size[0], this.size[1]);
     pop();
+
+    this.hitbox.show();
   }
 }

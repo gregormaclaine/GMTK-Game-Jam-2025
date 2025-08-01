@@ -7,6 +7,8 @@ class GameManager {
     this.collected = collected;
     this.dialogue = dialogue;
 
+    this.camera = new Camera();
+
     this.pause_modal = new PauseModal();
     this.background = images['bullet-bg'];
 
@@ -26,17 +28,12 @@ class GameManager {
     this.on_finish_level = null;
     this.player = new Player({
       start_pos: [width / 2, height / 2],
+      camera: this.camera,
       die: () => {
         if (this.on_finish_level) this.on_finish_level();
         this.on_finish_level = null;
       }
     });
-    // this.bullets = new BulletHell({
-    //   player: this.player,
-    //   collected: this.collected,
-    //   passives: this.passives,
-    //   dialogue: this.dialogue
-    // });
   }
 
   async run_level(level) {
@@ -185,71 +182,18 @@ class GameManager {
     }
   }
 
-  draw_hud() {
-    textSize(40);
-    textAlign(LEFT, BASELINE);
-    stroke(0);
-    strokeWeight(0);
-    fill(
-      this.collected.goal_gigantium &&
-        this.collected.gigantium >= this.collected.goal_gigantium
-        ? 'green'
-        : 255
-    );
-    text(
-      `${this.collected.gigantium}/${this.collected.goal_gigantium || '?'}`,
-      70,
-      40
-    );
-    fill(
-      this.collected.goal_minimium &&
-        this.collected.minimium >= this.collected.goal_minimium
-        ? 'green'
-        : 255
-    );
-    text(
-      `${this.collected.minimium}/${this.collected.goal_minimium || '?'}`,
-      70,
-      90
-    );
-
-    imageMode('center');
-    image(images['gigantium'], 30, 25, 40, 40);
-    image(images['minimium'], 30, 75, 40, 40);
-
-    const heart_width = 60;
-    const heart_gap = 10;
-    const left_x = width - heart_gap * 3 - heart_width * 4 - 20;
-    imageMode(CORNER);
-    for (let i = 0; i < 4; i++) {
-      tint(255, this.player.health > i ? 255 : 30);
-      image(
-        images['cat-heart'],
-        left_x + (heart_gap + heart_width) * i,
-        height - heart_width - 20,
-        heart_width,
-        heart_width
-      );
-      tint(255, 255);
-    }
-
-    if (this.ability) {
-      if (this.ability_cooldown.cooling_down) tint(255, 50);
-      image(this.ability_image(), 20, height - 100, 80, 80);
-      tint(255, 255);
-      this.ability_cooldown.show();
-    }
-  }
-
   show() {
     imageMode(CORNER);
-    background('red');
+    background('white');
     // image(this.background, 0, this.sky_pos - this.background.height);
     // image(this.background, 0, this.sky_pos);
     // this.bullets.show();
+    push();
+    this.camera.show();
     this.player.show();
+    pop();
     // this.draw_hud();
-    // if (this.state === 'pause') this.pause_modal.show();
+    if (this.state === 'pause') this.pause_modal.show();
   }
 
   update() {
@@ -259,6 +203,12 @@ class GameManager {
         //   (this.sky_pos + GameManager.SKYSPEED) % this.background.height;
         // this.bullets.update();
         this.player.update();
+        console.log(
+          'Player position:',
+          round(this.player.pos.x),
+          round(this.player.pos.y)
+        ); // Debugging line
+        this.camera.set_pos(this.player.pos);
 
       // this.bullets.bullets.forEach(b => {
       //   if (b.hitbox.is_colliding(this.player.hitbox)) {

@@ -1,10 +1,11 @@
 class Player {
-  constructor({ start_pos, die = () => {} }) {
+  constructor({ start_pos, die = () => {}, camera }) {
     this.pos = createVector(...start_pos);
     this.die = die;
+    this.camera = camera;
     this.vel = createVector(0, 0);
 
-    this.size = [100, 100];
+    this.size = [90, 120];
 
     this.hitbox = new HitBox();
     this.update_hitbox();
@@ -53,24 +54,27 @@ class Player {
 
   update_hitbox() {
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
-    this.hitbox.set_angle(this.vel.heading());
+    this.hitbox.size = this.size;
+    this.hitbox.set_angle(this.vel.heading() + PI / 2);
   }
 
   force_on_screen() {
-    if (this.pos.x + this.size[0] / 2 > width) {
-      this.pos.x = width - this.size[0] / 2;
+    const bounds = this.camera.bounds();
+
+    if (this.pos.x + this.size[0] / 2 > bounds[2]) {
+      this.pos.x = bounds[2] - this.size[0] / 2;
     }
 
-    if (this.pos.x - this.size[0] / 2 < 0) {
-      this.pos.x = this.size[0] / 2;
+    if (this.pos.x - this.size[0] / 2 < bounds[0]) {
+      this.pos.x = bounds[0] + this.size[0] / 2;
     }
 
-    if (this.pos.y + this.size[1] / 2 > height) {
-      this.pos.y = height - this.size[1] / 2;
+    if (this.pos.y + this.size[1] / 2 > bounds[3]) {
+      this.pos.y = bounds[3] - this.size[1] / 2;
     }
 
-    if (this.pos.y - this.size[1] / 2 < 0) {
-      this.pos.y = this.size[1] / 2;
+    if (this.pos.y - this.size[1] / 2 < bounds[1]) {
+      this.pos.y = bounds[1] + this.size[1] / 2;
     }
   }
 

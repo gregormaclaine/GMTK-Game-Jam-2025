@@ -11,6 +11,7 @@ function preload() {
 
   images['player'] = loadImage('assets/img/square.png');
   images['sword'] = loadImage('assets/img/sword.png');
+  images['background'] = loadImage('assets/img/background.png');
 
   // images['rocket'] = loadImage('assets/img/rocket.png');
   // images['planes'] = [
