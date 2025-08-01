@@ -6,6 +6,8 @@ class GameManager {
     this.camera = new Camera(this);
     this.pause_modal = new PauseModal();
 
+    this.enemies = [];
+
     this.reset();
   }
 
@@ -42,6 +44,8 @@ class GameManager {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
         this.map = Maps[0]();
+        this.enemies.push(new Enemy(null, [200, 200], [50, 100]));
+
         await timeout(4000);
         break;
     }
@@ -76,6 +80,7 @@ class GameManager {
     background('white');
     push();
     this.camera.show();
+    this.enemies.forEach(enemy => enemy.show());
     this.player.show(this.state === 'pause');
     pop();
     if (this.state === 'pause') this.pause_modal.show();
@@ -85,8 +90,9 @@ class GameManager {
     switch (this.state) {
       case 'game':
         this.player.update(this.map?.obstacles || []);
-
         this.camera.set_pos(this.player.pos);
+
+        this.enemies.forEach(enemy => enemy.update(this.player, this.map));
 
       case 'pause':
         this.pause_modal.update();
