@@ -12,44 +12,17 @@ class Player {
 
     this.sword = new Sword(this);
 
-    this.health = 4;
     this.max_speed = 9;
+
+    this.dash_amount = 0;
+    this.dash_cooldown = new AbilityCooldown(5, color(255, 0, 0), () => {
+      this.dash_amount = 1;
+      audio.play_sound('boom.wav');
+    });
   }
 
   get image() {
     return images['player'];
-  }
-
-  take_damage() {
-    if (this.immune || this.invincible) return false;
-    this.immune = true;
-
-    this.health--;
-    if (this.health > 0)
-      audio.play_sound(
-        ['meteor_hit_3.wav', 'meteor_hit_2.wav', 'meteor_hit_1.wav'][
-          this.health - 1
-        ]
-      );
-
-    if (this.health === 0) {
-      audio.play_sound('ship_explosion.wav');
-      this.die();
-    }
-
-    setTimeout(() => (this.immune = false), 1000);
-    return true;
-  }
-
-  gain_health() {
-    if (this.health >= 4) return;
-    if (this.health <= 0) return;
-    this.health++;
-    audio.play_sound(
-      ['pickup_health_3.wav', 'pickup_health_2.wav', 'pickup_health_1.wav'][
-        this.health - 2
-      ]
-    );
   }
 
   update_hitbox() {
@@ -77,11 +50,18 @@ class Player {
     }
   }
 
+  handle_key_press() {
+    if (keyCode === 32) this.dash_cooldown.activate();
+  }
+
   update(obstacles) {
     const dir_vel = createVector(
       keyIsDown(68) - keyIsDown(65),
       keyIsDown(83) - keyIsDown(87)
-    ).setMag(this.max_speed);
+    ).setMag(this.dash_amount ? this.max_speed * 20 : this.max_speed);
+    if (this.dash_amount > 0) this.dash_amount--;
+
+    this.dash_cooldown.update();
 
     if (dir_vel.mag() > 0) {
       this.vel = dir_vel;
