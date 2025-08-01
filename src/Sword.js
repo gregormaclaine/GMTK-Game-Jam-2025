@@ -13,6 +13,8 @@ class Sword {
 
     this.hitbox = new HitBox();
     this.update_hitbox();
+
+    this.indicator_size = 35;
   }
 
   async swing() {
@@ -48,12 +50,15 @@ class Sword {
     this.update_hitbox();
   }
 
-  get arc_angle() {
-    const mouse_angle = atan2(
+  get mouse_angle() {
+    return atan2(
       mouseY * SCREEN_SCALE - height / 2,
       mouseX * SCREEN_SCALE - width / 2
     );
-    return mouse_angle + this.arc_pos * (PI / 4);
+  }
+
+  get arc_angle() {
+    return this.mouse_angle + this.arc_pos * (PI / 4);
   }
 
   show() {
@@ -65,6 +70,16 @@ class Sword {
 
     imageMode(CENTER);
     image(images['sword'], 0, 0, this.size[0], this.size[1]);
+    pop();
+
+    push();
+    translate(this.player.pos.x, this.player.pos.y);
+    rotate(this.mouse_angle);
+    translate(this.arc_length + this.size[0] / 2, 0);
+    rotate(PI / 2);
+
+    imageMode(CENTER);
+    image(images['indicator'], 0, 0, this.indicator_size, this.indicator_size);
     pop();
 
     this.hitbox.show();

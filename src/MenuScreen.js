@@ -1,8 +1,7 @@
 class MenuScreen {
   static SKYSPEED = 0.4;
 
-  constructor(images, dialogue, start_game) {
-    this.images = images;
+  constructor(dialogue, start_game) {
     this.dialogue = dialogue;
     this.start_game = start_game;
 

@@ -9,9 +9,15 @@ function preload() {
   fonts['regular'] = loadFont('assets/font/RobotoMono-Regular.ttf');
   fonts['bold'] = loadFont('assets/font/Oxygen-Bold.ttf');
 
-  images['player'] = loadImage('assets/img/square.png');
+  images['square'] = loadImage('assets/img/square.png');
+  images['player'] = loadImage('assets/img/mc/right.png');
+
   images['sword'] = loadImage('assets/img/sword.png');
-  images['background'] = loadImage('assets/img/background.png');
+  images['indicator'] = loadImage('assets/img/indicator.png');
+
+  images['backgrounds'] = {
+    level1: loadImage('assets/img/backgrounds/level1.png')
+  };
 
   // images['rocket'] = loadImage('assets/img/rocket.png');
   // images['planes'] = [

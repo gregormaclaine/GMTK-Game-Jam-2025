@@ -1,33 +1,52 @@
 class Camera {
-  constructor() {
+  constructor(game_manager) {
+    this.game_manager = game_manager;
+
     this.pos = createVector(0, 0);
-    this.background = images['background'];
+    this.background = images['backgrounds'].level1;
     this.background_size = [width * 4, height * 4];
     this.start_pos = createVector(width, height);
-    this.surrounding_color = color(0, 0, 0, 200);
+    this.surrounding_color = '#31222C';
   }
 
   set_pos(pos) {
     this.pos = pos.copy();
-    // this.pos.x = constrain(pos.x, 0, this.background_size[0]);
-    // this.pos.y = constrain(pos.y, 0, this.background_size[1]);
   }
 
   bounds() {
     return [0, 0, this.background_size[0], this.background_size[1]];
   }
 
+  get map() {
+    return this.game_manager.map;
+  }
+
   show() {
-    background(this.surrounding_color);
-    imageMode(CORNER);
-    image(
-      this.background,
-      -this.pos.x + width / 2,
-      -this.pos.y + height / 2,
-      this.background_size[0],
-      this.background_size[1]
-    );
+    if (this.map) {
+      background(this.map.color);
+      imageMode(CORNER);
+      image(
+        this.map.background,
+        -this.pos.x + width / 2,
+        -this.pos.y + height / 2,
+        this.map.size[0],
+        this.map.size[1]
+      );
+    }
 
     translate(-this.pos.x + width / 2, -this.pos.y + height / 2);
+
+    this.map?.obstacles.forEach(obstacle => {
+      imageMode(CORNER);
+      if (obstacle.image)
+        image(
+          obstacle.image,
+          obstacle.pos.x,
+          obstacle.pos.y,
+          obstacle.size[0],
+          obstacle.size[1]
+        );
+      obstacle.hitbox.show();
+    });
   }
 }

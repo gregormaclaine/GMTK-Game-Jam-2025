@@ -1,25 +1,14 @@
 class SceneManager {
   static FADE_TIME = 0.8;
 
-  constructor(images, audio) {
-    this.images = images;
-    this.audio = audio;
-
+  constructor() {
     this.state = 'game';
 
-    this.dialogue = new DialogueManager(images, audio);
+    this.dialogue = new DialogueManager();
 
-    this.game_scene = new GameManager({
-      images,
-      audio,
-      dialogue: this.dialogue
-    });
+    this.game_scene = new GameManager({ dialogue: this.dialogue });
 
-    this.menu_scene = new MenuScreen(
-      images,
-      this.dialogue,
-      this.start_game.bind(this)
-    );
+    this.menu_scene = new MenuScreen(this.dialogue, this.start_game.bind(this));
 
     this.gameover_scene = new GameOverScene(async () => {
       await this.fade('out');
@@ -71,9 +60,6 @@ class SceneManager {
   async start_level(level) {
     await this.fade('out');
     this.state = 'game';
-
-    const previous_minimium = this.collected.minimium;
-    const previous_gigantium = this.collected.gigantium;
 
     this.game_scene.run_level(level);
     await this.fade('in');

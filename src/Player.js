@@ -13,7 +13,7 @@ class Player {
     this.sword = new Sword(this);
 
     this.health = 4;
-    this.max_speed = 5;
+    this.max_speed = 9;
   }
 
   get image() {
@@ -55,7 +55,6 @@ class Player {
   update_hitbox() {
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
     this.hitbox.size = this.size;
-    this.hitbox.set_angle(this.vel.heading() + PI / 2);
   }
 
   force_on_screen() {
@@ -79,24 +78,13 @@ class Player {
   }
 
   update() {
-    this.sword.update();
-
-    const goal_heading = createVector(
+    const dir_vel = createVector(
       keyIsDown(68) - keyIsDown(65),
       keyIsDown(83) - keyIsDown(87)
-    );
+    ).setMag(this.max_speed);
 
-    if (goal_heading.mag() > 0) {
-      let angleDiff = goal_heading.heading() - this.vel.heading();
-      angleDiff =
-        abs(angleDiff) > PI
-          ? angleDiff - TWO_PI * Math.sign(angleDiff)
-          : angleDiff;
-      const newHeading =
-        this.vel.heading() +
-        (abs(angleDiff) < 0.01 ? angleDiff : angleDiff * 0.15);
-      this.vel = createVector(5, 0);
-      this.vel.setHeading(newHeading);
+    if (dir_vel.mag() > 0) {
+      this.vel = dir_vel;
     } else {
       this.vel.setMag(0.00001);
     }
@@ -107,13 +95,14 @@ class Player {
     this.pos.add(delta_adjusted_vel);
     this.force_on_screen();
     this.update_hitbox();
+
+    this.sword.update();
   }
 
   show() {
     push();
     translate(this.pos.x, this.pos.y);
-
-    rotate(this.vel.mag() === 0 ? PI / 2 : this.vel.heading() + PI / 2);
+    scale(this.vel.x < 0 ? -1 : 1, 1);
 
     imageMode(CENTER);
     image(this.image, 0, 0, this.size[0], this.size[1]);
