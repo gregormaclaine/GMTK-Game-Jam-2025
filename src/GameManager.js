@@ -41,13 +41,7 @@ class GameManager {
     switch (level) {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
-        this.map = new GameMap({
-          background: images['backgrounds'].level1,
-          color: '#31222C'
-        });
-        this.map.add_obstacle({ pos: [10, 0], size: [1500, 50] });
-        this.map.add_obstacle({ pos: [0, 10], size: [60, 1100] });
-        this.map.add_obstacle({ pos: [0, 1110], size: [180, 1050] });
+        this.map = Maps[0]();
         await timeout(4000);
         break;
     }
