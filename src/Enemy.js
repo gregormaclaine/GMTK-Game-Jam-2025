@@ -22,11 +22,7 @@ class Enemy {
     this.death_fade = 1;
 
     this.effects = [];
-  }
 
-  get deletable() {
-    return this.health <= 0 && this.death_fade <= 0;
-    
     // Pathfinding properties
     this.path = [];
     this.pathIndex = 0;
@@ -39,6 +35,10 @@ class Enemy {
     this.arrivedAtCurrentTarget = false;
     this.losCheckDistance = 300; // Only check line of sight within this distance
     this.pathSmoothingEnabled = true;
+  }
+
+  get deletable() {
+    return this.health <= 0 && this.death_fade <= 0;
   }
 
   hasLineOfSight(targetPos, obstacles) {
@@ -170,6 +170,14 @@ class Enemy {
         this.recalculatePathTimer = Math.min(this.recalculatePathTimer, 5);
       }
     });
+
+    // Handle collision with player's sword
+    if (
+      player.sword.hitbox.is_colliding(this.hitbox) &&
+      player.sword.swinging
+    ) {
+      this.take_damage(player.sword.damage);
+    }
   }
 
   calculateNewPath(targetPos, obstacles) {
@@ -241,13 +249,6 @@ class Enemy {
       this.pathIndex = 0;
     } else {
       this.path = [];
-    }
-
-    if (
-      player.sword.hitbox.is_colliding(this.hitbox) &&
-      player.sword.swinging
-    ) {
-      this.take_damage(player.sword.damage);
     }
   }
 
