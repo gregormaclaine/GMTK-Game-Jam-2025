@@ -76,7 +76,7 @@ class GameManager {
     background('white');
     push();
     this.camera.show();
-    this.player.show();
+    this.player.show(this.state === 'pause');
     pop();
     if (this.state === 'pause') this.pause_modal.show();
   }

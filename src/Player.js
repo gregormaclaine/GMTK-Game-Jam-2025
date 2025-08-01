@@ -105,7 +105,7 @@ class Player {
     this.sword.update();
   }
 
-  show() {
+  show(is_paused = false) {
     push();
     translate(this.pos.x, this.pos.y);
     scale(this.vel.x < 0 ? -1 : 1, 1);
@@ -127,7 +127,7 @@ class Player {
     //   tint(255, 255);
     // }
 
-    this.sword.show();
+    this.sword.show(is_paused);
     this.hitbox.show();
   }
 }

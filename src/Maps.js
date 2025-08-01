@@ -7,6 +7,7 @@ function level1_map() {
   map.add_obstacle({ pos: [10, 0], size: [1500, 50] });
   map.add_obstacle({ pos: [0, 10], size: [60, 1100] });
   map.add_obstacle({ pos: [0, 1110], size: [180, 1050] });
+  map.add_obstacle({ pos: [390, 1110], size: [160, 690] });
 
   return map;
 }

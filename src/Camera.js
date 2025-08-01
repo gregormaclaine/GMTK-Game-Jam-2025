@@ -1,24 +1,19 @@
 class Camera {
   constructor(game_manager) {
     this.game_manager = game_manager;
-
     this.pos = createVector(0, 0);
-    this.background = images['backgrounds'].level1;
-    this.background_size = [width * 4, height * 4];
-    this.start_pos = createVector(width, height);
-    this.surrounding_color = '#31222C';
   }
 
   set_pos(pos) {
     this.pos = pos.copy();
   }
 
-  bounds() {
-    return [0, 0, this.background_size[0], this.background_size[1]];
-  }
-
   get map() {
     return this.game_manager.map;
+  }
+
+  bounds() {
+    return [0, 0, this.map?.size[0] || 0, this.map?.size[1] || 0];
   }
 
   get_map_mouse_pos() {

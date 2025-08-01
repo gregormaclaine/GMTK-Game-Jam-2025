@@ -61,7 +61,7 @@ class Sword {
     return this.mouse_angle + this.arc_pos * (PI / 4);
   }
 
-  show() {
+  show(is_paused = false) {
     push();
     translate(this.player.pos.x, this.player.pos.y);
     rotate(this.arc_angle);
