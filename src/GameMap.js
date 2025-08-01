@@ -1,7 +1,7 @@
 class GameMap {
   constructor({ background, size, color, start_pos }) {
     this.background = background;
-    this.size = size || [background.width, background.height];
+    this.size = size || (background ? [background.width, background.height] : [3000, 3000]);
     this.color = color || '#000000';
     this.start_pos =
       start_pos || createVector(this.size[0] / 2, this.size[1] / 2);

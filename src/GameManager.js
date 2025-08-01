@@ -52,6 +52,12 @@ class GameManager {
         // this.audio.play_track('hell-3.mp3', true);
         this.set_map(Maps[0]());
         this.enemies.push(new Enemy(null, [1300, 1400], [50, 100]));
+        
+        // Add multiple enemies to demonstrate pathfinding
+        this.enemies.push(new Enemy(null, [200, 200], [40, 40]));
+        this.enemies.push(new Enemy(null, [800, 800], [40, 40]));
+        this.enemies.push(new Enemy(null, [1500, 300], [40, 40]));
+        this.enemies.push(new Enemy(null, [300, 1500], [40, 40]));
 
         await timeout(4000);
         break;
