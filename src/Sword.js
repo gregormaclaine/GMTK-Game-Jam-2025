@@ -15,11 +15,17 @@ class Sword {
     this.update_hitbox();
 
     this.indicator_size = 35;
+
+    this.damage = 1000;
+
+    this.last_swing_time = 0; // Timestamp of the last swing
   }
 
   async swing() {
     if (this.swinging !== 0) return; // Already swinging
+    this.last_swing_time = millis();
     this.swinging = this.arc_pos * -1;
+    audio.play_sound('boom.wav', 0.1);
     return new Promise(resolve => {
       this.swing_callback = resolve;
     });
@@ -63,6 +69,11 @@ class Sword {
 
   show(is_paused = false) {
     push();
+    const time_since_last_swing = millis() - this.last_swing_time;
+    if (time_since_last_swing > 3000) {
+      tint(255, Math.max(0, (4000 - time_since_last_swing) / 10));
+    }
+
     translate(this.player.pos.x, this.player.pos.y);
     rotate(this.arc_angle);
     translate(this.arc_length, 0);

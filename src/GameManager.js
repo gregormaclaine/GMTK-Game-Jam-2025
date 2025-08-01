@@ -51,7 +51,7 @@ class GameManager {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
         this.set_map(Maps[0]());
-        this.enemies.push(new Enemy(null, [200, 200], [50, 100]));
+        this.enemies.push(new Enemy(null, [1300, 1400], [50, 100]));
 
         await timeout(4000);
         break;

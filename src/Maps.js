@@ -2,7 +2,7 @@ function level1_map() {
   const map = new GameMap({
     background: images['backgrounds'].level1,
     color: '#31222C',
-    start_pos: [2000, 2000]
+    start_pos: [800, 1400]
   });
 
   map.add_obstacle({ pos: [10, 0], size: [1500, 50] });
