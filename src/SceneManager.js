@@ -51,33 +51,33 @@ class SceneManager {
     }
   }
 
-  async move_world(planet) {
-    await this.fade('out');
-    this.load_planet(planet);
-    await this.fade('in');
-  }
+  // async move_world(planet) {
+  //   await this.fade('out');
+  //   this.load_planet(planet);
+  //   await this.fade('in');
+  // }
 
-  async start_level(level) {
-    await this.fade('out');
-    this.state = 'game';
+  // async start_level(level) {
+  //   await this.fade('out');
+  //   this.state = 'game';
 
-    this.game_scene.run_level(level);
-    await this.fade('in');
-    await this.game_scene.level_promise;
-    await this.fade('out');
-    this.collected.size = 0;
-    if (this.game_scene.player.health <= 0) {
-      this.state = 'gameover';
-      this.planet_scene.level_results[level] = 'lose';
-      this.collected.minimium = previous_minimium;
-      this.collected.gigantium = previous_gigantium;
-    } else {
-      this.state = 'planet';
-      this.planet_scene.level_results[level] = 'win';
-    }
-    this.planet_scene.play_track();
-    await this.fade('in');
-  }
+  //   this.game_scene.run_level(level);
+  //   await this.fade('in');
+  //   await this.game_scene.level_promise;
+  //   await this.fade('out');
+  //   this.collected.size = 0;
+  //   if (this.game_scene.player.health <= 0) {
+  //     this.state = 'gameover';
+  //     this.planet_scene.level_results[level] = 'lose';
+  //     this.collected.minimium = previous_minimium;
+  //     this.collected.gigantium = previous_gigantium;
+  //   } else {
+  //     this.state = 'planet';
+  //     this.planet_scene.level_results[level] = 'win';
+  //   }
+  //   this.planet_scene.play_track();
+  //   await this.fade('in');
+  // }
 
   async start_game() {
     await this.fade('out');
@@ -86,23 +86,23 @@ class SceneManager {
     await this.fade('in');
   }
 
-  async finish_game({ collected, results }) {
-    await this.fade('out');
-    this.audio.stop();
-    this.end_scene = new EndScene({
-      collected,
-      results,
-      return_to_menu: async () => {
-        await this.fade('out');
-        this.state = 'menu';
-        await this.fade('in');
-      },
-      dialogue: this.dialogue,
-      audio: this.audio
-    });
-    this.state = 'end';
-    await this.fade('in');
-  }
+  // async finish_game({ collected, results }) {
+  //   await this.fade('out');
+  //   this.audio.stop();
+  //   this.end_scene = new EndScene({
+  //     collected,
+  //     results,
+  //     return_to_menu: async () => {
+  //       await this.fade('out');
+  //       this.state = 'menu';
+  //       await this.fade('in');
+  //     },
+  //     dialogue: this.dialogue,
+  //     audio: this.audio
+  //   });
+  //   this.state = 'end';
+  //   await this.fade('in');
+  // }
 
   async fade(mode) {
     this.fade_mode = mode;
