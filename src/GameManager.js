@@ -25,6 +25,13 @@ class GameManager {
     });
   }
 
+  set_map(map) {
+    this.map = map;
+    this.camera.set_pos(createVector(...map.start_pos));
+    this.player.pos.set(map.start_pos);
+    this.player.update_hitbox();
+  }
+
   async run_level(level) {
     if (this.level_promise)
       return console.warn('Level already running, cannot start a new one.');
@@ -43,7 +50,7 @@ class GameManager {
     switch (level) {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
-        this.map = Maps[0]();
+        this.set_map(Maps[0]());
         this.enemies.push(new Enemy(null, [200, 200], [50, 100]));
 
         await timeout(4000);
