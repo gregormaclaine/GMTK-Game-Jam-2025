@@ -1,6 +1,4 @@
 class MenuScreen {
-  static SKYSPEED = 0.4;
-
   constructor(dialogue, start_game) {
     this.dialogue = dialogue;
     this.start_game = start_game;
@@ -8,23 +6,20 @@ class MenuScreen {
     this.in_credits = false;
     this.credits = new JL.Credits(CREDITS);
 
-    // this.start_rect = [
-    //   width * 0.5,
-    //   height * 0.55,
-    //   450,
-    //   (450 / images['start-button'].width) * images['start-button'].height
-    // ];
-    // this.credits_rect = [
-    //   width * 0.5,
-    //   height * 0.8,
-    //   450,
-    //   (450 / images['credits-button'].width) * images['credits-button'].height
-    // ];
+    this.start_rect = [
+      width * 0.5,
+      height * 0.55,
+      450,
+      (450 / images.buttons.start.width) * images.buttons.start.height
+    ];
+    this.credits_rect = [
+      width * 0.5,
+      height * 0.8,
+      450,
+      (450 / images.buttons.credits.width) * images.buttons.credits.height
+    ];
 
-    this.sky_pos = 0;
-    this.background = images['bullet-bg'];
-
-    this.cat_angle = 0;
+    this.background = images['backgrounds'].menu;
   }
 
   handle_click() {
@@ -50,12 +45,11 @@ class MenuScreen {
     if (this.in_credits) return this.credits.show();
 
     imageMode(CORNER);
-    image(this.background, 0, this.sky_pos - this.background.height);
-    image(this.background, 0, this.sky_pos);
+    image(this.background, 0, 0, width, height);
 
     imageMode(CENTER);
-    image(this.images['start-button'], ...this.start_rect);
-    image(this.images['credits-button'], ...this.credits_rect);
+    image(images.buttons['start'], ...this.start_rect);
+    image(images.buttons['credits'], ...this.credits_rect);
 
     // textSize(60);
     // textAlign(CENTER, CENTER);
@@ -65,7 +59,7 @@ class MenuScreen {
     // text('You are spaceship cat!', width * 0.5, height * 0.3);
     // textFont(fonts['regular']);
 
-    image(this.images['title'], width / 2, height * 0.3);
+    image(images['square'], width / 2, height * 0.3);
 
     // push();
     // translate(150, 150);
@@ -95,11 +89,6 @@ class MenuScreen {
 
   update() {
     if (this.in_credits) return;
-
-    this.sky_pos =
-      (this.sky_pos + MenuScreen.SKYSPEED) % this.background.height;
-
-    this.cat_angle += 0.01;
 
     if (
       this.mouse_over_rect(this.credits_rect) ||

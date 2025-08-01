@@ -16,7 +16,13 @@ function preload() {
   images['indicator'] = loadImage('assets/img/indicator.png');
 
   images['backgrounds'] = {
-    level1: loadImage('assets/img/backgrounds/level1.png')
+    level1: loadImage('assets/img/backgrounds/level1.png'),
+    menu: loadImage('assets/img/backgrounds/menu.png')
+  };
+
+  images['buttons'] = {
+    start: loadImage('assets/img/buttons/start.png'),
+    credits: loadImage('assets/img/buttons/credits.png')
   };
 
   // images['rocket'] = loadImage('assets/img/rocket.png');

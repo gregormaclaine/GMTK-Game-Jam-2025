@@ -99,7 +99,11 @@ class GameManager {
         this.player.update(this.map?.obstacles || []);
         this.camera.set_pos(this.player.pos);
 
-        this.enemies.forEach(enemy => enemy.update(this.player, this.map));
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+          const enemy = this.enemies[i];
+          enemy.update(this.player, this.map);
+          if (enemy.deletable) this.enemies.splice(i, 1);
+        }
 
       case 'pause':
         this.pause_modal.update();

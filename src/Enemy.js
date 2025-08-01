@@ -68,6 +68,7 @@ class Enemy {
     push();
     fill('red');
     noStroke();
+    rectMode(CORNER);
     rect(
       this.pos.x - this.size[0] / 2,
       this.pos.y - this.size[1] / 2 - Enemy.HEALTH_BAR_OFFSET,
