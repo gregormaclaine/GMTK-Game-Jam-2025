@@ -77,7 +77,7 @@ class Player {
     }
   }
 
-  update() {
+  update(obstacles) {
     const dir_vel = createVector(
       keyIsDown(68) - keyIsDown(65),
       keyIsDown(83) - keyIsDown(87)
@@ -93,6 +93,12 @@ class Player {
     delta_adjusted_vel.mult(60 / (frameRate() || 1));
 
     this.pos.add(delta_adjusted_vel);
+
+    obstacles.forEach(obstacle => {
+      const offset = obstacle.hitbox.repel(this.hitbox);
+      this.pos.add(offset);
+    });
+
     this.force_on_screen();
     this.update_hitbox();
 

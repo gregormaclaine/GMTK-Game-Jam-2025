@@ -36,10 +36,12 @@ class HitBox {
     return true;
   }
 
-  static mouse_zone() {
+  mouse_zone() {
+    const [mx, my] = scenes.game_scene.camera.get_map_mouse_pos();
+    circle(mx, my, 5);
     return [
-      Math.floor(mouseX / HitBox.ZONE_WIDTH),
-      Math.floor(mouseY / HitBox.ZONE_HEIGHT)
+      Math.floor(mx / HitBox.ZONE_WIDTH),
+      Math.floor(my / HitBox.ZONE_HEIGHT)
     ];
   }
 
@@ -74,8 +76,8 @@ class HitBox {
     return true;
   }
 
-  is_colliding(other) {
-    if (!this.do_zones_touch(other)) return false;
+  is_colliding(other, zoned = false) {
+    if (zoned && !this.do_zones_touch(other)) return false;
 
     const triangles = HitBox.triangles_from_points(this.points);
     const otriangles = HitBox.triangles_from_points(other.points);
@@ -103,6 +105,65 @@ class HitBox {
     return false;
   }
 
+  repel(other) {
+    if (!this.is_colliding(other)) return;
+
+    const axes = [];
+    // Get the 4 edge normals (axes) from both rectangles
+    for (let i = 0; i < 4; i++) {
+      const p1 = this.points[i];
+      const p2 = this.points[(i + 1) % 4];
+      const edge = p5.Vector.sub(p2, p1);
+      const normal = createVector(-edge.y, edge.x).normalize();
+      axes.push(normal);
+    }
+    for (let i = 0; i < 4; i++) {
+      const p1 = other.points[i];
+      const p2 = other.points[(i + 1) % 4];
+      const edge = p5.Vector.sub(p2, p1);
+      const normal = createVector(-edge.y, edge.x).normalize();
+      axes.push(normal);
+    }
+
+    let minOverlap = Infinity;
+    let minAxis = null;
+
+    for (const axis of axes) {
+      // Project both rectangles onto the axis
+      let [minA, maxA] = [Infinity, -Infinity];
+      let [minB, maxB] = [Infinity, -Infinity];
+      for (const p of this.points) {
+        const proj = p5.Vector.dot(p, axis);
+        minA = Math.min(minA, proj);
+        maxA = Math.max(maxA, proj);
+      }
+      for (const p of other.points) {
+        const proj = p5.Vector.dot(p, axis);
+        minB = Math.min(minB, proj);
+        maxB = Math.max(maxB, proj);
+      }
+      // Find overlap
+      const overlap = Math.min(maxA, maxB) - Math.max(minA, minB);
+      if (overlap < minOverlap) {
+        minOverlap = overlap;
+        minAxis = axis.copy();
+        // Determine direction: push other away from this
+        const centerA = createVector(this.mid_pos[0], this.mid_pos[1]);
+        const centerB = createVector(other.mid_pos[0], other.mid_pos[1]);
+        if (p5.Vector.dot(p5.Vector.sub(centerB, centerA), minAxis) < 0) {
+          minAxis.mult(-1);
+        }
+      }
+      if (overlap <= 0) {
+        // No overlap, shouldn't happen here
+        return createVector(0, 0);
+      }
+    }
+
+    // Move other by minOverlap along minAxis
+    return minAxis.mult(minOverlap + 0.1); // +0.1 to ensure separation
+  }
+
   show(draw_mouse_zone = false) {
     if (!SHOW_HITBOXES) return;
 
@@ -120,7 +181,7 @@ class HitBox {
     });
 
     if (draw_mouse_zone) {
-      const zone = HitBox.mouse_zone();
+      const zone = this.mouse_zone();
       for (let xoff = -1; xoff <= 1; xoff++) {
         for (let yoff = -1; yoff <= 1; yoff++) {
           stroke('yellow');

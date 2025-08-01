@@ -21,19 +21,19 @@ class DialogueManager {
 
   contains_mouse() {
     const [x, y, w, h] = DialogueManager.DIALOGUE_RECT;
-    if (mouseX < x - w / 2) return false;
-    if (mouseX > x + w / 2) return false;
-    if (mouseY < y - h / 2) return false;
-    if (mouseY > y + h / 2) return false;
+    if (mouseX * SCREEN_SCALE < x - w / 2) return false;
+    if (mouseX * SCREEN_SCALE > x + w / 2) return false;
+    if (mouseY * SCREEN_SCALE < y - h / 2) return false;
+    if (mouseY * SCREEN_SCALE > y + h / 2) return false;
     return true;
   }
 
   mouse_over_skip() {
     const [x, y, w, h] = DialogueManager.SKIP_RECT;
-    if (mouseX < x - w / 2) return false;
-    if (mouseX > x + w / 2) return false;
-    if (mouseY < y - h / 2) return false;
-    if (mouseY > y + h / 2) return false;
+    if (mouseX * SCREEN_SCALE < x - w / 2) return false;
+    if (mouseX * SCREEN_SCALE > x + w / 2) return false;
+    if (mouseY * SCREEN_SCALE < y - h / 2) return false;
+    if (mouseY * SCREEN_SCALE > y + h / 2) return false;
     return true;
   }
 

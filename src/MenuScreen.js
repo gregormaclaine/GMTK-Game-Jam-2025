@@ -39,10 +39,10 @@ class MenuScreen {
 
   mouse_over_rect(rect) {
     const [x, y, w, h] = rect;
-    if (mouseX < x - w / 2) return false;
-    if (mouseX > x + w / 2) return false;
-    if (mouseY < y - h / 2) return false;
-    if (mouseY > y + h / 2) return false;
+    if (mouseX * SCREEN_SCALE < x - w / 2) return false;
+    if (mouseX * SCREEN_SCALE > x + w / 2) return false;
+    if (mouseY * SCREEN_SCALE < y - h / 2) return false;
+    if (mouseY * SCREEN_SCALE > y + h / 2) return false;
     return true;
   }
 

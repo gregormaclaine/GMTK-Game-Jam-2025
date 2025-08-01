@@ -21,6 +21,13 @@ class Camera {
     return this.game_manager.map;
   }
 
+  get_map_mouse_pos() {
+    return [
+      mouseX * SCREEN_SCALE + this.pos.x - width / 2,
+      mouseY * SCREEN_SCALE + this.pos.y - height / 2
+    ];
+  }
+
   show() {
     if (this.map) {
       background(this.map.color);

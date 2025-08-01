@@ -45,11 +45,9 @@ class GameManager {
           background: images['backgrounds'].level1,
           color: '#31222C'
         });
-        this.map.add_obstacle({
-          // image: images['square'],
-          pos: [10, 0],
-          size: [1500, 50]
-        });
+        this.map.add_obstacle({ pos: [10, 0], size: [1500, 50] });
+        this.map.add_obstacle({ pos: [0, 10], size: [60, 1100] });
+        this.map.add_obstacle({ pos: [0, 1110], size: [180, 1050] });
         await timeout(4000);
         break;
     }
@@ -92,7 +90,8 @@ class GameManager {
   update() {
     switch (this.state) {
       case 'game':
-        this.player.update();
+        this.player.update(this.map?.obstacles || []);
+
         this.camera.set_pos(this.player.pos);
 
       case 'pause':
