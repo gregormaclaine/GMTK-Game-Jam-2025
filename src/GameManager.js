@@ -203,11 +203,6 @@ class GameManager {
         //   (this.sky_pos + GameManager.SKYSPEED) % this.background.height;
         // this.bullets.update();
         this.player.update();
-        console.log(
-          'Player position:',
-          round(this.player.pos.x),
-          round(this.player.pos.y)
-        ); // Debugging line
         this.camera.set_pos(this.player.pos);
 
       // this.bullets.bullets.forEach(b => {

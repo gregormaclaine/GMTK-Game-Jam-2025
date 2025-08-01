@@ -5,3 +5,5 @@ const CREDITS = `
 const PAUSE_KEY_CODE = 27;
 
 const SHOW_HITBOXES = true;
+
+const SCREEN_SCALE = 2;

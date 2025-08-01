@@ -49,7 +49,11 @@ class Sword {
   }
 
   get arc_angle() {
-    return this.player.vel.heading() + this.arc_pos * (PI / 4);
+    const mouse_angle = atan2(
+      mouseY * SCREEN_SCALE - height / 2,
+      mouseX * SCREEN_SCALE - width / 2
+    );
+    return mouse_angle + this.arc_pos * (PI / 4);
   }
 
   show() {
