@@ -12,21 +12,32 @@ class Enemy {
     this.health = 10000;
     this.max_health = 10000;
 
+    this.death_fade = 1;
+
     this.effects = [];
   }
 
-  update(player, map) {
-    this.vel = this.get_path_find_direction(player.pos, map.obstacles).setMag(
-      this.speed
-    );
-    this.pos.add(this.vel);
-    this.hitbox.set_pos([this.pos.x, this.pos.y]);
+  get deletable() {
+    return this.health <= 0 && this.death_fade <= 0;
+  }
 
+  update(player, map) {
     for (let i = this.effects.length - 1; i >= 0; i--) {
       const effect = this.effects[i];
       effect.update();
       if (!effect.showing) this.effects.splice(i, 1);
     }
+
+    if (this.health <= 0) {
+      this.death_fade -= 0.01;
+      return;
+    }
+
+    this.vel = this.get_path_find_direction(player.pos, map.obstacles).setMag(
+      this.speed
+    );
+    this.pos.add(this.vel);
+    this.hitbox.set_pos([this.pos.x, this.pos.y]);
 
     if (
       player.sword.hitbox.is_colliding(this.hitbox) &&
@@ -76,12 +87,15 @@ class Enemy {
   }
 
   show() {
+    if (this.death_fade <= 0) return;
+
     push();
-    fill('blue');
-    stroke('black');
+    if (this.death_fade < 1) {
+      tint(255, this.death_fade * 255);
+    }
     translate(this.pos.x, this.pos.y);
-    rectMode(CENTER);
-    rect(0, 0, this.size[0], this.size[1]);
+    imageMode(CENTER);
+    image(images['square'], 0, 0, this.size[0], this.size[1]);
     pop();
 
     this.effects.forEach(e => e.show());
