@@ -54,11 +54,6 @@ class Player {
   update_hitbox() {
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
     this.hitbox.set_angle(this.vel.heading());
-    const growth = 1.2 ** this.size_factor;
-    this.hitbox.size = [
-      this.size[0] * 0.9 * growth,
-      this.size[1] * 0.6 * growth
-    ];
   }
 
   force_on_screen() {
@@ -89,14 +84,15 @@ class Player {
 
     if (goal_heading.mag() > 0) {
       let angleDiff = goal_heading.heading() - this.vel.heading();
-      angleDiff = ((angleDiff + PI) % TWO_PI) - PI; // Normalize to [-PI, PI]
+      angleDiff =
+        abs(angleDiff) > PI
+          ? angleDiff - TWO_PI * Math.sign(angleDiff)
+          : angleDiff;
       const newHeading =
         this.vel.heading() +
         (abs(angleDiff) < 0.01 ? angleDiff : angleDiff * 0.15);
-      // console.log('New heading:', newHeading);
       this.vel = createVector(5, 0);
       this.vel.setHeading(newHeading);
-      console.log('Updated velocity:', this.vel);
     } else {
       this.vel.setMag(0.00001);
     }
