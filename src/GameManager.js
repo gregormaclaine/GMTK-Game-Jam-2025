@@ -16,7 +16,7 @@ class GameManager {
     this.on_finish_level = null;
     this.player = new Player({
       start_pos: [width / 2, height / 2],
-      camera: this.camera,
+      bounds: this.camera.bounds(),
       die: () => {
         if (this.on_finish_level) this.on_finish_level();
         this.on_finish_level = null;
@@ -27,6 +27,7 @@ class GameManager {
   play_map(map) {
     this.map = map;
     this.camera.set_pos(createVector(...map.start_pos));
+    this.player.set_bounds(this.camera.bounds());
     this.player.pos.set(map.start_pos);
     this.player.update_hitbox();
     return this.map.completion_promise;

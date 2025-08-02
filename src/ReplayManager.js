@@ -75,7 +75,7 @@ class FrameReplayer {
       this.start_time = millis();
     }
 
-    if (this.elapsed >= this.replay.duration) return this.replay.delete();
+    if (this.elapsed >= this.replay.duration) return;
 
     imageMode(CORNER);
     image(this.get_frame(), ...this.pos, ...this.size);
@@ -89,6 +89,10 @@ class ReplayManager {
   }
 
   start(id) {
+    if (this.replays[id]) {
+      this.replays[id].delete();
+      delete this.replays[id];
+    }
     this.current = new GameReplay();
     this.current.start_recording();
     this.replays[id] = this.current;

@@ -1,8 +1,8 @@
 class Player {
-  constructor({ start_pos, die = () => {}, camera }) {
+  constructor({ start_pos, die = () => {}, bounds, in_menu = false }) {
     this.pos = createVector(...start_pos);
     this.die = die;
-    this.camera = camera;
+    this.bounds = bounds;
     this.vel = createVector(0, 0);
 
     this.size = [140, 140];
@@ -10,18 +10,22 @@ class Player {
     this.hitbox = new HitBox();
     this.update_hitbox();
 
-    this.sword = new Sword(this);
+    this.sword = in_menu ? null : new Sword(this);
 
     this.max_speed = 9;
 
     this.dash_amount = 0;
     this.dash_cooldown = new AbilityCooldown(5, color(255, 0, 0), () => {
       this.dash_amount = 6;
-      audio.play_sound('boom.wav');
+      audio.play_sound('dash.wav');
     });
 
     this.max_health = 3;
     this.health = this.max_health;
+  }
+
+  set_bounds(bounds) {
+    this.bounds = bounds;
   }
 
   get image() {
@@ -40,22 +44,20 @@ class Player {
   }
 
   force_on_screen() {
-    const bounds = this.camera.bounds();
-
-    if (this.pos.x + this.size[0] / 2 > bounds[2]) {
-      this.pos.x = bounds[2] - this.size[0] / 2;
+    if (this.pos.x + this.size[0] / 2 > this.bounds[2]) {
+      this.pos.x = this.bounds[2] - this.size[0] / 2;
     }
 
-    if (this.pos.x - this.size[0] / 2 < bounds[0]) {
-      this.pos.x = bounds[0] + this.size[0] / 2;
+    if (this.pos.x - this.size[0] / 2 < this.bounds[0]) {
+      this.pos.x = this.bounds[0] + this.size[0] / 2;
     }
 
-    if (this.pos.y + this.size[1] / 2 > bounds[3]) {
-      this.pos.y = bounds[3] - this.size[1] / 2;
+    if (this.pos.y + this.size[1] / 2 > this.bounds[3]) {
+      this.pos.y = this.bounds[3] - this.size[1] / 2;
     }
 
-    if (this.pos.y - this.size[1] / 2 < bounds[1]) {
-      this.pos.y = bounds[1] + this.size[1] / 2;
+    if (this.pos.y - this.size[1] / 2 < this.bounds[1]) {
+      this.pos.y = this.bounds[1] + this.size[1] / 2;
     }
   }
 
@@ -91,7 +93,7 @@ class Player {
     this.force_on_screen();
     this.update_hitbox();
 
-    this.sword.update();
+    this.sword?.update();
   }
 
   show(is_paused = false) {
@@ -116,7 +118,7 @@ class Player {
     //   tint(255, 255);
     // }
 
-    this.sword.show(is_paused);
+    this.sword?.show(is_paused);
     this.hitbox.show();
   }
 

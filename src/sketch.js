@@ -1,7 +1,7 @@
 const images = {};
 const audio = new JL.Audio(
   [],
-  ['boom.wav', 'barrel-break.wav', 'shoot.wav', 'damage.wav']
+  ['boom.wav', 'barrel-break.wav', 'shoot.wav', 'damage.wav', 'dash.wav']
 );
 let fonts = {};
 let scenes;
@@ -20,7 +20,8 @@ function preload() {
 
   images['backgrounds'] = {
     level1: loadImage('assets/img/levels/level1.png'),
-    menu: loadImage('assets/img/backgrounds/menu.png')
+    menu: loadImage('assets/img/backgrounds/menu.png'),
+    hub: loadImage('assets/img/backgrounds/hub.png')
   };
 
   images['buttons'] = {
