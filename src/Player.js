@@ -16,7 +16,7 @@ class Player {
 
     this.dash_amount = 0;
     this.dash_cooldown = new AbilityCooldown(5, color(255, 0, 0), () => {
-      this.dash_amount = 1;
+      this.dash_amount = 6;
       audio.play_sound('boom.wav');
     });
 
@@ -67,7 +67,7 @@ class Player {
     const dir_vel = createVector(
       keyIsDown(68) - keyIsDown(65),
       keyIsDown(83) - keyIsDown(87)
-    ).setMag(this.dash_amount ? this.max_speed * 20 : this.max_speed);
+    ).setMag(this.dash_amount ? this.max_speed * 4 : this.max_speed);
     if (this.dash_amount > 0) this.dash_amount--;
 
     this.dash_cooldown.update();
