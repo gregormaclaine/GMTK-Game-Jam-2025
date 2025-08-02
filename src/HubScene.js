@@ -64,7 +64,7 @@ class HubScene {
   }
 
   update() {
-    this.player.update([]);
+    this.player.update(this.map.obstacles);
     this.camera.set_pos(this.player.pos);
   }
 }
