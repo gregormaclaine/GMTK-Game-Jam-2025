@@ -43,13 +43,13 @@ function level1_map() {
   map.add_obstacle({ pos: [1625, 2090], size: [156, 154] }); // Rock
   map.add_obstacle({ pos: [1123, 2323], size: [826, 130] });
 
-  // map.add_enemy(new ExplodeEnemy([1300, 1400], [100, 140]));
-  // map.add_enemy(new ExplodeEnemy([200, 200], [60, 76]));
-  // map.add_enemy(new ExplodeEnemy([800, 800], [60, 76]));
-  // map.add_enemy(new ExplodeEnemy([1500, 300], [60, 76]));
-  // map.add_enemy(new RangedEnemy([600, 1400], [85, 100]));
-  // map.add_enemy(new RangedEnemy([300, 1500], [85, 100]));
-  // map.add_enemy(new BossEnemy(images.bosses[0], [3430, 2716], [150, 200]));
+  map.add_enemy(new ExplodeEnemy([1300, 1400], [100, 140]));
+  map.add_enemy(new ExplodeEnemy([200, 200], [60, 76]));
+  map.add_enemy(new ExplodeEnemy([800, 800], [60, 76]));
+  map.add_enemy(new ExplodeEnemy([1500, 300], [60, 76]));
+  map.add_enemy(new RangedEnemy([600, 1400], [85, 100]));
+  map.add_enemy(new RangedEnemy([300, 1500], [85, 100]));
+  map.add_enemy(new BossEnemy(images.bosses[0], [3430, 2716], [150, 200]));
 
   map.barrels.push(new Barrel([1000, 1600], { wood: 2 }));
 
@@ -60,7 +60,7 @@ function HubMap() {
   const map = new GameMap({
     background: images.backgrounds.hub,
     color: '#ecaf83',
-    start_pos: [width / 2, height * 0.8]
+    start_pos: [1950, 1975]
   });
 
   map.add_obstacle({ pos: [2091, 2288], size: [174, 714] });

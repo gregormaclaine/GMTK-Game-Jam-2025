@@ -3,8 +3,8 @@ class SceneManager {
   static DEV_SKIP_MENU = false; // Set to false to enable menu
 
   constructor() {
-    // this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
-    this.state = 'hub';
+    this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
+    // this.state = 'hub';
 
     this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
 

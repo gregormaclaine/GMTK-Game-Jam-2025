@@ -1,7 +1,7 @@
 class Enemy {
   static HEALTH_BAR_OFFSET = 20;
 
-  constructor(image, pos, size, on_death) {
+  constructor(image, pos, size, drops, death_sound = 'enemy-death.wav') {
     this.image = image || images['square'];
     this.pos = createVector(pos[0], pos[1]);
     this.size = size || (image ? [image.width, image.height] : [50, 50]);
@@ -13,11 +13,13 @@ class Enemy {
     this.max_health = 10000;
 
     this.death_fade = 1;
-    this.on_death = on_death || (() => {});
+    this.death_sound = death_sound;
+    this.drops = drops || {};
     this.effects = [];
   }
 
   set_map(map) {
+    this.map = map;
     this.path_finding = new PathFinder(map);
   }
 
@@ -38,6 +40,12 @@ class Enemy {
     }
 
     if (this.health <= 0) {
+      if (this.death_fade === 1) {
+        // Happens once on death
+        audio.play_sound(this.death_sound);
+        map.spawn_resources_by_type(this.pos, player.collected, this.drops);
+      }
+
       this.death_fade -= 0.01;
       return;
     }
@@ -101,11 +109,7 @@ class Enemy {
   }
 
   show() {
-    if (this.death_fade <= 0) {
-      this.on_death?.();
-      this.on_death = null;
-      return;
-    }
+    if (this.death_fade <= 0) return;
 
     push();
     if (this.death_fade < 1) {
