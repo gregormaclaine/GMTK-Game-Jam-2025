@@ -89,10 +89,16 @@ class DialogueManager {
       image(images['dialogue-box'], ...DialogueManager.DIALOGUE_RECT);
 
       if (this.current_dialogue.profile) {
-        image(
-          images[this.current_dialogue.profile],
-          ...DialogueManager.INNER_PROFILE_RECT
-        );
+        try {
+          image(
+            images[this.current_dialogue.profile],
+            ...DialogueManager.INNER_PROFILE_RECT
+          );
+        } catch (e) {
+          console.error(
+            `Profile image not found: ${this.current_dialogue.profile}`
+          );
+        }
       }
 
       if (this.current_dialogue.text) {
