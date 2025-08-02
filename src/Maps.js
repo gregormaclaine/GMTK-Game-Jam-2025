@@ -43,14 +43,23 @@ function level1_map() {
   map.add_obstacle({ pos: [1625, 2090], size: [156, 154] }); // Rock
   map.add_obstacle({ pos: [1123, 2323], size: [826, 130] });
 
-  map.add_enemy(new ExplodeEnemy({ pos: [1300, 1400], size: [100, 140] }));
+  // map.add_enemy(new ExplodeEnemy({ pos: [1300, 1400], size: [100, 140] }));
+  // map.add_enemy(
+  //   new ExplodeEnemy({ pos: [200, 200], size: [60, 76], drops: { wood: 4 } })
+  // );
+  // map.add_enemy(new ExplodeEnemy({ pos: [800, 800], size: [60, 76] }));
+  // map.add_enemy(new ExplodeEnemy({ pos: [1500, 300], size: [60, 76] }));
+  // map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
+  // map.add_enemy(new RangedEnemy({ pos: [300, 1500], size: [85, 100] }));
+
   map.add_enemy(
-    new ExplodeEnemy({ pos: [200, 200], size: [60, 76], drops: { wood: 4 } })
+    new PassiveEnemy({
+      image: images['slime'],
+      pos: [1300, 1400],
+      size: [100, 140],
+      drops: { wood: 4 }
+    })
   );
-  map.add_enemy(new ExplodeEnemy({ pos: [800, 800], size: [60, 76] }));
-  map.add_enemy(new ExplodeEnemy({ pos: [1500, 300], size: [60, 76] }));
-  map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
-  map.add_enemy(new RangedEnemy({ pos: [300, 1500], size: [85, 100] }));
 
   map.add_trigger({
     pos: [140, 984],

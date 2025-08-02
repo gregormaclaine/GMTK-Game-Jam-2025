@@ -51,6 +51,7 @@ function preload() {
   images['exploder'] = loadImage('assets/img/exploder.png');
   images['ranger_f'] = loadImage('assets/img/ranger_f.png');
   images['ranger_m'] = loadImage('assets/img/ranger_m.png');
+  images['slime'] = loadImage('assets/img/slime.png');
   images['bullet'] = loadImage('assets/img/bullet.png');
 
   images['bosses'] = [
