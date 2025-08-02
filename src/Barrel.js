@@ -10,19 +10,19 @@ class Barrel {
     this.fade_speed = 2; // Speed at which the barrel fades out
   }
 
-  break() {
+  break(player, map) {
     this.state = 'broken';
     audio.play_sound('barrel-break.wav');
+    map.spawn_resource(Resource.get_wood(this.pos, player));
   }
 
-  update(player) {
+  update(player, map) {
     if (
       this.state === 'intact' &&
       this.hitbox.is_colliding(player.sword.hitbox) &&
       player.sword.swinging
     ) {
-      this.break();
-      //   if (this.contents) player.collect(this.contents);
+      this.break(player, map);
     } else if (this.state === 'broken') {
       this.opacity -= this.fade_speed;
       if (this.opacity <= 0) {

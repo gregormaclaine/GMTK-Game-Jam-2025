@@ -1,16 +1,13 @@
 class Resource {
-  static ATTRACT_SPEED = 0.65;
-
-  constructor({ pos, size, on_collect, image, remove, speed, sound }) {
-    this.pos = pos;
+  constructor({ pos, size, on_collect, image, speed, sound }) {
+    this.pos = createVector(...pos);
     this.size = size || [60, 40];
     this.on_collect = on_collect;
-    this.remove = remove;
     this.image = image;
-    this.angle = 0;
-    this.speed = speed || [0, 0];
+    this.speed = speed ? createVector(...speed) : createVector();
     this.sound = sound;
 
+    this.angle = 0;
     this.hitbox = new HitBox([this.pos.x, this.pos.y], this.size);
     this.collected = false;
     this.opacity = 1;
@@ -24,10 +21,6 @@ class Resource {
     push();
     translate(this.pos.x, this.pos.y);
     rotate(this.angle);
-    // rectMode(CENTER);
-    // fill('white');
-    // strokeWeight(0);
-    // rect(0, 0, this.size, this.size);
     imageMode(CENTER);
     tint(255, this.opacity * 255);
     image(this.image, 0, 0, ...this.size);
@@ -36,7 +29,7 @@ class Resource {
     this.hitbox.show();
   }
 
-  update(player, attracted = false) {
+  update(player) {
     if (this.gone) return;
 
     if (this.collected) {
@@ -45,19 +38,13 @@ class Resource {
     }
 
     this.angle += this.spin_speed;
+    this.spin_speed *= 0.95;
     this.hitbox.set_angle(this.angle);
 
-    if (this.hitbox.is_colliding(player.hitbox)) {
-      this.collect();
-    }
+    if (this.hitbox.is_colliding(player.hitbox)) this.collect();
 
-    const vel = createVector(...this.speed);
-    if (attracted) {
-      const magnetic_effect = player.pos.copy();
-      magnetic_effect.sub(this.pos);
-      magnetic_effect.setMag(Resource.ATTRACT_SPEED);
-      vel.add(magnetic_effect);
-    }
+    const vel = this.speed.copy();
+    this.speed.mult(0.95);
     vel.mult(60 / (frameRate() || 1));
     this.pos.add(vel);
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
@@ -76,5 +63,17 @@ class Resource {
     if (this.pos.y + this.size / 2 < 0 && this.speed[1] < 0) return false;
     if (this.pos.y - this.size / 2 > height && this.speed[1] > 0) return false;
     return true;
+  }
+
+  //// ================= RESOURCE GENERATORS ================= ////
+  static get_wood(pos, player) {
+    return new Resource({
+      pos,
+      size: [50, 50],
+      on_collect: () => console.log('Collected wood!'),
+      image: images['resources']['wood'],
+      speed: [random(-3, 3), random(-3, 3)],
+      sound: 'boom.wav'
+    });
   }
 }

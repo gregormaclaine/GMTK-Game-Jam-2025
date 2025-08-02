@@ -56,6 +56,10 @@ function preload() {
     loadImage('assets/img/boss2.png')
   ];
 
+  images.resources = {
+    wood: loadImage('assets/img/resources/wood.png')
+  };
+
   audio.preload();
 }
 

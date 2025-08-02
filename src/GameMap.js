@@ -11,6 +11,7 @@ class GameMap {
     this.obstacles = [];
     this.enemies = [];
     this.barrels = [];
+    this.resources = [];
 
     this.path_grid = new PathfindingGrid(this.size);
 
@@ -40,9 +41,14 @@ class GameMap {
     enemy.set_map(this);
   }
 
+  spawn_resource(resource) {
+    this.resources.push(resource);
+  }
+
   show_sprites() {
     this.barrels.forEach(barrel => barrel.show());
     this.enemies.forEach(enemy => enemy.show());
+    this.resources.forEach(resource => resource.show());
   }
 
   update_sprites(player) {
@@ -54,8 +60,14 @@ class GameMap {
 
     for (let i = this.barrels.length - 1; i >= 0; i--) {
       const barrel = this.barrels[i];
-      barrel.update(player);
+      barrel.update(player, this);
       if (barrel.state === 'hidden') this.barrels.splice(i, 1);
+    }
+
+    for (let i = this.resources.length - 1; i >= 0; i--) {
+      const resource = this.resources[i];
+      resource.update(player);
+      if (resource.gone) this.resources.splice(i, 1);
     }
   }
 }
