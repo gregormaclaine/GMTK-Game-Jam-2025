@@ -1,8 +1,15 @@
 class Player {
-  constructor({ start_pos, die = () => {}, bounds, in_menu = false }) {
+  constructor({
+    start_pos,
+    die = () => {},
+    bounds,
+    in_menu = false,
+    collected
+  }) {
     this.pos = createVector(...start_pos);
     this.die = die;
     this.bounds = bounds;
+    this.collected = collected;
     this.vel = createVector(0, 0);
 
     this.size = [140, 140];

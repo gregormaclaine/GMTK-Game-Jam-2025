@@ -13,7 +13,7 @@ class Barrel {
   break(player, map) {
     this.state = 'broken';
     audio.play_sound('barrel-break.wav');
-    map.spawn_resource(Resource.get_wood(this.pos, player));
+    map.spawn_resource(Resource.get_wood(this.pos, player.collected));
   }
 
   update(player, map) {

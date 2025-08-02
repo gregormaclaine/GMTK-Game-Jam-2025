@@ -1,8 +1,9 @@
 class HubScene {
-  constructor({ dialogue, replay_manager, start_level }) {
+  constructor({ dialogue, replay_manager, start_level, collected }) {
     this.dialogue = dialogue;
     this.start_level = start_level;
     this.replay_manager = replay_manager;
+    this.collected = collected;
 
     this.map = HubMap();
     this.camera = new Camera(this.map);
@@ -16,7 +17,8 @@ class HubScene {
     this.player = new Player({
       start_pos: this.map.start_pos,
       bounds: this.camera.bounds(),
-      in_menu: true
+      in_menu: true,
+      collected: this.collected
     });
 
     const totem_props = {

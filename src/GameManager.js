@@ -1,6 +1,7 @@
 class GameManager {
-  constructor({ dialogue }) {
+  constructor({ dialogue, collected }) {
     this.dialogue = dialogue;
+    this.collected = collected;
 
     this.map = null;
     this.camera = new Camera();
@@ -12,6 +13,7 @@ class GameManager {
 
   reset() {
     this.state = 'game';
+    this.inventory = { wood: 0, iron: 0, slime: 0, matter: 0 };
     this.level_promise = null;
     this.on_finish_level = null;
     this.player = new Player({
@@ -20,7 +22,8 @@ class GameManager {
       die: () => {
         if (this.on_finish_level) this.on_finish_level();
         this.on_finish_level = null;
-      }
+      },
+      collected: this.inventory
     });
   }
 
@@ -49,6 +52,14 @@ class GameManager {
         // this.audio.play_track('hell-3.mp3', true);
         await this.play_map(Maps[0]());
         break;
+    }
+
+    if (this.player.health > 0) {
+      // Player survived the level
+      this.collected.wood += this.inventory.wood;
+      this.collected.iron += this.inventory.iron;
+      this.collected.slime += this.inventory.slime;
+      this.collected.matter += this.inventory.matter;
     }
 
     if (!level_ended.val && this.on_finish_level) this.on_finish_level();

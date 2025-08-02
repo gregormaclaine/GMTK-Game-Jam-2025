@@ -66,11 +66,11 @@ class Resource {
   }
 
   //// ================= RESOURCE GENERATORS ================= ////
-  static get_wood(pos, player) {
+  static get_wood(pos, collected) {
     return new Resource({
       pos,
       size: [50, 50],
-      on_collect: () => console.log('Collected wood!'),
+      on_collect: () => collected.wood++,
       image: images['resources']['wood'],
       speed: [random(-3, 3), random(-3, 3)],
       sound: 'boom.wav'

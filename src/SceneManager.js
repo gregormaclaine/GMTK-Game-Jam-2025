@@ -6,16 +6,22 @@ class SceneManager {
     this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
     // this.state = 'hub';
 
+    this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
+
     this.dialogue = new DialogueManager();
 
-    this.game_scene = new GameManager({ dialogue: this.dialogue });
+    this.game_scene = new GameManager({
+      dialogue: this.dialogue,
+      collected: this.collected
+    });
     this.replay_manager = new ReplayManager();
 
     this.menu_scene = new MenuScreen(this.dialogue, () => this.start_level(1));
     this.hub_scene = new HubScene({
       dialogue: this.dialogue,
       replay_manager: this.replay_manager,
-      start_level: this.start_level.bind(this)
+      start_level: this.start_level.bind(this),
+      collected: this.collected
     });
 
     // this.gameover_scene = new GameOverScene(async () => {

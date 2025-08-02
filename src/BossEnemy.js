@@ -1,6 +1,6 @@
 class BossEnemy extends Enemy {
-  constructor(image, pos, size) {
-    super(image, pos, size);
+  constructor(image, pos, size, on_death) {
+    super(image, pos, size, on_death);
 
     this.speed = 0.4;
 

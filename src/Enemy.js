@@ -1,7 +1,7 @@
 class Enemy {
   static HEALTH_BAR_OFFSET = 20;
 
-  constructor(image, pos, size) {
+  constructor(image, pos, size, on_death) {
     this.image = image || images['square'];
     this.pos = createVector(pos[0], pos[1]);
     this.size = size || (image ? [image.width, image.height] : [50, 50]);
@@ -13,6 +13,7 @@ class Enemy {
     this.max_health = 10000;
 
     this.death_fade = 1;
+    this.on_death = on_death || (() => {});
     this.effects = [];
   }
 
@@ -100,7 +101,11 @@ class Enemy {
   }
 
   show() {
-    if (this.death_fade <= 0) return;
+    if (this.death_fade <= 0) {
+      this.on_death?.();
+      this.on_death = null;
+      return;
+    }
 
     push();
     if (this.death_fade < 1) {
