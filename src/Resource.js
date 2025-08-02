@@ -65,7 +65,7 @@ class Resource {
     return true;
   }
 
-  static get(resource, pos, collected) {
+  static get(resource, pos = [0, 0], collected) {
     return new Resource({
       pos,
       size: [50, 50],

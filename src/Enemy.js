@@ -43,7 +43,11 @@ class Enemy {
       if (this.death_fade === 1) {
         // Happens once on death
         audio.play_sound(this.death_sound);
-        map.spawn_resources_by_type(this.pos, player.collected, this.drops);
+        map.spawn_resources_by_type(
+          [this.pos.x, this.pos.y],
+          player.collected,
+          this.drops
+        );
       }
 
       this.death_fade -= 0.01;

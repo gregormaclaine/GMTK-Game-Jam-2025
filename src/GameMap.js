@@ -41,7 +41,7 @@ class GameMap {
     enemy.set_map(this);
   }
 
-  spawn_resources_by_type(pos, collected, resources) {
+  spawn_resources_by_type(pos = [0, 0], collected, resources) {
     for (const resource in resources) {
       const count = resources[resource];
       for (let i = 0; i < count; i++) {
