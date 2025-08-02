@@ -48,13 +48,7 @@ class Bullet {
 
 class RangedEnemy extends Enemy {
   constructor(pos, size) {
-    // Randomly choose between female and male ranger sprites (50/50 chance)
-    const randomValue = Math.random();
-    const useFemaleRanger = randomValue < 0.5;
-    const rangerImage = useFemaleRanger
-      ? images['ranger_f']
-      : images['ranger_m'];
-
+    const rangerImage = Math.random() ? images['ranger_f'] : images['ranger_m'];
     super(rangerImage, pos, size);
 
     this.bullet_speed = 5;
@@ -77,6 +71,35 @@ class RangedEnemy extends Enemy {
     return (
       this.last_shoot_time + 2000 < millis() && this.path_finding.is_direct
     );
+  }
+
+  get_target_point(player, map) {
+    const playerPos = player.pos.copy();
+    const enemyPos = this.pos.copy();
+    const direction = p5.Vector.sub(enemyPos, playerPos).normalize();
+    const radius = 300;
+    const numChecks = 8;
+
+    // Start with the point directly between enemy and player
+    let bestPoint = null;
+    let angleToPlayer = direction.heading();
+
+    for (let i = 0; i <= numChecks; i++) {
+      // Alternate right (+) and left (-) offsets
+      for (let sign of [1, -1]) {
+        const angleOffset = i === 0 ? 0 : sign * (PI / 16) * i;
+        const checkAngle = angleToPlayer + angleOffset;
+        const checkDir = p5.Vector.fromAngle(checkAngle);
+        const checkPoint = p5.Vector.add(playerPos, checkDir.setMag(radius));
+        const cell = map.path_grid.worldToGrid(checkPoint);
+        if (map.path_grid.isWalkable(cell.x, cell.y)) {
+          bestPoint = checkPoint;
+          break;
+        }
+      }
+      if (bestPoint) break;
+    }
+    return bestPoint || super.get_target_point(player, map);
   }
 
   update(player, map) {

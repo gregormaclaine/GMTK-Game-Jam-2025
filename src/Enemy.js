@@ -24,6 +24,11 @@ class Enemy {
     return this.health <= 0 && this.death_fade <= 0;
   }
 
+  // Can be overridden if the enemy doesn't want to go exactly towards the player
+  get_target_point(player, map) {
+    return player.pos;
+  }
+
   update(player, map) {
     for (let i = this.effects.length - 1; i >= 0; i--) {
       const effect = this.effects[i];
@@ -42,11 +47,14 @@ class Enemy {
     }
 
     if (this.path_finding) {
-      const direction = this.path_finding.get_direction(this.pos, player.pos);
-      this.vel = direction.setMag(this.speed);
+      const target = this.get_target_point(player, map);
 
-      this.pos.add(this.vel);
-      this.hitbox.set_pos([this.pos.x, this.pos.y]);
+      if (target.dist(this.pos) > 10) {
+        const direction = this.path_finding.get_direction(this.pos, target);
+        this.vel = direction.setMag(this.speed);
+        this.pos.add(this.vel);
+        this.hitbox.set_pos([this.pos.x, this.pos.y]);
+      }
     } else {
       console.warn('Enemy pathfinding not set up');
     }
@@ -110,8 +118,6 @@ class Enemy {
     this.draw_health();
     this.hitbox.show();
 
-    if (this.path_finding && this.path_finding.path && SHOW_HITBOXES) {
-      this.path_finding.show();
-    }
+    if (this.path_finding && SHOW_HITBOXES) this.path_finding.show();
   }
 }

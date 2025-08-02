@@ -103,6 +103,13 @@ class Player {
 
     imageMode(CENTER);
     image(this.image, 0, 0, this.size[0], this.size[1]);
+
+    // Draw the ranger radius
+    // noFill();
+    // stroke(0, 255, 0);
+    // strokeWeight(2);
+    // circle(0, 0, 600);
+
     pop();
 
     // if (this.invincible) {

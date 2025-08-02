@@ -118,6 +118,9 @@ class PathFinder {
     this.path = null;
     this.max_distance = null;
     this.is_direct = false;
+
+    this.last_start = null;
+    this.last_goal = null;
   }
 
   set_max_distance(distance) {
@@ -140,6 +143,9 @@ class PathFinder {
   }
 
   get_direction(start, goal) {
+    this.last_start = start;
+    this.last_goal = goal;
+
     const direct_line = this.hasLineOfSight(start, goal);
     this.is_direct = !!direct_line;
     if (direct_line) {
@@ -188,16 +194,23 @@ class PathFinder {
   }
 
   show() {
+    stroke('blue');
+    strokeWeight(2);
+    noFill();
     if (this.path) {
-      stroke('blue');
-      strokeWeight(2);
-      noFill();
       beginShape();
       for (let point of this.path) {
         const worldPoint = this.map.path_grid.gridToWorld(point);
         vertex(worldPoint.x, worldPoint.y);
       }
       endShape();
+    } else if (this.last_start && this.last_goal) {
+      line(
+        this.last_start.x,
+        this.last_start.y,
+        this.last_goal.x,
+        this.last_goal.y
+      );
     }
   }
 }
