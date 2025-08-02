@@ -1,8 +1,9 @@
 class SceneManager {
   static FADE_TIME = 0.8;
+  static DEV_SKIP_MENU = false; // Set to false to enable menu
 
   constructor() {
-    this.state = 'menu';
+    this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
 
     this.dialogue = new DialogueManager();
 
@@ -19,6 +20,11 @@ class SceneManager {
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
+    
+    // DEV: Auto-start level 1 for development
+    if (SceneManager.DEV_SKIP_MENU) {
+      this.game_scene.run_level(1);
+    }
   }
 
   // load_planet(planet) {

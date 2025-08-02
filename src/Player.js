@@ -61,6 +61,26 @@ class Player {
 
   handle_key_press() {
     if (keyCode === 32) this.dash_cooldown.activate();
+    
+    // DEV: Log collision box corners when 'L' key is pressed
+    if (keyCode === DEV_LOG_HITBOX_KEY_CODE) {
+      this.log_collision_box_corners();
+    }
+  }
+
+  // DEV: Development helper to log collision box corner coordinates
+  log_collision_box_corners() {
+    const corners = this.hitbox.points;
+    console.log('=== Player Collision Box Debug Info ===');
+    console.log(`Player Center: x: ${this.pos.x.toFixed(2)}, y: ${this.pos.y.toFixed(2)}`);
+    console.log(`Box Size: width: ${this.hitbox.size[0]}, height: ${this.hitbox.size[1]}`);
+    console.log(`Box Angle: ${this.hitbox.angle.toFixed(2)} radians`);
+    console.log('Corner Coordinates (clockwise from top-left):');
+    console.log(`  Bottom Left:     x: ${corners[0].x.toFixed(2)}, y: ${corners[0].y.toFixed(2)}`);
+    console.log(`  Bottom Right:    x: ${corners[1].x.toFixed(2)}, y: ${corners[1].y.toFixed(2)}`);
+    console.log(`  Top Right: x: ${corners[2].x.toFixed(2)}, y: ${corners[2].y.toFixed(2)}`);
+    console.log(`  Top Left:  x: ${corners[3].x.toFixed(2)}, y: ${corners[3].y.toFixed(2)}`);
+    console.log('========================================');
   }
 
   update(obstacles) {

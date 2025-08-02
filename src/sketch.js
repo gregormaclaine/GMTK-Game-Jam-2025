@@ -19,7 +19,7 @@ function preload() {
   images['indicator'] = loadImage('assets/img/indicator.png');
 
   images['backgrounds'] = {
-    level1: loadImage('assets/img/backgrounds/level1.png'),
+    level1: loadImage('assets/img/levels/level1.png'),
     menu: loadImage('assets/img/backgrounds/menu.png')
   };
 
