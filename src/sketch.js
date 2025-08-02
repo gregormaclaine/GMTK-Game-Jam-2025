@@ -7,7 +7,8 @@ const audio = new JL.Audio(
     'shoot.wav',
     'damage.wav',
     'dash.wav',
-    'scream.wav'
+    'scream.wav',
+    'pickup.wav'
   ]
 );
 let fonts = {};

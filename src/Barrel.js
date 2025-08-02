@@ -2,7 +2,7 @@ class Barrel {
   constructor(pos, contents) {
     this.pos = pos;
     this.size = [100, 100];
-    this.contents = contents;
+    this.contents = contents || { wood: 2 };
     this.hitbox = new HitBox(this.pos, this.size);
     this.state = 'intact'; // 'intact' | 'broken' | 'hidden'
 
@@ -13,7 +13,7 @@ class Barrel {
   break(player, map) {
     this.state = 'broken';
     audio.play_sound('barrel-break.wav');
-    map.spawn_resource(Resource.get_wood(this.pos, player.collected));
+    map.spawn_resources_by_type(this.pos, player.collected, this.contents);
   }
 
   update(player, map) {

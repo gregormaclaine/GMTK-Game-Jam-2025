@@ -3,7 +3,7 @@ class Resource {
     this.pos = createVector(...pos);
     this.size = size || [60, 40];
     this.on_collect = on_collect;
-    this.image = image;
+    this.image = image || images['square'];
     this.speed = speed ? createVector(...speed) : createVector();
     this.sound = sound;
 
@@ -65,15 +65,14 @@ class Resource {
     return true;
   }
 
-  //// ================= RESOURCE GENERATORS ================= ////
-  static get_wood(pos, collected) {
+  static get(resource, pos, collected) {
     return new Resource({
       pos,
       size: [50, 50],
-      on_collect: () => collected.wood++,
-      image: images['resources']['wood'],
+      on_collect: () => collected[resource]++,
+      image: images['resources'][resource],
       speed: [random(-3, 3), random(-3, 3)],
-      sound: 'boom.wav'
+      sound: 'pickup.wav'
     });
   }
 }
