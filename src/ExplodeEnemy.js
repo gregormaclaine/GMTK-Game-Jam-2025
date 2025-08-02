@@ -1,7 +1,7 @@
 class ExplodeEnemy extends Enemy {
   constructor(pos, map) {
     super(null, pos, map);
-    this.image = images['barrel'];
+    this.image = images['exploder'];
     this.health = 10_000;
     this.exploding = false;
     this.explode_timer = 0;

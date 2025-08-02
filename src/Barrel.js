@@ -1,14 +1,50 @@
 class Barrel {
-  constructor(pos, contents = []) {
+  constructor(pos, contents) {
     this.pos = pos;
-    this.size = [50, 50];
-    this.image = images['barrel'];
-    this.hitbox = new Hitbox(this.pos, this.size);
+    this.size = [100, 100];
+    this.contents = contents;
+    this.hitbox = new HitBox(this.pos, this.size);
+    this.state = 'intact'; // 'intact' | 'broken' | 'hidden'
+
+    this.opacity = 255;
+    this.fade_speed = 2; // Speed at which the barrel fades out
+  }
+
+  break() {
+    this.state = 'broken';
+    audio.play_sound('barrel-break.wav');
+  }
+
+  update(player) {
+    if (
+      this.state === 'intact' &&
+      this.hitbox.is_colliding(player.sword.hitbox) &&
+      player.sword.swinging
+    ) {
+      this.break();
+      //   if (this.contents) player.collect(this.contents);
+    } else if (this.state === 'broken') {
+      this.opacity -= this.fade_speed;
+      if (this.opacity <= 0) {
+        this.state = 'hidden';
+        this.opacity = 0;
+      }
+    }
   }
 
   show() {
+    if (this.state === 'hidden') return;
+    push();
     imageMode(CENTER);
-    image(this.image, this.pos.x, this.pos.y, this.size.x, this.size.y);
-    this.hitbox.show();
+    tint(255, this.opacity);
+    image(
+      images['barrels'][this.state === 'intact' ? 0 : 1],
+      this.pos[0],
+      this.pos[1],
+      this.size[0],
+      this.size[1]
+    );
+    pop();
+    if (this.state === 'intact') this.hitbox.show();
   }
 }

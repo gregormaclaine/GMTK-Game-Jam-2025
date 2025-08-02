@@ -115,6 +115,7 @@ class PathFinder {
   constructor(map) {
     this.map = map;
     this.path = null;
+    this.is_direct = false;
   }
 
   hasLineOfSight(start, goal) {
@@ -134,6 +135,7 @@ class PathFinder {
 
   get_direction(start, goal) {
     const direct_line = this.hasLineOfSight(start, goal);
+    this.is_direct = !!direct_line;
     if (direct_line) {
       this.path = null;
       return direct_line;

@@ -40,11 +40,22 @@ class GameMap {
     enemy.set_map(this);
   }
 
-  update_enemies(player) {
+  show_sprites() {
+    this.barrels.forEach(barrel => barrel.show());
+    this.enemies.forEach(enemy => enemy.show());
+  }
+
+  update_sprites(player) {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       const enemy = this.enemies[i];
       enemy.update(player, this);
       if (enemy.deletable) this.enemies.splice(i, 1);
+    }
+
+    for (let i = this.barrels.length - 1; i >= 0; i--) {
+      const barrel = this.barrels[i];
+      barrel.update(player);
+      if (barrel.state === 'hidden') this.barrels.splice(i, 1);
     }
   }
 }

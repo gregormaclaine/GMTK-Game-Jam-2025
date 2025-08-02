@@ -76,7 +76,7 @@ class GameManager {
   show() {
     push();
     this.camera.show();
-    this.map?.enemies.forEach(enemy => enemy.show());
+    this.map?.show_sprites();
     this.player.show(this.state === 'pause');
     pop();
     this.player.dash_cooldown.show();
@@ -89,7 +89,7 @@ class GameManager {
       case 'game':
         this.player.update(this.map?.obstacles || []);
         this.camera.set_pos(this.player.pos);
-        this.map?.update_enemies(this.player);
+        this.map?.update_sprites(this.player);
 
       case 'pause':
         this.pause_modal.update();
