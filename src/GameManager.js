@@ -59,6 +59,8 @@ class GameManager {
         this.enemies.push(new Enemy(null, [1500, 300], [40, 40]));
         this.enemies.push(new Enemy(null, [300, 1500], [40, 40]));
 
+        this.enemies.forEach(enemy => enemy.set_map(this.map));
+
         await timeout(4000);
         break;
     }
@@ -87,8 +89,6 @@ class GameManager {
   }
 
   show() {
-    imageMode(CORNER);
-    background('white');
     push();
     this.camera.show();
     this.enemies.forEach(enemy => enemy.show());

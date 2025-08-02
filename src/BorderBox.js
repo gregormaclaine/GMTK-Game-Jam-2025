@@ -70,6 +70,14 @@ class HitBox {
     ];
   }
 
+  contains_point(point) {
+    const triangles = HitBox.triangles_from_points(this.points);
+    return (
+      HitBox.is_point_in_triangle(point, ...triangles[0]) ||
+      HitBox.is_point_in_triangle(point, ...triangles[1])
+    );
+  }
+
   do_zones_touch(other) {
     if (abs(this.zone[0] - other.zone[0]) > 1) return false;
     if (abs(this.zone[1] - other.zone[1]) > 1) return false;

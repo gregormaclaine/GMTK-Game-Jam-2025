@@ -38,6 +38,8 @@ class Camera {
 
     translate(-this.pos.x + width / 2, -this.pos.y + height / 2);
 
+    // this.map?.path_grid.show();
+
     this.map?.obstacles.forEach(obstacle => {
       imageMode(CORNER);
       if (obstacle.image)
