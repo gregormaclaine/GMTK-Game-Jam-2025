@@ -116,7 +116,12 @@ class PathFinder {
   constructor(map) {
     this.map = map;
     this.path = null;
+    this.max_distance = null;
     this.is_direct = false;
+  }
+
+  set_max_distance(distance) {
+    this.max_distance = distance;
   }
 
   hasLineOfSight(start, goal) {
@@ -140,6 +145,10 @@ class PathFinder {
     if (direct_line) {
       this.path = null;
       return direct_line;
+    }
+
+    if (this.max_distance && p5.Vector.dist(start, goal) > this.max_distance) {
+      return createVector(0, 0); // Too far, no movement
     }
 
     const current_cell = this.map.path_grid.worldToGrid(start);

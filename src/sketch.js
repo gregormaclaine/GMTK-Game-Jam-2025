@@ -1,7 +1,14 @@
 const images = {};
 const audio = new JL.Audio(
   [],
-  ['boom.wav', 'barrel-break.wav', 'shoot.wav', 'damage.wav', 'dash.wav']
+  [
+    'boom.wav',
+    'barrel-break.wav',
+    'shoot.wav',
+    'damage.wav',
+    'dash.wav',
+    'scream.wav'
+  ]
 );
 let fonts = {};
 let scenes;
@@ -43,6 +50,11 @@ function preload() {
   images['ranger_f'] = loadImage('assets/img/ranger_f.png');
   images['ranger_m'] = loadImage('assets/img/ranger_m.png');
   images['bullet'] = loadImage('assets/img/bullet.png');
+
+  images['bosses'] = [
+    loadImage('assets/img/boss1.png'),
+    loadImage('assets/img/boss2.png')
+  ];
 
   audio.preload();
 }

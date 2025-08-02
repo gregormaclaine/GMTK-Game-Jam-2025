@@ -43,12 +43,13 @@ function level1_map() {
   map.add_obstacle({ pos: [1625, 2090], size: [156, 154] }); // Rock
   map.add_obstacle({ pos: [1123, 2323], size: [826, 130] });
 
-  map.add_enemy(new ExplodeEnemy([1300, 1400], [150, 190]));
+  map.add_enemy(new ExplodeEnemy([1300, 1400], [100, 140]));
   map.add_enemy(new ExplodeEnemy([200, 200], [60, 76]));
   map.add_enemy(new ExplodeEnemy([800, 800], [60, 76]));
   map.add_enemy(new ExplodeEnemy([1500, 300], [60, 76]));
   map.add_enemy(new RangedEnemy([600, 1400], [85, 100]));
   map.add_enemy(new RangedEnemy([300, 1500], [85, 100]));
+  map.add_enemy(new BossEnemy(images.bosses[0], [3430, 2716], [150, 200]));
 
   map.barrels.push(new Barrel([1000, 1600], { type: 'health', amount: 1 }));
 

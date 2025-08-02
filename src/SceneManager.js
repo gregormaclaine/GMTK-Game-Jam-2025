@@ -39,9 +39,9 @@ class SceneManager {
     await this.fade('out');
     this.state = 'game';
     this.game_scene.run_level(level);
-    this.replay_manager.start(level);
     await this.fade('in');
     await this.dialogue.send(DIALOGUE.TEST);
+    this.replay_manager.start(level);
     await this.game_scene.level_promise;
     await this.fade('out');
     this.replay_manager.finish();
