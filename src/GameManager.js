@@ -22,17 +22,14 @@ class GameManager {
         this.on_finish_level = null;
       }
     });
-
-    // DEV: Boundary creation state
-    this.dev_boundary_mode = false;
-    this.dev_boundary_first_point = null;
   }
 
-  set_map(map) {
+  play_map(map) {
     this.map = map;
     this.camera.set_pos(createVector(...map.start_pos));
     this.player.pos.set(map.start_pos);
     this.player.update_hitbox();
+    return this.map.completion_promise;
   }
 
   async run_level(level) {
@@ -50,8 +47,7 @@ class GameManager {
     switch (level) {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
-        this.set_map(Maps[0]());
-        await this.map.completion_promise;
+        await this.play_map(Maps[0]());
         break;
     }
 
