@@ -15,6 +15,10 @@ function preload() {
   images['square'] = loadImage('assets/img/square.png');
   images['player'] = loadImage('assets/img/mc/right.png');
 
+  images['dialogue-profile'] = images['square'];
+  images['dialogue-box'] = images['square'];
+  images['skip-button'] = loadImage('assets/img/skip-button.png');
+
   images['sword'] = loadImage('assets/img/sword.png');
   images['indicator'] = loadImage('assets/img/indicator.png');
 

@@ -41,6 +41,7 @@ class SceneManager {
     this.game_scene.run_level(level);
     this.replay_manager.start(level);
     await this.fade('in');
+    await this.dialogue.send(DIALOGUE.TEST);
     await this.game_scene.level_promise;
     await this.fade('out');
     this.replay_manager.finish();
@@ -128,7 +129,7 @@ class SceneManager {
 
     switch (this.state) {
       case 'game':
-        this.game_scene.update();
+        if (!this.fade_mode) this.game_scene.update();
         break;
 
       case 'hub':

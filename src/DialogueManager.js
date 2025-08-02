@@ -7,10 +7,7 @@ class DialogueManager {
 
   static TEXT_SPEED = 50;
 
-  constructor(images, audio) {
-    this.images = images;
-    this.audio = audio;
-
+  constructor() {
     this.active = false;
     this.current_dialogue = null;
     this.progress = 0;
@@ -51,7 +48,7 @@ class DialogueManager {
       this.current_dialogue = dialogue;
       this.progress = 0;
       if (dialogue.jumpscare) {
-        this.audio.play_sound('boom.wav');
+        audio.play_sound('boom.wav');
         await timeout(500);
       } else {
         await new Promise(resolve => (this.finished_dialogue = resolve));
@@ -88,12 +85,12 @@ class DialogueManager {
   show() {
     if (this.current_dialogue) {
       imageMode(CENTER);
-      image(this.images['dialogue-profile'], ...DialogueManager.PROFILE_RECT);
-      image(this.images['dialogue-box'], ...DialogueManager.DIALOGUE_RECT);
+      image(images['dialogue-profile'], ...DialogueManager.PROFILE_RECT);
+      image(images['dialogue-box'], ...DialogueManager.DIALOGUE_RECT);
 
       if (this.current_dialogue.profile) {
         image(
-          this.images[this.current_dialogue.profile],
+          images[this.current_dialogue.profile],
           ...DialogueManager.INNER_PROFILE_RECT
         );
       }
@@ -115,7 +112,7 @@ class DialogueManager {
 
       if (this.current_dialogue.jumpscare) {
         image(
-          this.images[this.current_dialogue.image],
+          images[this.current_dialogue.image],
           width * 0.5,
           height * 0.5,
           width * 0.8,
