@@ -5,7 +5,7 @@ class Player {
     this.camera = camera;
     this.vel = createVector(0, 0);
 
-    this.size = [90, 120];
+    this.size = [140, 140];
 
     this.hitbox = new HitBox();
     this.update_hitbox();
@@ -36,7 +36,7 @@ class Player {
 
   update_hitbox() {
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
-    this.hitbox.size = this.size;
+    this.hitbox.size = [this.size[0] - 10, this.size[1] - 10];
   }
 
   force_on_screen() {
