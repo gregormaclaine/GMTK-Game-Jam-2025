@@ -40,7 +40,8 @@ function preload() {
   images['heart'] = loadImage('assets/img/heart.png');
   images['explosion'] = loadImage('assets/img/explosion.png');
   images['exploder'] = loadImage('assets/img/exploder.png');
-  images['ranger'] = loadImage('assets/img/ranger.png');
+  images['ranger_f'] = loadImage('assets/img/ranger_f.png');
+  images['ranger_m'] = loadImage('assets/img/ranger_m.png');
   images['bullet'] = loadImage('assets/img/bullet.png');
 
   audio.preload();

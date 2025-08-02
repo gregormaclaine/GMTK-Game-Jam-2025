@@ -47,7 +47,8 @@ function level1_map() {
   map.add_enemy(new ExplodeEnemy([200, 200], [60, 76]));
   map.add_enemy(new ExplodeEnemy([800, 800], [60, 76]));
   map.add_enemy(new ExplodeEnemy([1500, 300], [60, 76]));
-  map.add_enemy(new RangedEnemy([300, 1500], [50, 100]));
+  map.add_enemy(new RangedEnemy([600, 1400], [85, 100]));
+  map.add_enemy(new RangedEnemy([300, 1500], [85, 100]));
 
   map.barrels.push(new Barrel([1000, 1600], { type: 'health', amount: 1 }));
 

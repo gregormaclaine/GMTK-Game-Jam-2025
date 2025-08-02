@@ -48,7 +48,14 @@ class Bullet {
 
 class RangedEnemy extends Enemy {
   constructor(pos, size) {
-    super(images['ranger'], pos, size);
+    // Randomly choose between female and male ranger sprites (50/50 chance)
+    const randomValue = Math.random();
+    const useFemaleRanger = randomValue < 0.5;
+    const rangerImage = useFemaleRanger
+      ? images['ranger_f']
+      : images['ranger_m'];
+
+    super(rangerImage, pos, size);
 
     this.bullet_speed = 5;
     this.bullet_damage = 1;
