@@ -29,6 +29,7 @@ class Player {
   }
 
   take_damage(amount) {
+    audio.play_sound('damage.wav');
     this.health -= amount;
     if (this.health <= 0) this.die();
   }

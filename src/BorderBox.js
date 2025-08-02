@@ -84,7 +84,7 @@ class HitBox {
     return true;
   }
 
-  is_colliding(other, zoned = false) {
+  is_colliding(other, zoned = true) {
     if (zoned && !this.do_zones_touch(other)) return false;
 
     const triangles = HitBox.triangles_from_points(this.points);
@@ -114,7 +114,7 @@ class HitBox {
   }
 
   repel(other) {
-    if (!this.is_colliding(other)) return;
+    if (!this.is_colliding(other, false)) return;
 
     const axes = [];
     // Get the 4 edge normals (axes) from both rectangles

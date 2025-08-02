@@ -1,5 +1,8 @@
 const images = {};
-const audio = new JL.Audio([], ['boom.wav', 'barrel-break.wav']);
+const audio = new JL.Audio(
+  [],
+  ['boom.wav', 'barrel-break.wav', 'shoot.wav', 'damage.wav']
+);
 let fonts = {};
 let scenes;
 
@@ -32,6 +35,8 @@ function preload() {
   images['heart'] = loadImage('assets/img/heart.png');
   images['explosion'] = loadImage('assets/img/explosion.png');
   images['exploder'] = loadImage('assets/img/exploder.png');
+  images['ranger'] = loadImage('assets/img/ranger.png');
+  images['bullet'] = loadImage('assets/img/bullet.png');
 
   audio.preload();
 }
