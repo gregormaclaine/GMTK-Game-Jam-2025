@@ -8,6 +8,7 @@ class SceneManager {
     this.dialogue = new DialogueManager();
 
     this.game_scene = new GameManager({ dialogue: this.dialogue });
+    this.replay_manager = new ReplayManager();
 
     this.menu_scene = new MenuScreen(this.dialogue, this.start_game.bind(this));
 
@@ -20,11 +21,13 @@ class SceneManager {
     this.fade_mode = null;
     this.fade_progress = 0;
     this.fade_completed = () => {};
-    
+
     // DEV: Auto-start level 1 for development
     if (SceneManager.DEV_SKIP_MENU) {
       this.game_scene.run_level(1);
     }
+
+    this.test = null;
   }
 
   // load_planet(planet) {
@@ -89,9 +92,16 @@ class SceneManager {
     await this.fade('out');
     this.state = 'game';
     this.game_scene.run_level(1);
+    this.replay_manager.start('level1');
     await this.fade('in');
     await this.game_scene.level_promise;
     await this.fade('out');
+    this.replay_manager.finish();
+    this.test = this.replay_manager.get_replay(
+      'level1',
+      [100, 100],
+      [800, 600]
+    );
     this.state = 'menu';
     await this.fade('in');
   }
@@ -156,6 +166,7 @@ class SceneManager {
 
       case 'menu':
         this.menu_scene.show();
+        this.test?.show();
         break;
 
       case 'planet':
