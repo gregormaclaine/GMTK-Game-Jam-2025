@@ -9,7 +9,7 @@ class Bullet {
     this.deletable = false;
   }
 
-  update(player) {
+  update(player, map) {
     if (this.deletable) return;
     this.pos.add(this.vel);
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
@@ -17,6 +17,15 @@ class Bullet {
     // Check for collision with map obstacles
     if (this.hitbox.is_colliding(player.hitbox)) {
       player.take_damage(this.damage);
+      this.destroy();
+    }
+
+    if (
+      this.pos.x < -width / 2 ||
+      this.pos.x > map.size[0] + width / 2 ||
+      this.pos.y < -height / 2 ||
+      this.pos.y > map.size[1] + height / 2
+    ) {
       this.destroy();
     }
   }
@@ -68,7 +77,7 @@ class RangedEnemy extends Enemy {
 
     for (let i = this.bullets.length - 1; i >= 0; i--) {
       const bullet = this.bullets[i];
-      bullet.update(player);
+      bullet.update(player, map);
       if (bullet.deletable) this.bullets.splice(i, 1);
     }
 
