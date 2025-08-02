@@ -76,7 +76,7 @@ class PathfindingGrid {
     );
   }
 
-  getNeighbors(node) {
+  getNeighbors(node, allow_tight_diagonals = false) {
     const neighbors = [];
     const directions = [
       { x: -1, y: 0 },
@@ -98,8 +98,9 @@ class PathfindingGrid {
       // For diagonal moves, check if path is clear
       if (dir.x !== 0 && dir.y !== 0) {
         if (
-          this.isWalkable(node.x + dir.x, node.y) &&
-          this.isWalkable(node.x, node.y + dir.y)
+          allow_tight_diagonals ||
+          (this.isWalkable(node.x + dir.x, node.y) &&
+            this.isWalkable(node.x, node.y + dir.y))
         ) {
           neighbors.push({ x: newX, y: newY });
         }
@@ -221,10 +222,10 @@ class AStarPathfinder {
 
   static findPath(grid, start, goal) {
     if (!grid.isWalkable(start.x, start.y))
-      start = grid.getNeighbors(start)[0] || start;
+      start = grid.getNeighbors(start, true)[0] || start;
 
     if (!grid.isWalkable(goal.x, goal.y))
-      goal = grid.getNeighbors(goal)[0] || goal;
+      goal = grid.getNeighbors(goal, true)[0] || goal;
 
     const openSet = new PriorityQueue();
     const closedSet = new Set();
