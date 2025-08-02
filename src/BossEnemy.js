@@ -28,7 +28,7 @@ class BossEnemy extends Enemy {
     setTimeout(() => (this.speed = 7), 200);
     setTimeout(() => {
       this.speed = 0.25;
-      audio.play_sound('boom.wav', 0.5);
+      // audio.play_sound('boom.wav', 0.5);
     }, 1000);
     setTimeout(() => (this.speed = 0.4), 1500);
   }

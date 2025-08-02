@@ -1,6 +1,6 @@
 class Camera {
-  constructor(game_manager) {
-    this.game_manager = game_manager;
+  constructor(map) {
+    this.map = map || null;
     this.pos = createVector(0, 0);
   }
 
@@ -8,8 +8,9 @@ class Camera {
     this.pos = pos.copy();
   }
 
-  get map() {
-    return this.game_manager.map;
+  set_map(map) {
+    this.map = map;
+    if (map) this.pos = createVector(...map.start_pos);
   }
 
   bounds() {

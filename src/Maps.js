@@ -56,4 +56,22 @@ function level1_map() {
   return map;
 }
 
+function HubMap() {
+  const map = new GameMap({
+    background: images.backgrounds.hub,
+    color: '#31222C',
+    start_pos: [width / 2, height * 0.8],
+    size: [width * 2, height * 2]
+  });
+
+  // map.add_obstacle({ pos: [0, 0], size: [width, height] });
+
+  // map.add_obstacle({ pos: [0, 0], size: [width, 50] });
+  // map.add_obstacle({ pos: [0, height - 50], size: [width, 50] });
+  // map.add_obstacle({ pos: [0, 50], size: [50, height - 100] });
+  // map.add_obstacle({ pos: [width - 50, 50], size: [50, height - 100] });
+
+  return map;
+}
+
 const Maps = [level1_map];

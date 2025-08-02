@@ -4,7 +4,7 @@ class SceneManager {
 
   constructor() {
     this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
-    // this.state = 'hub';
+    this.state = 'hub';
 
     this.dialogue = new DialogueManager();
 
@@ -31,8 +31,6 @@ class SceneManager {
     if (SceneManager.DEV_SKIP_MENU && this.state === 'game') {
       this.game_scene.run_level(1);
     }
-
-    this.test = null;
   }
 
   async start_level(level) {
@@ -45,7 +43,6 @@ class SceneManager {
     await this.game_scene.level_promise;
     await this.fade('out');
     this.replay_manager.finish();
-    this.test = this.replay_manager.get_replay(level, [100, 100], [800, 600]);
     this.state = 'menu';
     await this.fade('in');
   }
@@ -92,7 +89,6 @@ class SceneManager {
 
       case 'menu':
         this.menu_scene.show();
-        this.test?.show();
         break;
 
       case 'hub':

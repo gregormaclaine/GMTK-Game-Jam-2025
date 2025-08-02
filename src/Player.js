@@ -28,6 +28,11 @@ class Player {
     this.bounds = bounds;
   }
 
+  set_pos(pos = [0, 0]) {
+    this.pos.set(pos);
+    this.update_hitbox();
+  }
+
   get image() {
     return images['player'];
   }

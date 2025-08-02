@@ -3,7 +3,7 @@ class GameManager {
     this.dialogue = dialogue;
 
     this.map = null;
-    this.camera = new Camera(this);
+    this.camera = new Camera();
     this.pause_modal = new PauseModal();
     this.boundary_tool = new BoundaryCreatorTool({ camera: this.camera });
 
@@ -26,10 +26,9 @@ class GameManager {
 
   play_map(map) {
     this.map = map;
-    this.camera.set_pos(createVector(...map.start_pos));
+    this.camera.set_map(map);
     this.player.set_bounds(this.camera.bounds());
-    this.player.pos.set(map.start_pos);
-    this.player.update_hitbox();
+    this.player.set_pos(map.start_pos);
     return this.map.completion_promise;
   }
 
@@ -76,7 +75,6 @@ class GameManager {
         return (this.state = 'pause');
       }
 
-      // DEV: Toggle boundary creation mode with 'K' key
       if (keyCode === DEV_BOUNDARY_CREATE_KEY_CODE)
         return this.boundary_tool.toggle();
 
