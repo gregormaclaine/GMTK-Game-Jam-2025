@@ -33,7 +33,7 @@ class PathfindingGrid {
     }
   }
 
-  markObstacle(obstacle) {
+  markObstacle(obstacle, removing = false) {
     const left = Math.max(0, Math.floor(obstacle.pos.x / this.cellSize));
     const right = Math.min(
       this.width - 1,
@@ -47,7 +47,7 @@ class PathfindingGrid {
 
     for (let y = top; y <= bottom; y++) {
       for (let x = left; x <= right; x++) {
-        this.grid[y][x] = 1; // Mark as obstacle
+        this.grid[y][x] += removing ? -1 : 1; // Add obstacle
       }
     }
   }
@@ -121,6 +121,8 @@ class PathFinder {
 
     this.last_start = null;
     this.last_goal = null;
+
+    this.no_path = false; // Prevents pathfinding for 2 seconds if no path is found
   }
 
   set_max_distance(distance) {
@@ -159,7 +161,9 @@ class PathFinder {
 
     const current_cell = this.map.path_grid.worldToGrid(start);
     if (this.map.path_grid.isWalkable(current_cell.x, current_cell.y)) {
-      if (this.path) {
+      if (this.no_path) return createVector(0, 0);
+
+      if (this.path?.length) {
         // If you have made it to the next path point, remove it
         if (
           this.path[0].x === current_cell.x &&
@@ -175,6 +179,14 @@ class PathFinder {
           current_cell,
           this.map.path_grid.worldToGrid(goal)
         );
+        if (this.path.length === 0) {
+          this.no_path = true;
+          this.path = null;
+          setTimeout(() => {
+            this.no_path = false;
+          }, 2000);
+          return createVector(0, 0);
+        }
       }
 
       // Go towards the next path point

@@ -1,7 +1,14 @@
 class Enemy {
   static HEALTH_BAR_OFFSET = 20;
 
-  constructor(image, pos, size, drops, death_sound = 'enemy-death.wav') {
+  constructor({
+    image,
+    pos,
+    size,
+    drops,
+    death_sound = 'enemy-death.wav',
+    on_death
+  }) {
     this.image = image || images['square'];
     this.pos = createVector(pos[0], pos[1]);
     this.size = size || (image ? [image.width, image.height] : [50, 50]);
@@ -14,6 +21,7 @@ class Enemy {
 
     this.death_fade = 1;
     this.death_sound = death_sound;
+    this.on_death = on_death || (() => {});
     this.drops = drops || {};
     this.effects = [];
   }
@@ -32,6 +40,15 @@ class Enemy {
     return player.pos;
   }
 
+  on_kill(player) {
+    audio.play_sound(this.death_sound);
+    this.map.spawn_resources_by_type(
+      [this.pos.x, this.pos.y],
+      player.collected,
+      this.drops
+    );
+  }
+
   update(player, map) {
     for (let i = this.effects.length - 1; i >= 0; i--) {
       const effect = this.effects[i];
@@ -40,17 +57,9 @@ class Enemy {
     }
 
     if (this.health <= 0) {
-      if (this.death_fade === 1) {
-        // Happens once on death
-        audio.play_sound(this.death_sound);
-        map.spawn_resources_by_type(
-          [this.pos.x, this.pos.y],
-          player.collected,
-          this.drops
-        );
-      }
-
       this.death_fade -= 0.01;
+      this.on_death?.();
+      this.on_death = null;
       return;
     }
 
@@ -77,13 +86,18 @@ class Enemy {
       player.sword.hitbox.is_colliding(this.hitbox) &&
       player.sword.swinging
     ) {
-      this.take_damage(player.sword.damage);
+      this.take_damage(player);
     }
   }
 
-  take_damage(amount) {
-    this.health -= amount;
-    const damage_effect = new DamageEffect(amount, this.pos.copy());
+  take_damage(player) {
+    if (this.health <= 0) return;
+    this.health -= player.sword.damage;
+    if (this.health <= 0) this.on_kill(player);
+    const damage_effect = new DamageEffect(
+      player.sword.damage,
+      this.pos.copy()
+    );
     this.effects.push(damage_effect);
     damage_effect.trigger();
   }

@@ -12,6 +12,7 @@ class GameMap {
     this.enemies = [];
     this.barrels = [];
     this.resources = [];
+    this.triggers = [];
 
     this.path_grid = new PathfindingGrid(this.size);
 
@@ -30,15 +31,21 @@ class GameMap {
       image: image || null,
       pos: createVector(pos[0], pos[1]),
       size: size || [50, 50],
-      hitbox
+      hitbox,
+      deleted: false,
+      delete() {
+        this.deleted = true;
+      }
     };
     this.obstacles.push(obstacle);
     this.path_grid.markObstacle(obstacle);
+    return obstacle;
   }
 
   add_enemy(enemy) {
     this.enemies.push(enemy);
     enemy.set_map(this);
+    return enemy;
   }
 
   spawn_resources_by_type(pos = [0, 0], collected, resources) {
@@ -54,13 +61,32 @@ class GameMap {
     this.resources.push(resource);
   }
 
+  add_trigger({ pos, size, on_enter }) {
+    const hitbox = new HitBox(
+      [pos[0] + size[0] / 2, pos[1] + size[1] / 2],
+      size
+    );
+    const trigger = { hitbox, on_enter };
+    this.triggers.push(trigger);
+    return trigger;
+  }
+
   show_sprites() {
     this.barrels.forEach(barrel => barrel.show());
     this.enemies.forEach(enemy => enemy.show());
     this.resources.forEach(resource => resource.show());
+    this.triggers.forEach(trigger => trigger.hitbox.show('yellow'));
   }
 
   update_sprites(player) {
+    for (let i = this.obstacles.length - 1; i >= 0; i--) {
+      const obstacle = this.obstacles[i];
+      if (obstacle.deleted) {
+        this.obstacles.splice(i, 1);
+        this.path_grid.markObstacle(obstacle, true);
+      }
+    }
+
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       const enemy = this.enemies[i];
       enemy.update(player, this);
@@ -77,6 +103,14 @@ class GameMap {
       const resource = this.resources[i];
       resource.update(player);
       if (resource.gone) this.resources.splice(i, 1);
+    }
+
+    for (let i = this.triggers.length - 1; i >= 0; i--) {
+      const trigger = this.triggers[i];
+      if (trigger.hitbox.contains_point(player.pos)) {
+        trigger.on_enter();
+        this.triggers.splice(i, 1);
+      }
     }
   }
 }

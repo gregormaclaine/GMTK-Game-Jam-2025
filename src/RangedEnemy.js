@@ -47,9 +47,9 @@ class Bullet {
 }
 
 class RangedEnemy extends Enemy {
-  constructor(pos, size, drops) {
-    const rangerImage = Math.random() ? images['ranger_f'] : images['ranger_m'];
-    super(rangerImage, pos, size, drops);
+  constructor({ pos, size, drops, on_death }) {
+    const image = Math.random() ? images['ranger_f'] : images['ranger_m'];
+    super({ image, pos, size, drops, on_death });
 
     this.bullet_speed = 5;
     this.bullet_damage = 1;

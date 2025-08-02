@@ -59,7 +59,8 @@ function preload() {
   ];
 
   images.resources = {
-    wood: loadImage('assets/img/resources/wood.png')
+    wood: loadImage('assets/img/resources/wood.png'),
+    iron: loadImage('assets/img/resources/iron.png')
   };
 
   audio.preload();

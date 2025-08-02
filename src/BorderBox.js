@@ -172,10 +172,10 @@ class HitBox {
     return minAxis.mult(minOverlap + 0.1); // +0.1 to ensure separation
   }
 
-  show(draw_mouse_zone = false) {
+  show(color = 'red', draw_mouse_zone = false) {
     if (!SHOW_HITBOXES) return;
 
-    stroke('red');
+    stroke(color);
     strokeWeight(1);
     HitBox.triangles_from_points(this.points).forEach(triangle => {
       for (let i = 0; i < 3; i++) {

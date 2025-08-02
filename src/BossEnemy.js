@@ -1,11 +1,11 @@
 class BossEnemy extends Enemy {
-  constructor(image, pos, size, drops) {
-    super(image, pos, size, drops);
+  constructor({ image, pos, size, drops, health = 200_000, on_death }) {
+    super({ image, pos, size, drops, on_death });
 
     this.speed = 0.4;
 
-    this.health = 100_000;
-    this.max_health = 100_000;
+    this.health = health;
+    this.max_health = health;
 
     this.last_charge = -1000000;
 
@@ -15,13 +15,13 @@ class BossEnemy extends Enemy {
   }
 
   set_map(map) {
-    this.path_finding = new PathFinder(map);
+    super.set_map(map);
     this.path_finding.set_max_distance(800);
   }
 
   charge() {
     if (!this.path_finding.is_direct) return;
-    if (this.last_charge + 8000 > millis()) return;
+    if (this.last_charge + 5000 > millis()) return;
 
     this.last_charge = millis();
     audio.play_sound('scream.wav', 0.3);
@@ -62,6 +62,8 @@ class BossEnemy extends Enemy {
     translate(this.pos.x, this.pos.y);
     imageMode(CENTER);
 
+    if (this.vel.x < 0) scale(-1, 1);
+
     if (this.charging) {
       rotate(random(-0.1, 0.1));
     } else if (this.attack_progress) {
@@ -74,8 +76,6 @@ class BossEnemy extends Enemy {
 
       if (this.attack_progress > 3) this.attack_progress = 0;
     }
-
-    if (this.vel.x < 0) scale(-1, 1);
 
     image(this.image, 0, 0, this.size[0], this.size[1]);
     pop();

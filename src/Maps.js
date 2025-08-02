@@ -43,13 +43,37 @@ function level1_map() {
   map.add_obstacle({ pos: [1625, 2090], size: [156, 154] }); // Rock
   map.add_obstacle({ pos: [1123, 2323], size: [826, 130] });
 
-  map.add_enemy(new ExplodeEnemy([1300, 1400], [100, 140]));
-  map.add_enemy(new ExplodeEnemy([200, 200], [60, 76]));
-  map.add_enemy(new ExplodeEnemy([800, 800], [60, 76]));
-  map.add_enemy(new ExplodeEnemy([1500, 300], [60, 76]));
-  map.add_enemy(new RangedEnemy([600, 1400], [85, 100]));
-  map.add_enemy(new RangedEnemy([300, 1500], [85, 100]));
-  map.add_enemy(new BossEnemy(images.bosses[0], [3430, 2716], [150, 200]));
+  map.add_enemy(new ExplodeEnemy({ pos: [1300, 1400], size: [100, 140] }));
+  map.add_enemy(
+    new ExplodeEnemy({ pos: [200, 200], size: [60, 76], drops: { wood: 4 } })
+  );
+  map.add_enemy(new ExplodeEnemy({ pos: [800, 800], size: [60, 76] }));
+  map.add_enemy(new ExplodeEnemy({ pos: [1500, 300], size: [60, 76] }));
+  map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
+  map.add_enemy(new RangedEnemy({ pos: [300, 1500], size: [85, 100] }));
+
+  map.add_trigger({
+    pos: [140, 984],
+    size: [296, 84],
+    on_enter: () => {
+      const boss_door = map.add_obstacle({
+        image: images['square'],
+        pos: [144, 1132],
+        size: [276, 90]
+      });
+      map.add_enemy(
+        new BossEnemy({
+          image: images.bosses[0],
+          pos: [739, 518],
+          size: [150, 200],
+          drops: { wood: 2, iron: 2 },
+          on_death: () => {
+            boss_door.delete();
+          }
+        })
+      );
+    }
+  });
 
   map.barrels.push(new Barrel([1000, 1600], { wood: 2 }));
 
