@@ -100,6 +100,8 @@ class Enemy {
     }
     translate(this.pos.x, this.pos.y);
     imageMode(CENTER);
+    if (this.vel.x < 0) scale(-1, 1);
+
     image(this.image, 0, 0, this.size[0], this.size[1]);
     pop();
 
