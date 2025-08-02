@@ -21,35 +21,35 @@ class SceneManager {
     this.fade_completed = () => {};
   }
 
-  load_planet(planet) {
-    const planet_props = {
-      dialogue: this.dialogue,
-      audio: this.audio,
-      start_level: this.start_level.bind(this),
-      finish_game: this.finish_game.bind(this),
-      set_ability: ability => {
-        this.game_scene.set_ability(ability);
-      },
-      add_passive: passive => {
-        this.game_scene.add_passive(passive);
-      },
-      level_results: this.level_results,
-      move_world: this.move_world.bind(this),
-      current_ability: () => this.game_scene.ability,
-      passives: () => this.game_scene.passives,
-      collected: this.collected
-    };
+  // load_planet(planet) {
+  //   const planet_props = {
+  //     dialogue: this.dialogue,
+  //     audio: this.audio,
+  //     start_level: this.start_level.bind(this),
+  //     finish_game: this.finish_game.bind(this),
+  //     set_ability: ability => {
+  //       this.game_scene.set_ability(ability);
+  //     },
+  //     add_passive: passive => {
+  //       this.game_scene.add_passive(passive);
+  //     },
+  //     level_results: this.level_results,
+  //     move_world: this.move_world.bind(this),
+  //     current_ability: () => this.game_scene.ability,
+  //     passives: () => this.game_scene.passives,
+  //     collected: this.collected
+  //   };
 
-    if (planet === 1) {
-      this.planet_scene = new Planet1(planet_props);
-    } else if (planet === 2) {
-      this.planet_scene = new DarkPlanet(planet_props);
-    } else if (planet === 3) {
-      this.planet_scene = new CrayonPlanet(planet_props);
-    } else {
-      console.error('Planet not found:', planet);
-    }
-  }
+  //   if (planet === 1) {
+  //     this.planet_scene = new Planet1(planet_props);
+  //   } else if (planet === 2) {
+  //     this.planet_scene = new DarkPlanet(planet_props);
+  //   } else if (planet === 3) {
+  //     this.planet_scene = new CrayonPlanet(planet_props);
+  //   } else {
+  //     console.error('Planet not found:', planet);
+  //   }
+  // }
 
   // async move_world(planet) {
   //   await this.fade('out');
@@ -83,6 +83,10 @@ class SceneManager {
     await this.fade('out');
     this.state = 'game';
     this.game_scene.run_level(1);
+    await this.fade('in');
+    await this.game_scene.level_promise;
+    await this.fade('out');
+    this.state = 'menu';
     await this.fade('in');
   }
 

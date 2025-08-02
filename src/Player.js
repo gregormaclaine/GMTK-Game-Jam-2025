@@ -19,10 +19,18 @@ class Player {
       this.dash_amount = 1;
       audio.play_sound('boom.wav');
     });
+
+    this.max_health = 3;
+    this.health = this.max_health;
   }
 
   get image() {
     return images['player'];
+  }
+
+  take_damage(amount) {
+    this.health -= amount;
+    if (this.health <= 0) this.die();
   }
 
   update_hitbox() {
@@ -109,5 +117,25 @@ class Player {
 
     this.sword.show(is_paused);
     this.hitbox.show();
+  }
+
+  draw_health() {
+    const heartSize = 80;
+    const gap = 20;
+    const totalWidth =
+      this.max_health * heartSize + (this.max_health - 1) * gap;
+    const startX = width / 2 - totalWidth / 2;
+    const y = height - heartSize - 20;
+
+    imageMode(CORNER);
+    for (let i = 0; i < this.health; i++) {
+      image(
+        images['heart'],
+        startX + i * (heartSize + gap),
+        y,
+        heartSize,
+        heartSize
+      );
+    }
   }
 }

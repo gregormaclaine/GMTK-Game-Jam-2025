@@ -6,8 +6,6 @@ class GameManager {
     this.camera = new Camera(this);
     this.pause_modal = new PauseModal();
 
-    this.enemies = [];
-
     this.reset();
   }
 
@@ -33,9 +31,6 @@ class GameManager {
   }
 
   async run_level(level) {
-    if (this.level_promise)
-      return console.warn('Level already running, cannot start a new one.');
-
     console.log(`Running level ${level}`);
     this.reset();
 
@@ -51,17 +46,7 @@ class GameManager {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
         this.set_map(Maps[0]());
-        this.enemies.push(new Enemy(null, [1300, 1400], [50, 100]));
-
-        // Add multiple enemies to demonstrate pathfinding
-        this.enemies.push(new Enemy(null, [200, 200], [40, 40]));
-        this.enemies.push(new Enemy(null, [800, 800], [40, 40]));
-        this.enemies.push(new Enemy(null, [1500, 300], [40, 40]));
-        this.enemies.push(new Enemy(null, [300, 1500], [40, 40]));
-
-        this.enemies.forEach(enemy => enemy.set_map(this.map));
-
-        await timeout(4000);
+        await this.map.completion_promise;
         break;
     }
 
@@ -91,10 +76,11 @@ class GameManager {
   show() {
     push();
     this.camera.show();
-    this.enemies.forEach(enemy => enemy.show());
+    this.map?.enemies.forEach(enemy => enemy.show());
     this.player.show(this.state === 'pause');
     pop();
     this.player.dash_cooldown.show();
+    this.player.draw_health();
     if (this.state === 'pause') this.pause_modal.show();
   }
 
@@ -103,12 +89,7 @@ class GameManager {
       case 'game':
         this.player.update(this.map?.obstacles || []);
         this.camera.set_pos(this.player.pos);
-
-        for (let i = this.enemies.length - 1; i >= 0; i--) {
-          const enemy = this.enemies[i];
-          enemy.update(this.player, this.map);
-          if (enemy.deletable) this.enemies.splice(i, 1);
-        }
+        this.map?.update_enemies(this.player);
 
       case 'pause':
         this.pause_modal.update();

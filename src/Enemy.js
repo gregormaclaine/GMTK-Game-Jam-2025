@@ -62,9 +62,6 @@ class Enemy {
 
   take_damage(amount) {
     this.health -= amount;
-    if (this.health <= 0) {
-      // Handle enemy death
-    }
     const damage_effect = new DamageEffect(amount, this.pos.copy());
     this.effects.push(damage_effect);
     damage_effect.trigger();

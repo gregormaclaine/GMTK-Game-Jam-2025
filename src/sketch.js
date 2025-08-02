@@ -25,6 +25,10 @@ function preload() {
     credits: loadImage('assets/img/buttons/credits.png')
   };
 
+  images['barrel'] = loadImage('assets/img/barrel.jpg');
+  images['heart'] = loadImage('assets/img/heart.png');
+  images['explosion'] = loadImage('assets/img/explosion.png');
+
   audio.preload();
 }
 
