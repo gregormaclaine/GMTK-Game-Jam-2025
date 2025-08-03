@@ -20,7 +20,7 @@ class Sword {
 
     this.last_swing_time = 0; // Timestamp of the last swing
 
-    this.sword_type = 1;
+    this.sword_type = 0;
   }
 
   async swing() {
