@@ -16,7 +16,7 @@ class LevelTotem {
     this.dialogue = dialogue;
     this.start_level = start_level;
     this.progression = progression;
-    this.collected = player.collected;
+    this.collected = collected;
 
     this.level = level;
     this.pos = createVector(...pos);
