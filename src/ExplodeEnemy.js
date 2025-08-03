@@ -9,7 +9,6 @@ class ExplodeEnemy extends Enemy {
       size,
       health
     });
-    this.health = 10_000;
     this.exploding = false;
     this.explode_timer = 0;
 
