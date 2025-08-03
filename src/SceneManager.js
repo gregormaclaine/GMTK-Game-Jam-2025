@@ -80,6 +80,11 @@ class SceneManager {
     }
 
     await this.fade('in');
+
+    if (level === 1 && this.progression.had_hub_info) {
+      this.progression.had_hub_info = true;
+      await this.dialogue.send(DIALOGUE.HUB_INTRO);
+    }
   }
 
   async fade(mode) {
