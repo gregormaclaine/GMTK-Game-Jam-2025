@@ -92,9 +92,10 @@ class Enemy {
     }
   }
 
-  take_damage(player, map) {
+  take_damage(player, map, damage = 0) {
+    damage = damage || (player ? player.sword.damage : 0);
     if (this.health <= 0) return;
-    this.health -= player.sword.damage;
+    this.health -= damage;
 
     if (map.progression?.selected_ability === 'slow') {
       this.slow_effect = true;
@@ -102,10 +103,7 @@ class Enemy {
     }
 
     if (this.health <= 0) this.on_kill(player);
-    const damage_effect = new DamageEffect(
-      player.sword.damage,
-      this.pos.copy()
-    );
+    const damage_effect = new DamageEffect(damage, this.pos.copy());
     this.effects.push(damage_effect);
     damage_effect.trigger();
   }

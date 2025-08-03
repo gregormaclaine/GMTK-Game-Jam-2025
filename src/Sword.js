@@ -1,7 +1,7 @@
 class Sword {
   constructor(player) {
     this.player = player;
-    this.size = [80, 80];
+    this.size = [40, 80];
     this.cooldown = 500; // Cooldown time in milliseconds
     this.last_used = 0; // Timestamp of the last use
 
@@ -19,6 +19,8 @@ class Sword {
     this.damage = 1000;
 
     this.last_swing_time = 0; // Timestamp of the last swing
+
+    this.sword_type = 1;
   }
 
   async swing() {
@@ -77,10 +79,10 @@ class Sword {
     translate(this.player.pos.x, this.player.pos.y);
     rotate(this.arc_angle);
     translate(this.arc_length, 0);
-    rotate((3 * PI) / 4);
+    rotate(PI / 2);
 
     imageMode(CENTER);
-    image(images['sword'], 0, 0, this.size[0], this.size[1]);
+    image(images.swords[this.sword_type], 0, 0, this.size[0], this.size[1]);
     pop();
 
     push();

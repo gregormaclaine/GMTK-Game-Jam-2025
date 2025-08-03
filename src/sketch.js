@@ -33,7 +33,14 @@ function preload() {
   images['dialogue-box'] = images['square'];
   images['skip-button'] = loadImage('assets/img/skip-button.png');
 
-  images['sword'] = loadImage('assets/img/sword.png');
+  images.swords = [
+    loadImage('assets/img/swords/sword.png'),
+    loadImage('assets/img/swords/sword1.png'),
+    loadImage('assets/img/swords/sword2.png'),
+    loadImage('assets/img/swords/sword3.png'),
+    loadImage('assets/img/swords/sword4.png')
+  ];
+
   images['indicator'] = loadImage('assets/img/indicator.png');
 
   images['backgrounds'] = {
