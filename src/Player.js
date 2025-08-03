@@ -22,9 +22,13 @@ class Player {
     this.max_speed = 9;
 
     this.dash_amount = 0;
-    this.dash_cooldown = new AbilityCooldown(5, color(255, 0, 0), () => {
-      this.dash_amount = 6;
-      audio.play_sound('dash.wav');
+    this.dash_cooldown = new AbilityCooldown({
+      cooldown: 5,
+      color: color(255, 0, 0),
+      run: () => {
+        this.dash_amount = 6;
+        audio.play_sound('dash.wav');
+      }
     });
 
     this.max_health = 3;

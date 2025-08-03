@@ -15,9 +15,13 @@ class BossEnemy extends Enemy {
     this.health = health;
     this.max_health = health;
 
-    this.cooldown = new AbilityCooldown(5, '', props => {
-      const should_shoot = this.can_shoot && random() > 0.5;
-      should_shoot ? this.shoot(props) : this.charge(props);
+    this.cooldown = new AbilityCooldown({
+      cooldown: 5,
+      start_cooldown: 5,
+      run: props => {
+        const should_shoot = this.can_shoot && random() > 0.5;
+        should_shoot ? this.shoot(props) : this.charge(props);
+      }
     });
 
     this.can_shoot = can_shoot;
@@ -47,7 +51,6 @@ class BossEnemy extends Enemy {
       const angle_offset = (PI / 5) * i;
       const dir = p5.Vector.sub(player.pos, this.pos);
       dir.rotate(angle_offset);
-      console.log('shooting', dir);
       const bullet = new Bullet({
         pos: this.pos.copy(),
         dir,

@@ -1,5 +1,5 @@
 class AbilityCooldown {
-  constructor(cooldown, color, run) {
+  constructor({ cooldown, color, run, start_cooldown = 0 }) {
     this.cooldown = cooldown; // Seconds
     this.color = color;
     this.run = run;
@@ -7,7 +7,7 @@ class AbilityCooldown {
     this.pos = [20, height - 15];
     this.size = [80, 10];
 
-    this.cooling_down = false;
+    this.cooling_down = !!start_cooldown;
     this.cooldown_progress = 0;
   }
 
