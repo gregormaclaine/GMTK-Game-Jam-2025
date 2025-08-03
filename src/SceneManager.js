@@ -57,6 +57,7 @@ class SceneManager {
 
     switch (level) {
       case 1:
+        await audio.play_track('level-1.mp3');
         await this.dialogue.send(DIALOGUE.LEVEL_1);
         break;
       case 2:
@@ -76,6 +77,7 @@ class SceneManager {
     if (level === 3) {
       this.state = 'gamewin';
     } else {
+      audio.play_track('hub.mp3');
       this.state = 'hub';
     }
 

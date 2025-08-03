@@ -80,7 +80,8 @@ class LevelTotem {
       keyCode === 80 &&
       this.hitbox.contains(this.player.hitbox) &&
       !this.is_locked() &&
-      !this.shrink_progress
+      !this.shrink_progress &&
+      !this.replay
     ) {
       this.shrink_progress = 1 / frameRate() / this.shrink_duration;
       return;
