@@ -12,7 +12,7 @@ class Barrel {
 
   break(player, map) {
     this.state = 'broken';
-    audio.play_sound('barrel-break.wav');
+    audio.play_sound('barrel-break.wav', 0.4);
     map.spawn_resources_by_type(this.pos, player.collected, this.contents);
   }
 

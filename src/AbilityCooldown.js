@@ -11,9 +11,9 @@ class AbilityCooldown {
     this.cooldown_progress = 0;
   }
 
-  activate() {
+  activate(props) {
     if (this.cooling_down) return;
-    this.run();
+    this.run(props);
     this.cooling_down = true;
     this.cooldown_progress = 0;
   }

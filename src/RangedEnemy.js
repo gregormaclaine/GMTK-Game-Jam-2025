@@ -1,10 +1,11 @@
 class Bullet {
-  constructor(pos, direction, speed, damage) {
+  constructor({ pos, dir, speed, damage = 1, image = images['bullet'] }) {
     this.pos = pos;
-    this.vel = direction.copy().setMag(speed);
+    this.vel = dir.copy().setMag(speed);
     this.damage = damage;
     this.size = [10, 30];
     this.hitbox = new HitBox(this.pos, this.size);
+    this.image = image;
 
     this.deletable = false;
   }
@@ -37,7 +38,7 @@ class Bullet {
     imageMode(CENTER);
     translate(this.pos.x, this.pos.y);
     rotate(this.vel.heading() + HALF_PI);
-    image(images['bullet'], 0, 0, this.size[0], this.size[1]);
+    image(this.image, 0, 0, this.size[0], this.size[1]);
     pop();
   }
 
@@ -126,12 +127,12 @@ class RangedEnemy extends Enemy {
 
   shoot(player) {
     audio.play_sound('shoot.wav');
-    const bullet = new Bullet(
-      this.pos.copy(),
-      p5.Vector.sub(player.pos, this.pos),
-      this.bullet_speed,
-      this.bullet_damage
-    );
+    const bullet = new Bullet({
+      pos: this.pos.copy(),
+      dir: p5.Vector.sub(player.pos, this.pos),
+      speed: this.bullet_speed,
+      damage: this.bullet_damage
+    });
     this.bullets.push(bullet);
   }
 }

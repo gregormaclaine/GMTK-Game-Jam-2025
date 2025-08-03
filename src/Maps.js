@@ -78,7 +78,8 @@ function level1_map() {
           drops: { wood: 2, iron: 2 },
           on_death: () => {
             boss_door.delete();
-          }
+          },
+          can_shoot: true
         })
       );
     }
