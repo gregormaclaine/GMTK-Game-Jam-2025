@@ -261,6 +261,13 @@ function level2_map() {
 
   // function spawn_boss() {}
 
+  const interval = setInterval(() => {
+    if (map.enemies.length === 0 && map.triggers.length === 0) {
+      clearInterval(interval);
+      map.complete();
+    }
+  }, 1000);
+
   return map;
 }
 
@@ -307,6 +314,13 @@ function level3_map() {
   map.add_obstacle({ pos: [3421, 426], size: [248, 248] });
   map.add_obstacle({ pos: [1084, -2], size: [1697, 86] });
   map.add_obstacle({ pos: [1407, 994], size: [296, 258] });
+
+  const interval = setInterval(() => {
+    if (map.enemies.length === 0 && map.triggers.length === 0) {
+      clearInterval(interval);
+      map.complete();
+    }
+  }, 1000);
 
   return map;
 }
