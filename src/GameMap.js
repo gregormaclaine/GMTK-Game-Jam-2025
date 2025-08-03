@@ -16,9 +16,9 @@ class GameMap {
 
     this.path_grid = new PathfindingGrid(this.size);
 
-    this.on_complete = () => {};
+    this.complete = () => {};
     this.completion_promise = new Promise(resolve => {
-      this.on_complete = resolve;
+      this.complete = resolve;
     });
   }
 

@@ -1,7 +1,8 @@
 class GameManager {
-  constructor({ dialogue, collected }) {
+  constructor({ dialogue, collected, progression }) {
     this.dialogue = dialogue;
     this.collected = collected;
+    this.progression = progression;
 
     this.map = null;
     this.camera = new Camera();
@@ -55,6 +56,8 @@ class GameManager {
     }
 
     if (this.player.health > 0) {
+      this.progression.completed_levels.push(level);
+
       // Player survived the level
       this.collected.wood += this.inventory.wood;
       this.collected.iron += this.inventory.iron;

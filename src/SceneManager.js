@@ -6,13 +6,17 @@ class SceneManager {
     this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
     this.state = 'hub';
 
+    this.progression = {
+      completed_levels: []
+    };
     this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
 
     this.dialogue = new DialogueManager();
 
     this.game_scene = new GameManager({
       dialogue: this.dialogue,
-      collected: this.collected
+      collected: this.collected,
+      progression: this.progression
     });
     this.replay_manager = new ReplayManager();
 
@@ -21,7 +25,8 @@ class SceneManager {
       dialogue: this.dialogue,
       replay_manager: this.replay_manager,
       start_level: this.start_level.bind(this),
-      collected: this.collected
+      collected: this.collected,
+      progression: this.progression
     });
 
     // this.gameover_scene = new GameOverScene(async () => {
@@ -49,7 +54,8 @@ class SceneManager {
     await this.game_scene.level_promise;
     await this.fade('out');
     this.replay_manager.finish();
-    this.state = 'menu';
+    this.hub_scene.reset();
+    this.state = 'hub';
     await this.fade('in');
   }
 

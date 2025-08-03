@@ -1,9 +1,16 @@
 class HubScene {
-  constructor({ dialogue, replay_manager, start_level, collected }) {
+  constructor({
+    dialogue,
+    replay_manager,
+    start_level,
+    collected,
+    progression
+  }) {
     this.dialogue = dialogue;
     this.start_level = start_level;
     this.replay_manager = replay_manager;
     this.collected = collected;
+    this.progression = progression;
 
     this.map = HubMap();
     this.camera = new Camera(this.map);
@@ -25,7 +32,8 @@ class HubScene {
       player: this.player,
       replay_manager: this.replay_manager,
       dialogue: this.dialogue,
-      start_level: this.start_level
+      start_level: this.start_level,
+      progression: this.progression
     };
 
     this.totems = [

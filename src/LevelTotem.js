@@ -5,20 +5,29 @@ class LevelTotem {
     dialogue,
     start_level,
     level = 1,
-    pos
+    pos,
+    progression
   }) {
     this.player = player;
     this.replay_manager = replay_manager;
     this.dialogue = dialogue;
     this.start_level = start_level;
+    this.progression = progression;
 
     this.level = level;
     this.pos = createVector(...pos);
 
-    this.replay = null; // this.replay_manager.get_replay(level, [100, 100], [800, 600]);
     this.replay_size = [400, 300];
     this.totem_size = [400, 100];
     this.gap = 50;
+
+    this.replay = this.progression.completed_levels.includes(1)
+      ? this.replay_manager.get_replay(
+          level,
+          this.replay_corner,
+          this.replay_size
+        )
+      : null;
 
     this.hitbox = new HitBox(
       [
