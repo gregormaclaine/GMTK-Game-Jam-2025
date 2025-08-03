@@ -8,7 +8,7 @@ class Enemy {
     drops,
     death_sound = 'enemy-death.wav',
     on_death,
-    health = 10000
+    health
   }) {
     this.image = image || images['square'];
     this.pos = createVector(pos[0], pos[1]);
@@ -17,8 +17,8 @@ class Enemy {
     this.vel = createVector(0, 0);
     this.speed = 2;
 
-    this.health = health;
-    this.max_health = health;
+    this.health = health || 10_000;
+    this.max_health = health || 10_000;
 
     this.slow_effect = false;
 
