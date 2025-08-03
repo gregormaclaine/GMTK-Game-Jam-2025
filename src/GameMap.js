@@ -1,5 +1,6 @@
 class GameMap {
-  constructor({ background, size, color, start_pos }) {
+  constructor({ background, size, color, start_pos, level }) {
+    this.level = level || 1;
     this.background = background;
     this.progression = null;
     this.size =

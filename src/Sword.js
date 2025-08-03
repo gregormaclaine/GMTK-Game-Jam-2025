@@ -16,8 +16,6 @@ class Sword {
 
     this.indicator_size = 35;
 
-    this.damage = 1000;
-
     this.last_swing_time = 0; // Timestamp of the last swing
 
     this.sword_type = type;
@@ -26,6 +24,21 @@ class Sword {
     this.sao_track = audio.audio_tracks['sao.mp3'];
     this.sao_track.loop = true;
     this.sao_track.volume = 0.5;
+  }
+
+  get damage() {
+    switch (this.sword_type) {
+      case 0:
+        return 1000;
+      case 1:
+        return 2000;
+      case 2:
+        return 3000;
+      case 3:
+        return 4000;
+      case 4:
+        return 5000;
+    }
   }
 
   change_sword(type) {

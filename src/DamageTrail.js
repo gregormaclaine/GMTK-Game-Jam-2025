@@ -2,17 +2,21 @@ class DamageTrail {
   constructor(pos) {
     this.pos = pos;
     this.size = [100, 100];
-    this.damage = 400; // Per second
+    this.base_damage = 400; // Per second
 
     this.hitbox = new HitBox([this.pos.x, this.pos.y], this.size);
     this.progress = 0;
     this.duration = 1;
   }
 
+  damage(level = 1) {
+    return this.damage * level ** 3;
+  }
+
   update(player, map) {
     if (this.progress >= 1) return;
     this.progress += 1 / frameRate() / this.duration;
-    const dmg = round(this.damage * (frameRate() / 1000));
+    const dmg = round(this.damage(map.level) * (frameRate() / 1000));
     map.enemies.forEach(enemy => {
       if (this.hitbox.is_colliding(enemy.hitbox))
         enemy.take_damage(player, map, dmg);
