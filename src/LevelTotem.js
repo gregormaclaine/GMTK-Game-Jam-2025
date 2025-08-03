@@ -121,6 +121,7 @@ class LevelTotem {
     // Add resources from replay
     let play_count = 0;
     for (const resource in this.replay.collected) {
+      if (resource === 'slime') continue; // Slime is not collected from replays
       this.collected[resource] += this.replay.collected[resource];
       if (play_count++ < 3) audio.play_sound('pickup.wav');
     }
