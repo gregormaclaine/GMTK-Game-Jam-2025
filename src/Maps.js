@@ -293,23 +293,6 @@ function level2_map() {
     }
   });
 
-  // setTimeout(() => {
-  //   map.complete();
-  // }, 1000);
-
-  // let enemies_left = 1;
-
-  // on_death = () => {
-  //   enemies_left--;
-  //   if (enemies_left <= 0) spawn_boss();
-  // };
-
-  // map.add_enemy(
-  //   new RangedEnemy({ pos: [600, 1400], size: [85, 100], on_death })
-  // );
-
-  // function spawn_boss() {}
-
   map.add_trigger({
     pos: [3599, 1030],
     size: [184, 82],
@@ -319,6 +302,7 @@ function level2_map() {
         pos: [144, 1132],
         size: [276, 90]
       });
+      audio.play_track('boss-theme.mp3');
       map.add_enemy(
         new BossEnemy({
           image: images.bosses[0],
@@ -327,6 +311,7 @@ function level2_map() {
           drops: { matter: 10, slime: 20 },
           on_death: () => {
             boss_door.delete();
+            audio.play_track('level-2.mp3');
           },
           can_shoot: true
         })
