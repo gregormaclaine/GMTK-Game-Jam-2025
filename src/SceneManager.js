@@ -1,6 +1,6 @@
 class SceneManager {
   static FADE_TIME = 0.8;
-  static DEV_SKIP_MENU = true; // Set to false to enable menu
+  static DEV_SKIP_MENU = false; // Set to false to enable menu
 
   constructor() {
     this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
