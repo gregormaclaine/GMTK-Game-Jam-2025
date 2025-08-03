@@ -161,9 +161,9 @@ function level1_map() {
     size: [296, 84],
     on_enter: () => {
       const boss_door = map.add_obstacle({
-        image: images['square'],
+        image: images['rock'],
         pos: [144, 1132],
-        size: [276, 90]
+        size: [276, 276]
       });
       audio.play_track('boss-theme.mp3');
       map.add_enemy(

@@ -1,6 +1,14 @@
 class ExplodeEnemy extends Enemy {
-  constructor({ pos, map, drops, on_death, size }) {
-    super({ image: images['exploder'], pos, map, drops, on_death, size });
+  constructor({ pos, map, drops, on_death, size, health }) {
+    super({
+      image: images['exploder'],
+      pos,
+      map,
+      drops,
+      on_death,
+      size,
+      health
+    });
     this.health = 10_000;
     this.exploding = false;
     this.explode_timer = 0;

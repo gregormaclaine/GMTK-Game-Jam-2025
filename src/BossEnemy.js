@@ -8,12 +8,9 @@ class BossEnemy extends Enemy {
     on_death,
     can_shoot = false
   }) {
-    super({ image, pos, size, drops, on_death });
+    super({ image, pos, size, drops, on_death, health });
 
     this.speed = 0.4;
-
-    this.health = health;
-    this.max_health = health;
 
     this.cooldown = new AbilityCooldown({
       cooldown: 5,

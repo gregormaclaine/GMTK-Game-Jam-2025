@@ -35,6 +35,7 @@ function preload() {
   fonts['bold'] = loadFont('assets/font/Oxygen-Bold.ttf');
 
   images['square'] = loadImage('assets/img/square.png');
+  images['rock'] = loadImage('assets/img/rock.png');
   images['player'] = loadImage('assets/img/mc/right.png');
   images['cloud'] = loadImage('assets/img/mc/cloud.png');
   images['lock'] = loadImage('assets/img/lock.png');
