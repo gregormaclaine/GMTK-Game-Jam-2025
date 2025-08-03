@@ -2,9 +2,11 @@ function level1_map() {
   const map = new GameMap({
     background: images['backgrounds'].level1,
     color: '#31222C',
-    start_pos: [800, 1400],
+    start_pos: [3486, 2765],
     level: 1
   });
+
+  // scenes.dialogue.send(DIALOGUE.TEST);
 
   map.add_obstacle({ pos: [10, 0], size: [1500, 50] });
   map.add_obstacle({ pos: [0, 10], size: [60, 1100] });
@@ -44,21 +46,114 @@ function level1_map() {
   map.add_obstacle({ pos: [1625, 2090], size: [156, 154] }); // Rock
   map.add_obstacle({ pos: [1123, 2323], size: [826, 130] });
 
+  map.barrels.push(new Barrel([2830, 2439], { wood: 1, iron: 2 })); // start room
+  map.barrels.push(new Barrel([2980, 2439], { wood: 3, iron: 1 })); // start room
+  map.barrels.push(new Barrel([2990, 2900], { wood: 2 })); // start room
+  map.barrels.push(new Barrel([3828, 1308], { iron: 1 })); // first hall
+  map.barrels.push(new Barrel([3720, 2109], { wood: 1 })); // first hall
+  map.barrels.push(new Barrel([2190, 1330], { iron: 2 })); // first hall
+  map.barrels.push(new Barrel([2690, 1330], { wood: 3 })); // first hall
+  map.barrels.push(new Barrel([2410, 2810], { matter: 5 })); // trap room
+  map.barrels.push(new Barrel([702, 1389], { wood: 1 })); // second hall
+  map.barrels.push(new Barrel([1782, 702], { matter: 5 })); // top trap room
+  map.barrels.push(new Barrel([3808, 398], { iron: 2 })); // top hall
+
+  // First room trigger
+  map.add_trigger({
+    pos: [3208, 2334],
+    size: [460, 88],
+    on_enter: () => {
+      // Add enemies
+      map.add_enemy(new ExplodeEnemy({ pos: [3131, 1499], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2366, 1500], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2452, 2118], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2452, 2118], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [3158, 2208], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [3158, 2208], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [3865, 1495], size: [60, 76] }));
+    }
+  });
+
+  // Bottom treasure trap trigger
+  map.add_trigger({
+    pos: [2313, 2341],
+    size: [178, 98],
+    on_enter: () => {
+      map.add_enemy(new ExplodeEnemy({ pos: [2064, 2597], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2644, 2593], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2082, 2887], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2634, 2883], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2350, 2575], size: [60, 76] }));
+    }
+  });
+
+  // Top treasure trap trigger
+  map.add_trigger({
+    pos: [2013, 613],
+    size: [136, 236],
+    on_enter: () => {
+      map.add_enemy(new ExplodeEnemy({ pos: [1629, 478], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [1903, 480], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [1629, 882], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [1897, 876], size: [60, 76] }));
+    }
+  });
+
+  // Top hall trigger
+  map.add_trigger({
+    pos: [2959, 1124],
+    size: [354, 114],
+    on_enter: () => {
+      map.add_enemy(new ExplodeEnemy({ pos: [2295, 369], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [2455, 355], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [3610, 374], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [3798, 540], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [3812, 942], size: [60, 76] }));
+    }
+  });
+
+  // Left hall trigger
+  map.add_trigger({
+    pos: [1919, 1689],
+    size: [108, 302],
+    on_enter: () => {
+      console.log('enter balls');
+      map.add_enemy(new ExplodeEnemy({ pos: [1535, 2722], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [1672, 1506], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [736, 1864], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [1614, 1976], size: [60, 76] }));
+      map.add_enemy(new ExplodeEnemy({ pos: [1206, 2164], size: [60, 76] }));
+    }
+  });
+
+  map.add_enemy(new ExplodeEnemy({ pos: [1812, 2538], size: [60, 76] }));
+  map.add_enemy(new ExplodeEnemy({ pos: [1804, 2876], size: [60, 76] }));
+  map.add_enemy(new ExplodeEnemy({ pos: [1590, 2560], size: [60, 76] }));
+
   // map.add_enemy(new ExplodeEnemy({ pos: [1300, 1400], size: [100, 140] }));
   // map.add_enemy(
   //   new ExplodeEnemy({ pos: [200, 200], size: [60, 76], drops: { wood: 4 } })
   // );
   // map.add_enemy(new ExplodeEnemy({ pos: [800, 800], size: [60, 76] }));
   // map.add_enemy(new ExplodeEnemy({ pos: [1500, 300], size: [60, 76] }));
-  map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
+  // map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
   // map.add_enemy(new RangedEnemy({ pos: [300, 1500], size: [85, 100] }));
 
   map.add_enemy(
     new PassiveEnemy({
       image: images['slime'],
-      pos: [1300, 1400],
+      pos: [938, 1654],
       size: [100, 100],
-      drops: { slime: 2, matter: 2 }
+      drops: { slime: 5 }
+    })
+  );
+
+  map.add_enemy(
+    new PassiveEnemy({
+      image: images['slime'],
+      pos: [1535, 2722],
+      size: [100, 100],
+      drops: { slime: 5 }
     })
   );
 
@@ -76,11 +171,11 @@ function level1_map() {
           image: images.bosses[0],
           pos: [739, 518],
           size: [150, 200],
-          drops: { wood: 2, iron: 2 },
+          drops: { matter: 10, slime: 10 },
           on_death: () => {
             boss_door.delete();
           },
-          can_shoot: true
+          can_shoot: false
         })
       );
     }
