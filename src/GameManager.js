@@ -69,6 +69,7 @@ class GameManager {
       this.on_finish_level(
         this.player.health > 0 ? { ...this.inventory } : null
       );
+      this.inventory = { wood: 0, iron: 0, slime: 0, matter: 0 };
     }
   }
 

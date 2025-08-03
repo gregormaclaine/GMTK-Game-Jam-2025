@@ -9,7 +9,7 @@ class Sword {
     this.arc_length = 110;
     this.swinging = 0; // 0 for not swinging, 1 for swinging right, -1 for swinging left
     this.swing_callback = null;
-    this.swing_speed = 0.4;
+    this.swing_speed = 10;
 
     this.hitbox = new HitBox();
     this.update_hitbox();
@@ -42,7 +42,7 @@ class Sword {
 
   update() {
     if (this.swinging) {
-      this.arc_pos += this.swinging * this.swing_speed;
+      this.arc_pos += (this.swinging * this.swing_speed) / frameRate();
       if (abs(this.arc_pos) >= 1) {
         this.arc_pos = this.arc_pos >= 1 ? 1 : -1; // Reset position
         this.swinging = 0; // Stop swinging when the arc is complete

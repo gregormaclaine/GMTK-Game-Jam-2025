@@ -115,6 +115,7 @@ class SceneManager {
     switch (this.state) {
       case 'game':
         this.game_scene.show();
+        this.show_hud();
         break;
 
       case 'menu':
@@ -123,6 +124,7 @@ class SceneManager {
 
       case 'hub':
         this.hub_scene.show();
+        this.show_hud();
         break;
 
       case 'gamewin':
@@ -139,6 +141,32 @@ class SceneManager {
       rectMode(CORNERS);
       rect(0, 0, width, height);
     }
+  }
+
+  show_hud() {
+    const inventory = this.game_scene.inventory || {};
+
+    imageMode(CORNER);
+    image(images.hud, 0, 0, width, height);
+
+    textAlign(LEFT, CENTER);
+    textSize(40);
+    fill(255);
+    stroke(255);
+    const start_y = 65;
+    const spacing = 95;
+    text(this.collected.wood + (inventory.wood || 0), 200, start_y);
+    text(this.collected.iron + (inventory.iron || 0), 200, start_y + spacing);
+    text(
+      this.collected.matter + (inventory.matter || 0),
+      200,
+      start_y + spacing * 2
+    );
+    text(
+      this.collected.slime + (inventory.slime || 0),
+      200,
+      start_y + spacing * 3
+    );
   }
 
   update() {
