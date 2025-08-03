@@ -367,12 +367,12 @@ function level2_map() {
       map.add_enemy(
         new ExplodeEnemy({ pos: [3053, 2760], size: [60, 76], health: 20000 })
       );
-      map.add_enemy(
-        new ExplodeEnemy({ pos: [2652, 2672], size: [60, 76], health: 20000 })
-      );
-      map.add_enemy(
-        new ExplodeEnemy({ pos: [2640, 2820], size: [60, 76], health: 20000 })
-      );
+      // map.add_enemy(
+      //   new ExplodeEnemy({ pos: [2652, 2672], size: [60, 76], health: 20000 })
+      // );
+      // map.add_enemy(
+      //   new ExplodeEnemy({ pos: [2640, 2820], size: [60, 76], health: 20000 })
+      // );
       map.add_enemy(
         new RangedEnemy({ pos: [996, 2497], size: [60, 76], health: 15000 })
       );
@@ -388,12 +388,12 @@ function level2_map() {
       map.add_enemy(
         new RangedEnemy({ pos: [3177, 2307], size: [60, 76], health: 15000 })
       );
-      map.add_enemy(
-        new RangedEnemy({ pos: [3165, 2775], size: [60, 76], health: 15000 })
-      );
-      map.add_enemy(
-        new RangedEnemy({ pos: [3625, 2427], size: [60, 76], health: 15000 })
-      );
+      // map.add_enemy(
+      //   new RangedEnemy({ pos: [3165, 2775], size: [60, 76], health: 15000 })
+      // );
+      // map.add_enemy(
+      //   new RangedEnemy({ pos: [3625, 2427], size: [60, 76], health: 15000 })
+      // );
     }
   });
 
