@@ -270,25 +270,146 @@ function level2_map() {
       map.add_enemy(
         new ExplodeEnemy({ pos: [791, 1802], size: [60, 76], health: 20000 })
       );
+      map.add_enemy(
+        new RangedEnemy({ pos: [991, 1434], size: [60, 76], health: 15000 })
+      );
     }
   });
 
   // Upper hall
   map.add_trigger({
-    pos: [402, 1289],
-    size: [82, 284],
+    pos: [1375, 803],
+    size: [540, 106],
     on_enter: () => {
       map.add_enemy(
-        new ExplodeEnemy({ pos: [1629, 478], size: [60, 76], health: 20000 })
+        new ExplodeEnemy({
+          pos: [314, 218],
+          size: [60, 76],
+          health: 20000
+        })
       );
       map.add_enemy(
-        new ExplodeEnemy({ pos: [1903, 480], size: [60, 76], health: 20000 })
+        new ExplodeEnemy({ pos: [306, 300], size: [60, 76], health: 20000 })
       );
       map.add_enemy(
-        new ExplodeEnemy({ pos: [1629, 882], size: [60, 76], health: 20000 })
+        new ExplodeEnemy({ pos: [924, 300], size: [60, 76], health: 20000 })
       );
       map.add_enemy(
-        new ExplodeEnemy({ pos: [1897, 876], size: [60, 76], health: 20000 })
+        new ExplodeEnemy({ pos: [1255, 306], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1675, 286], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [940, 612], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [893, 425], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [300, 509], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [302, 247], size: [60, 76], health: 15000 })
+      );
+    }
+  });
+
+  // Top trap room
+  map.add_trigger({
+    pos: [1977, 425],
+    size: [70, 194],
+    on_enter: () => {
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2169, 803], size: [60, 76], health: 30000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2168, 906], size: [60, 76], health: 30000 })
+      );
+    }
+  });
+
+  // Bottom long hall
+  map.add_trigger({
+    pos: [678, 1939],
+    size: [232, 96],
+    on_enter: () => {
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [277, 2240], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [251, 2476], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1079, 2186], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1085, 2458], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1603, 2422], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1593, 2748], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2092, 2152], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2084, 2500], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2092, 2751], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [3063, 2272], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [3057, 2480], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [3053, 2760], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2652, 2672], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [2640, 2820], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [996, 2497], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [1584, 2229], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [1582, 2807], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [2277, 2527], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [3177, 2307], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [3165, 2775], size: [60, 76], health: 15000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [3625, 2427], size: [60, 76], health: 15000 })
+      );
+    }
+  });
+
+  // Pre-boss room
+  map.add_trigger({
+    pos: [3316, 1939],
+    size: [252, 86],
+    on_enter: () => {
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [3436, 1573], size: [60, 76], health: 30000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [3405, 1615], size: [60, 76], health: 15000 })
       );
     }
   });
