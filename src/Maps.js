@@ -117,7 +117,6 @@ function level1_map() {
     pos: [1919, 1689],
     size: [108, 302],
     on_enter: () => {
-      console.log('enter balls');
       map.add_enemy(new ExplodeEnemy({ pos: [1535, 2722], size: [60, 76] }));
       map.add_enemy(new ExplodeEnemy({ pos: [1672, 1506], size: [60, 76] }));
       map.add_enemy(new ExplodeEnemy({ pos: [736, 1864], size: [60, 76] }));
@@ -182,6 +181,13 @@ function level1_map() {
   });
 
   map.barrels.push(new Barrel([1000, 1600], { wood: 2, health: 1 }));
+
+  const interval = setInterval(() => {
+    if (map.enemies.length === 0 && map.triggers.length === 0) {
+      clearInterval(interval);
+      map.complete();
+    }
+  }, 1000);
 
   return map;
 }
