@@ -27,7 +27,8 @@ class HubScene {
     this.player = new Player({
       start_pos: this.map.start_pos,
       bounds: this.camera.bounds(),
-      collected: this.collected
+      collected: this.collected,
+      progression: this.progression
     });
 
     const totem_props = {
