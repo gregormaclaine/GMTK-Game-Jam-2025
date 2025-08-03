@@ -90,6 +90,18 @@ function level1_map() {
   return map;
 }
 
+function level2_map() {
+  const map = new GameMap({
+    background: images['backgrounds'].level2,
+    color: '#2A1F24',
+    start_pos: [2000, 2000]
+  });
+  setTimeout(() => {
+    map.complete();
+  }, 1000);
+  return map;
+}
+
 function HubMap() {
   const map = new GameMap({
     background: images.backgrounds.hub,
@@ -119,4 +131,4 @@ function HubMap() {
   return map;
 }
 
-const Maps = [level1_map];
+const Maps = [level1_map, level2_map];

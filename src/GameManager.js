@@ -53,9 +53,13 @@ class GameManager {
     switch (level) {
       case 1:
         // this.audio.play_track('hell-3.mp3', true);
-        await this.play_map(Maps[0]());
+        break;
+      case 2:
+        // this.audio.play_track('hell-2.mp3', true);
         break;
     }
+
+    await this.play_map(Maps[level - 1]());
 
     if (this.player.health > 0) {
       this.progression.completed_levels.push(level);
