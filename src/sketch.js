@@ -28,6 +28,7 @@ function preload() {
 
   images['square'] = loadImage('assets/img/square.png');
   images['player'] = loadImage('assets/img/mc/right.png');
+  images['cloud'] = loadImage('assets/img/mc/cloud.png');
   images['lock'] = loadImage('assets/img/lock.png');
   images['hud'] = loadImage('assets/img/hud.png');
 
