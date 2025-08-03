@@ -1,6 +1,6 @@
 const images = {};
 const audio = new JL.Audio(
-  [],
+  ['sao.mp3'],
   [
     'boom.wav',
     'barrel-break.wav',
@@ -12,7 +12,8 @@ const audio = new JL.Audio(
     'enemy-death.wav',
     'dud.wav',
     'sword.wav',
-    'slash.wav'
+    'slash.wav',
+    'corn.wav'
   ]
 );
 let fonts = {};

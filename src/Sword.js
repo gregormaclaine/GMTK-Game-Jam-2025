@@ -9,7 +9,7 @@ class Sword {
     this.arc_length = 110;
     this.swinging = 0; // 0 for not swinging, 1 for swinging right, -1 for swinging left
     this.swing_callback = null;
-    this.swing_speed = 10;
+    this.swing_duration = 0.1;
 
     this.hitbox = new HitBox();
     this.update_hitbox();
@@ -21,6 +21,11 @@ class Sword {
     this.last_swing_time = 0; // Timestamp of the last swing
 
     this.sword_type = type;
+
+    this.sao_left = 0;
+    this.sao_track = audio.audio_tracks['sao.mp3'];
+    this.sao_track.loop = true;
+    this.sao_track.volume = 0.5;
   }
 
   change_sword(type) {
@@ -28,11 +33,23 @@ class Sword {
     this.last_swing_time = millis();
   }
 
+  play_sound() {
+    switch (this.sword_type) {
+      case 3:
+        this.sao_left = 2;
+        return this.sao_track.play();
+      case 4:
+        return audio.play_sound('corn.wav', 0.5);
+      default:
+        return audio.play_sound('sword.wav', 0.5);
+    }
+  }
+
   async swing() {
     if (this.swinging !== 0) return; // Already swinging
     this.last_swing_time = millis();
     this.swinging = this.arc_pos * -1;
-    audio.play_sound('sword.wav', 0.5);
+    this.play_sound();
     return new Promise(resolve => {
       this.swing_callback = resolve;
     });
@@ -48,8 +65,13 @@ class Sword {
   }
 
   update() {
+    if (this.sao_left > 0) {
+      this.sao_left -= 1 / this.swing_duration / frameRate();
+      if (this.sao_left <= 0) this.sao_track.pause();
+    }
+
     if (this.swinging) {
-      this.arc_pos += (this.swinging * this.swing_speed) / frameRate();
+      this.arc_pos += this.swinging / this.swing_duration / frameRate();
       if (abs(this.arc_pos) >= 1) {
         this.arc_pos = this.arc_pos >= 1 ? 1 : -1; // Reset position
         this.swinging = 0; // Stop swinging when the arc is complete
