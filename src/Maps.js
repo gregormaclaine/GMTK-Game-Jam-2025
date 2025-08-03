@@ -56,8 +56,8 @@ function level1_map() {
     new PassiveEnemy({
       image: images['slime'],
       pos: [1300, 1400],
-      size: [100, 140],
-      drops: { wood: 4 }
+      size: [100, 100],
+      drops: { slime: 2, matter: 2 }
     })
   );
 

@@ -48,20 +48,22 @@ function preload() {
   ];
   images['heart'] = loadImage('assets/img/heart.png');
   images['explosion'] = loadImage('assets/img/explosion.png');
-  images['exploder'] = loadImage('assets/img/exploder.png');
-  images['ranger_f'] = loadImage('assets/img/ranger_f.png');
-  images['ranger_m'] = loadImage('assets/img/ranger_m.png');
-  images['slime'] = loadImage('assets/img/slime.png');
+  images['exploder'] = loadImage('assets/img/enemies/exploder.png');
+  images['ranger_f'] = loadImage('assets/img/enemies/ranger_f.png');
+  images['ranger_m'] = loadImage('assets/img/enemies/ranger_m.png');
+  images['slime'] = loadImage('assets/img/enemies/slime.png');
   images['bullet'] = loadImage('assets/img/bullet.png');
 
   images['bosses'] = [
-    loadImage('assets/img/boss1.png'),
-    loadImage('assets/img/boss2.png')
+    loadImage('assets/img/enemies/boss1.png'),
+    loadImage('assets/img/enemies/boss2.png')
   ];
 
   images.resources = {
     wood: loadImage('assets/img/resources/wood.png'),
-    iron: loadImage('assets/img/resources/iron.png')
+    iron: loadImage('assets/img/resources/iron.png'),
+    slime: loadImage('assets/img/resources/slime.png'),
+    matter: loadImage('assets/img/resources/matter.png')
   };
 
   audio.preload();
