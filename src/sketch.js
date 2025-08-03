@@ -14,7 +14,8 @@ const audio = new JL.Audio(
     'sword.wav',
     'slash.wav',
     'corn.wav',
-    'health.wav'
+    'health.wav',
+    'cheer.wav'
   ]
 );
 let fonts = {};

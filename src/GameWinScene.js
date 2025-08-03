@@ -5,6 +5,8 @@ class GameWinScene {
       [width / 2, height * 0.55, 400, 100],
       return_to_menu
     );
+
+    this.played = false;
   }
 
   handle_click() {
@@ -12,6 +14,11 @@ class GameWinScene {
   }
 
   show() {
+    if (!this.played) {
+      this.played = true;
+      audio.play_sound('cheer.wav');
+    }
+
     background(0);
 
     textSize(90);
