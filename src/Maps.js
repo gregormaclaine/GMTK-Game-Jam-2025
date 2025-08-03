@@ -165,6 +165,7 @@ function level1_map() {
         pos: [144, 1132],
         size: [276, 90]
       });
+      audio.play_track('boss-theme.mp3');
       map.add_enemy(
         new BossEnemy({
           image: images.bosses[0],
@@ -173,6 +174,7 @@ function level1_map() {
           drops: { matter: 10, slime: 10 },
           on_death: () => {
             boss_door.delete();
+            audio.stop();
           },
           can_shoot: false
         })
