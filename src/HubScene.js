@@ -27,7 +27,6 @@ class HubScene {
     this.player = new Player({
       start_pos: this.map.start_pos,
       bounds: this.camera.bounds(),
-      in_menu: true,
       collected: this.collected
     });
 
@@ -58,28 +57,58 @@ class HubScene {
       })
     ];
 
-    const ability_props = {
+    const selector_props = {
       progression: this.progression,
       player: this.player
     };
 
-    const mid_x = 3150;
-    const x_spacing = 300;
+    let mid_x = 3150;
+    let x_spacing = 300;
     this.abilities = [
       new AbilitySelector({
-        ...ability_props,
+        ...selector_props,
         ability: 'slow',
         pos: createVector(mid_x - x_spacing, 1650)
       }),
       new AbilitySelector({
-        ...ability_props,
+        ...selector_props,
         ability: 'slash',
         pos: createVector(mid_x, 1650)
       }),
       new AbilitySelector({
-        ...ability_props,
+        ...selector_props,
         ability: 'trail',
         pos: createVector(mid_x + x_spacing, 1650)
+      })
+    ];
+
+    mid_x = 800;
+    x_spacing = 200;
+    this.weapons = [
+      new WeaponSelector({
+        ...selector_props,
+        pos: createVector(mid_x - x_spacing * 2, 1650),
+        sword: 0
+      }),
+      new WeaponSelector({
+        ...selector_props,
+        pos: createVector(mid_x - x_spacing, 1650),
+        sword: 1
+      }),
+      new WeaponSelector({
+        ...selector_props,
+        pos: createVector(mid_x, 1650),
+        sword: 2
+      }),
+      new WeaponSelector({
+        ...selector_props,
+        pos: createVector(mid_x + x_spacing, 1650),
+        sword: 3
+      }),
+      new WeaponSelector({
+        ...selector_props,
+        pos: createVector(mid_x + x_spacing * 2, 1650),
+        sword: 4
       })
     ];
   }
@@ -89,6 +118,7 @@ class HubScene {
       this.boundary_tool.handle_click();
       return;
     }
+    this.player.sword.swing();
   }
 
   handle_key_press() {
@@ -97,6 +127,7 @@ class HubScene {
 
     this.totems.forEach(totem => totem.handle_key_press());
     this.abilities.forEach(ability => ability.handle_key_press());
+    this.weapons.forEach(weapon => weapon.handle_key_press());
     this.player.handle_key_press();
   }
 
@@ -111,6 +142,7 @@ class HubScene {
     this.totems.forEach(totem => totem.show());
     this.abilities.forEach(ability => ability.show());
     this.show_ability_description();
+    this.weapons.forEach(weapon => weapon.show());
     this.player.show({ scaler: 1 - this.totem_shrinking() });
     this.boundary_tool.show_boundary();
     pop();

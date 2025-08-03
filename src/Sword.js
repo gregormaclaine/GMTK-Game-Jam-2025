@@ -1,5 +1,5 @@
 class Sword {
-  constructor(player) {
+  constructor(player, type = 0) {
     this.player = player;
     this.size = [40, 80];
     this.cooldown = 500; // Cooldown time in milliseconds
@@ -20,7 +20,12 @@ class Sword {
 
     this.last_swing_time = 0; // Timestamp of the last swing
 
-    this.sword_type = 0;
+    this.sword_type = type;
+  }
+
+  change_sword(type) {
+    this.sword_type = type;
+    this.last_swing_time = millis();
   }
 
   async swing() {

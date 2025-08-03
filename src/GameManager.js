@@ -24,7 +24,8 @@ class GameManager {
         if (this.on_finish_level) this.on_finish_level();
         this.on_finish_level = null;
       },
-      collected: this.inventory
+      collected: this.inventory,
+      sword: this.progression.selected_weapon
     });
   }
 

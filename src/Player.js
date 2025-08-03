@@ -1,11 +1,5 @@
 class Player {
-  constructor({
-    start_pos,
-    die = () => {},
-    bounds,
-    in_menu = false,
-    collected
-  }) {
+  constructor({ start_pos, die = () => {}, bounds, collected, sword = 0 }) {
     this.pos = createVector(...start_pos);
     this.die = die;
     this.bounds = bounds;
@@ -17,7 +11,7 @@ class Player {
     this.hitbox = new HitBox();
     this.update_hitbox();
 
-    this.sword = in_menu ? null : new Sword(this);
+    this.sword = new Sword(this, sword);
 
     this.max_speed = 9;
 
