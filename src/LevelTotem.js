@@ -111,6 +111,8 @@ class LevelTotem {
     }
     this.collected.slime -= 10;
 
+    audio.play_sound('rewind.wav');
+
     this.replay = this.replay_manager.get_replay(
       this.level,
       this.replay_corner,

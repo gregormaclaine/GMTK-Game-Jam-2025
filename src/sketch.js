@@ -22,7 +22,8 @@ const audio = new JL.Audio(
     'slash.wav',
     'corn.wav',
     'health.wav',
-    'cheer.wav'
+    'cheer.wav',
+    'rewind.wav'
   ]
 );
 let fonts = {};
