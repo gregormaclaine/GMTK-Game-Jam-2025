@@ -43,7 +43,8 @@ function preload() {
 
   images['buttons'] = {
     start: loadImage('assets/img/buttons/start.png'),
-    credits: loadImage('assets/img/buttons/credits.png')
+    credits: loadImage('assets/img/buttons/credits.png'),
+    loop: loadImage('assets/img/buttons/loop.png')
   };
 
   images['barrels'] = [

@@ -22,7 +22,7 @@ class LevelTotem {
     this.pos = createVector(...pos);
 
     this.replay_size = [400, 300];
-    this.totem_size = [400, 100];
+    this.totem_size = [400, 200];
     this.gap = 50;
 
     this.replay = persisting_replays[level] || null;
@@ -88,7 +88,7 @@ class LevelTotem {
 
     if (
       keyCode === 80 &&
-      this.button_hitbox.is_colliding(this.player.hitbox) &&
+      this.button_hitbox.contains(this.player.hitbox) &&
       this.progression.completed_levels.includes(this.level) &&
       !this.replay
     ) {
@@ -163,7 +163,7 @@ class LevelTotem {
 
     if (this.progression.completed_levels.includes(this.level)) {
       imageMode(CORNER);
-      image(images['square'], ...this.totem_corner, 400, 100);
+      image(images.buttons.loop, ...this.totem_corner, 400, 200);
       this.button_hitbox.show();
     }
 
