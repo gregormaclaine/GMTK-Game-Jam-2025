@@ -104,11 +104,11 @@ class LevelTotem {
   }
 
   async begin_replay() {
-    if (this.collected.slime < 5) {
+    if (this.collected.slime < 10) {
       audio.play_sound('dud.wav');
       return;
     }
-    this.collected.slime -= 5;
+    this.collected.slime -= 10;
 
     this.replay = this.replay_manager.get_replay(
       this.level,

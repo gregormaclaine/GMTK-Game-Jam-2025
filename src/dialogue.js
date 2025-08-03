@@ -2,19 +2,39 @@ const DIALOGUE = {
   LEVEL_1: [
     {
       profile: 'cloud',
-      text: 'Hello there, my name is Cara. Welcome to our humble planet :3'
+      text: "Well, here we are. It's time for your first dungeon Gryphon."
     },
     {
-      profile: 'right',
-      text: "Hello Cara! I'm cat, it's a pleasure to meet you."
+      profile: 'player',
+      text: 'Thanks! Umm... what should I call you anyway? Cloud?'
     },
     {
-      profile: 'exploder',
-      text: 'Cat? Your name is just cat?'
+      profile: 'cloud',
+      text: "Yeah, Cloud is fine. Everybody calls me different things, so I'm used to it."
     },
     {
-      profile: 'ranger_f',
-      text: "cat. i've been stripped down to a shadow because of what happened on our planet. This is who i am now."
+      profile: 'player',
+      text: 'Fair.'
+    },
+    {
+      profile: 'cloud',
+      text: "In any case, now's not the best time for introductions. You've got to clear this dungeon."
+    },
+    {
+      profile: 'cloud',
+      text: "Since you got reincarnated in quite an... inconvenient form so to say, I'll make an exception and give you a ride throughout your adventure to kill the demon king."
+    },
+    {
+      profile: 'player',
+      text: "That's nice of you, Cloud. I definitely wouldn't get very far with these fins of mine. I can't even swing a sword :|"
+    },
+    {
+      profile: 'cloud',
+      text: "Don't worry about that for now. We'll figure something out. Now, let's get going. We're going to need to gather as much resources as we can and kill the boss waiting for us at the end."
+    },
+    {
+      profile: 'cloud',
+      text: "...hopefully you won't get snuffed out by the first enemy like most before you."
     }
   ],
   HUB_INTRO: [
