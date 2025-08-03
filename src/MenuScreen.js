@@ -59,7 +59,7 @@ class MenuScreen {
     // text('You are spaceship cat!', width * 0.5, height * 0.3);
     // textFont(fonts['regular']);
 
-    image(images['square'], width / 2, height * 0.3);
+    image(images['player'], width / 2, height * 0.3, 200, 200);
 
     // push();
     // translate(150, 150);
