@@ -57,7 +57,7 @@ class SceneManager {
 
     switch (level) {
       case 1:
-        await this.dialogue.send(DIALOGUE.TEST);
+        await this.dialogue.send(DIALOGUE.LEVEL_1);
         break;
       case 2:
         // await this.dialogue.send(DIALOGUE.LEVEL_2);

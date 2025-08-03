@@ -1,11 +1,11 @@
 const DIALOGUE = {
-  TEST: [
+  LEVEL_1: [
     {
-      profile: 'exploder',
+      profile: 'cloud',
       text: 'Hello there, my name is Cara. Welcome to our humble planet :3'
     },
     {
-      profile: 'ranger_f',
+      profile: 'right',
       text: "Hello Cara! I'm cat, it's a pleasure to meet you."
     },
     {
