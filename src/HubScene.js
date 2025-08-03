@@ -12,10 +12,13 @@ class HubScene {
     this.collected = collected;
     this.progression = progression;
 
-    this.map = HubMap();
+    this.map = HubMap().set_progression(this.progression);
     this.camera = new Camera(this.map);
 
     this.boundary_tool = new BoundaryCreatorTool({ camera: this.camera });
+
+    this.totems = [];
+    this.abilities = [];
 
     this.reset();
   }
@@ -54,6 +57,31 @@ class HubScene {
         pos: [1930 + 600, 450]
       })
     ];
+
+    const ability_props = {
+      progression: this.progression,
+      player: this.player
+    };
+
+    const mid_x = 3150;
+    const x_spacing = 300;
+    this.abilities = [
+      new AbilitySelector({
+        ...ability_props,
+        ability: 'slow',
+        pos: createVector(mid_x - x_spacing, 1650)
+      }),
+      new AbilitySelector({
+        ...ability_props,
+        ability: 'slash',
+        pos: createVector(mid_x, 1650)
+      }),
+      new AbilitySelector({
+        ...ability_props,
+        ability: 'trail',
+        pos: createVector(mid_x + x_spacing, 1650)
+      })
+    ];
   }
 
   handle_click() {
@@ -68,6 +96,7 @@ class HubScene {
       return this.boundary_tool.toggle();
 
     this.totems.forEach(totem => totem.handle_key_press());
+    this.abilities.forEach(ability => ability.handle_key_press());
     this.player.handle_key_press();
   }
 
@@ -80,12 +109,33 @@ class HubScene {
     push();
     this.camera.show();
     this.totems.forEach(totem => totem.show());
+    this.abilities.forEach(ability => ability.show());
+    this.show_ability_description();
     this.player.show({ scaler: 1 - this.totem_shrinking() });
     this.boundary_tool.show_boundary();
     pop();
 
     this.boundary_tool.show_hud();
     this.player.dash_cooldown.show();
+  }
+
+  show_ability_description() {
+    if (!this.progression.selected_ability) return;
+
+    const description = {
+      slow: 'Slows down enemies when you hit them.',
+      slash:
+        'A powerful sword slash that can break projectiles before they hit you.',
+      trail: 'Leaves a trail that burns enemies.'
+    }[this.progression.selected_ability];
+
+    push();
+    strokeWeight(0);
+    fill(255);
+    textSize(24);
+    textAlign(CENTER);
+    text(description, 3150, 1850);
+    pop();
   }
 
   update() {

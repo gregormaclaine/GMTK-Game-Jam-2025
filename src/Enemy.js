@@ -19,6 +19,8 @@ class Enemy {
     this.health = 10000;
     this.max_health = 10000;
 
+    this.slow_effect = false;
+
     this.death_fade = 1;
     this.death_sound = death_sound;
     this.on_death = on_death || (() => {});
@@ -73,7 +75,7 @@ class Enemy {
 
       if (target.dist(this.pos) > 10) {
         const direction = this.path_finding.get_direction(this.pos, target);
-        this.vel = direction.setMag(this.speed);
+        this.vel = direction.setMag(this.speed * (this.slow_effect ? 0.5 : 1));
         this.pos.add(this.vel);
         this.hitbox.set_pos([this.pos.x, this.pos.y]);
       }
@@ -86,13 +88,19 @@ class Enemy {
       player.sword.hitbox.is_colliding(this.hitbox) &&
       player.sword.swinging
     ) {
-      this.take_damage(player);
+      this.take_damage(player, map);
     }
   }
 
-  take_damage(player) {
+  take_damage(player, map) {
     if (this.health <= 0) return;
     this.health -= player.sword.damage;
+
+    if (map.progression?.selected_ability === 'slow') {
+      this.slow_effect = true;
+      setTimeout(() => (this.slow_effect = false), 2000);
+    }
+
     if (this.health <= 0) this.on_kill(player);
     const damage_effect = new DamageEffect(
       player.sword.damage,
@@ -130,6 +138,9 @@ class Enemy {
     if (this.death_fade <= 0) return;
 
     push();
+    if (this.slow_effect) {
+      tint(160, 200, 255, 255); // Blue tint for slow effect
+    }
     if (this.death_fade < 1) {
       tint(255, this.death_fade * 255);
     }

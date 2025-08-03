@@ -25,7 +25,7 @@ class Sword {
     if (this.swinging !== 0) return; // Already swinging
     this.last_swing_time = millis();
     this.swinging = this.arc_pos * -1;
-    audio.play_sound('boom.wav', 0.1);
+    audio.play_sound('sword.wav', 0.5);
     return new Promise(resolve => {
       this.swing_callback = resolve;
     });

@@ -30,6 +30,7 @@ class GameManager {
 
   play_map(map) {
     this.map = map;
+    map.set_progression(this.progression);
     this.camera.set_map(map);
     this.player.set_bounds(this.camera.bounds());
     this.player.set_pos(map.start_pos);

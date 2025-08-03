@@ -1,6 +1,7 @@
 class GameMap {
   constructor({ background, size, color, start_pos }) {
     this.background = background;
+    this.progression = null;
     this.size =
       size ||
       (background ? [background.width, background.height] : [3000, 3000]);
@@ -20,6 +21,11 @@ class GameMap {
     this.completion_promise = new Promise(resolve => {
       this.complete = resolve;
     });
+  }
+
+  set_progression(progression) {
+    this.progression = progression;
+    return this;
   }
 
   add_obstacle({ image, pos, size }) {

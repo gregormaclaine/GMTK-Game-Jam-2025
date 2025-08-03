@@ -15,6 +15,15 @@ class Bullet {
     this.pos.add(this.vel);
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
 
+    if (map.progression?.selected_ability === 'slash') {
+      // If the player has the slash ability, check for collision with the sword
+      if (this.hitbox.is_colliding(player.sword.hitbox)) {
+        audio.play_sound('slash.wav');
+        this.destroy();
+        return;
+      }
+    }
+
     // Check for collision with map obstacles
     if (this.hitbox.is_colliding(player.hitbox)) {
       player.take_damage(this.damage);

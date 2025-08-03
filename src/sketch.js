@@ -10,7 +10,9 @@ const audio = new JL.Audio(
     'scream.wav',
     'pickup.wav',
     'enemy-death.wav',
-    'dud.wav'
+    'dud.wav',
+    'sword.wav',
+    'slash.wav'
   ]
 );
 let fonts = {};
@@ -70,6 +72,12 @@ function preload() {
     iron: loadImage('assets/img/resources/iron.png'),
     slime: loadImage('assets/img/resources/slime.png'),
     matter: loadImage('assets/img/resources/matter.png')
+  };
+
+  images.abilities = {
+    slow: loadImage('assets/img/abilities/slow.png'),
+    slash: loadImage('assets/img/abilities/slash.png'),
+    trail: loadImage('assets/img/abilities/trail.png')
   };
 
   audio.preload();

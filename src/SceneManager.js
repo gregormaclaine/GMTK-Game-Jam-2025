@@ -4,11 +4,12 @@ class SceneManager {
 
   constructor() {
     this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
-    // this.state = 'hub';
+    this.state = 'hub';
 
     this.progression = {
       completed_levels: [],
-      post_win: false
+      post_win: false,
+      selected_ability: null // 'slow' | 'slash' | 'trail' | null
     };
     this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
 
