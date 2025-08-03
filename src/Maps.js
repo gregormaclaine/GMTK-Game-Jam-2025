@@ -174,7 +174,7 @@ function level1_map() {
           drops: { matter: 10, slime: 10 },
           on_death: () => {
             boss_door.delete();
-            audio.stop();
+            audio.play_track('level-1.mp3');
           },
           can_shoot: false
         })

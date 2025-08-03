@@ -18,7 +18,7 @@ class Player {
 
     this.dash_amount = 0;
     this.dash_cooldown = new AbilityCooldown({
-      cooldown: 5,
+      cooldown: 3,
       color: color(255, 0, 0),
       run: () => {
         this.dash_amount = 6;

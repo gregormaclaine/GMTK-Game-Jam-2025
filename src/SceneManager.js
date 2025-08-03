@@ -36,6 +36,7 @@ class SceneManager {
     this.gamewin_scene = new GameWinScene(async () => {
       await this.fade('out');
       this.progression.post_win = true;
+      audio.play_track('hub.mp3');
       this.state = 'hub';
       await this.fade('in');
     });
