@@ -97,7 +97,7 @@ class GameManager {
     push();
     this.camera.show();
     this.map?.show_sprites();
-    this.player.show(this.state === 'pause');
+    this.player.show({ is_paused: this.state === 'pause' });
     this.boundary_tool.show_boundary();
 
     pop();

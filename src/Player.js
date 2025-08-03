@@ -108,10 +108,11 @@ class Player {
     this.sword?.update();
   }
 
-  show(is_paused = false) {
+  show({ is_paused = false, scaler = 1 }) {
     push();
     translate(this.pos.x, this.pos.y);
     scale(this.vel.x < 0 ? -1 : 1, 1);
+    scale(scaler);
 
     imageMode(CENTER);
     image(this.image, 0, 0, this.size[0], this.size[1]);

@@ -113,6 +113,14 @@ class HitBox {
     return false;
   }
 
+  contains(other) {
+    // Check if hitbox contains both top left and bottom right points of the other hitbox
+    return (
+      this.contains_point(other.points[0]) &&
+      this.contains_point(other.points[2])
+    );
+  }
+
   repel(other) {
     if (!this.is_colliding(other, false)) return;
 

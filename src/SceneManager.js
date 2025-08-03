@@ -4,7 +4,7 @@ class SceneManager {
 
   constructor() {
     this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
-    // this.state = 'hub';
+    this.state = 'hub';
 
     this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
 

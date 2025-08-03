@@ -32,7 +32,7 @@ class HubScene {
       new LevelTotem({
         ...totem_props,
         level: 1,
-        pos: [width * 0.5, height * 0.5]
+        pos: [1893, 631]
       })
     ];
   }
@@ -45,17 +45,19 @@ class HubScene {
   }
 
   handle_key_press() {
-    this.player.handle_key_press();
+    this.totems.forEach(totem => totem.handle_key_press());
+  }
 
-    if (keyCode === DEV_BOUNDARY_CREATE_KEY_CODE)
-      return this.boundary_tool.toggle();
+  totem_shrinking() {
+    const shrinker = this.totems.find(totem => totem.shrink_progress);
+    return Math.min(1, shrinker?.shrink_progress || 0);
   }
 
   show() {
     push();
     this.camera.show();
     this.totems.forEach(totem => totem.show());
-    this.player.show();
+    this.player.show({ scaler: 1 - this.totem_shrinking() });
     this.boundary_tool.show_boundary();
     pop();
 
@@ -66,5 +68,6 @@ class HubScene {
   update() {
     this.player.update(this.map.obstacles);
     this.camera.set_pos(this.player.pos);
+    this.totems.forEach(totem => totem.update());
   }
 }

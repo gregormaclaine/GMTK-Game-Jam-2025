@@ -22,11 +22,15 @@ class LevelTotem {
 
     this.hitbox = new HitBox(
       [
-        this.totem_corner[0] + this.totem_size[0] / 2,
-        this.totem_corner[1] + this.totem_size[1] / 2
+        this.replay_corner[0] + this.replay_size[0] / 2,
+        this.replay_corner[1] + this.replay_size[1] / 2
       ],
-      this.totem_size
+      this.replay_size
     );
+
+    this.shrink_progress = null;
+    this.shrink_duration = 1;
+    this.starting_level = false;
   }
 
   total_size() {
@@ -49,9 +53,30 @@ class LevelTotem {
     ];
   }
 
+  handle_key_press() {
+    if (keyCode === 80 && this.hitbox.contains(this.player.hitbox)) {
+      this.shrink_progress = 1 / frameRate() / this.shrink_duration;
+    }
+  }
+
+  update() {
+    if (this.shrink_progress) {
+      this.shrink_progress += 1 / frameRate() / this.shrink_duration;
+      if (this.shrink_progress >= 1 && !this.starting_level) {
+        this.starting_level = true;
+        this.start_level(this.level);
+      }
+    }
+  }
+
   show() {
     imageMode(CORNER);
-    image(images['square'], ...this.replay_corner, 400, 300);
+    image(
+      images.backgrounds['level' + this.level],
+      ...this.replay_corner,
+      400,
+      300
+    );
     this.replay?.show();
 
     image(images['square'], ...this.totem_corner, 400, 100);
