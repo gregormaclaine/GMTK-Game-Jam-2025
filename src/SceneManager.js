@@ -55,9 +55,9 @@ class SceneManager {
     this.game_scene.run_level(level);
     await this.fade('in');
 
+    audio.play_track(`level-${level}.mp3`);
     switch (level) {
       case 1:
-        await audio.play_track('level-1.mp3');
         await this.dialogue.send(DIALOGUE.LEVEL_1);
         break;
       case 2:

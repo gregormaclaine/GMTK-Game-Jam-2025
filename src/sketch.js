@@ -1,6 +1,13 @@
 const images = {};
 const audio = new JL.Audio(
-  ['sao.mp3', 'boss-theme.mp3', 'hub.mp3', 'level-1.mp3'],
+  [
+    'sao.mp3',
+    'boss-theme.mp3',
+    'hub.mp3',
+    'level-1.mp3',
+    'level-2.mp3',
+    'level-3.mp3'
+  ],
   [
     'boom.wav',
     'barrel-break.wav',
