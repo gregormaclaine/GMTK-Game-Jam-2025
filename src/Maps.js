@@ -86,7 +86,7 @@ function level1_map() {
     }
   });
 
-  map.barrels.push(new Barrel([1000, 1600], { wood: 2 }));
+  map.barrels.push(new Barrel([1000, 1600], { wood: 2, health: 1 }));
 
   return map;
 }
@@ -98,9 +98,23 @@ function level2_map() {
     start_pos: [2000, 2000],
     level: 2
   });
-  setTimeout(() => {
-    map.complete();
-  }, 1000);
+  // setTimeout(() => {
+  //   map.complete();
+  // }, 1000);
+
+  let enemies_left = 1;
+
+  on_death = () => {
+    enemies_left--;
+    if (enemies_left <= 0) spawn_boss();
+  };
+
+  map.add_enemy(
+    new RangedEnemy({ pos: [600, 1400], size: [85, 100], on_death })
+  );
+
+  function spawn_boss() {}
+
   return map;
 }
 

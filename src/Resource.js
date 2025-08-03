@@ -66,6 +66,16 @@ class Resource {
   }
 
   static get(resource, pos = [0, 0], collected) {
+    if (resource === 'health') {
+      return new Resource({
+        pos,
+        size: [50, 50],
+        on_collect: () => scenes.game_scene.player.heal(1),
+        image: images['heart'],
+        speed: [random(-3, 3), random(-3, 3)]
+      });
+    }
+
     return new Resource({
       pos,
       size: [50, 50],

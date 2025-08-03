@@ -57,6 +57,11 @@ class Player {
     if (this.health <= 0) this.die();
   }
 
+  heal(amount) {
+    this.health = Math.min(this.health + amount, this.max_health);
+    audio.play_sound('health.wav');
+  }
+
   update_hitbox() {
     this.hitbox.set_pos([this.pos.x, this.pos.y]);
     this.hitbox.size = [this.size[0] - 50, this.size[1] - 10];
