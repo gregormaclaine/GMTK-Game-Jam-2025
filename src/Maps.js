@@ -491,6 +491,69 @@ function level3_map() {
   map.add_obstacle({ pos: [1084, -2], size: [1697, 86] });
   map.add_obstacle({ pos: [1407, 994], size: [296, 258] });
 
+  map.enemies.push(
+    new ExplodeEnemy({ pos: [691, 975], size: [60, 76], health: 30000 })
+  );
+  map.enemies.push(
+    new ExplodeEnemy({ pos: [385, 1679], size: [60, 76], health: 30000 })
+  );
+  map.enemies.push(
+    new RangedEnemy({ pos: [1484, 1730], size: [60, 76], health: 20000 })
+  );
+  map.enemies.push(
+    new ExplodeEnemy({ pos: [1422, 2658], size: [60, 76], health: 30000 })
+  );
+  map.enemies.push(
+    new RangedEnemy({ pos: [2016, 2604], size: [60, 76], health: 20000 })
+  );
+  map.enemies.push(
+    new ExplodeEnemy({ pos: [2116, 1714], size: [60, 76], health: 30000 })
+  );
+  map.enemies.push(
+    new RangedEnemy({ pos: [2456, 1925], size: [60, 76], health: 20000 })
+  );
+  map.enemies.push(
+    new ExplodeEnemy({ pos: [2798, 2621], size: [60, 76], health: 30000 })
+  );
+
+  map.add_trigger({
+    pos: [2889, 608],
+    size: [98, 548],
+    on_enter: () => {
+      const boss_door = map.add_obstacle({
+        image: images['square'],
+        pos: [1918, 569],
+        size: [276, 90]
+      });
+      audio.play_track('boss-theme.mp3');
+      map.add_enemy(
+        new BossEnemy({
+          image: images.bosses[0],
+          pos: [3206, 596],
+          size: [150, 200],
+          drops: { matter: 100, slime: 100 },
+          on_death: () => {
+            boss_door.delete();
+            audio.play_track('level-3.mp3');
+          },
+          can_shoot: true
+        })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [1918, 569], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [2554, 316], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [1363, 1292], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new RangedEnemy({ pos: [2433, 1284], size: [60, 76], health: 20000 })
+      );
+    }
+  });
+
   const interval = setInterval(() => {
     if (map.enemies.length === 0 && map.triggers.length === 0) {
       clearInterval(interval);
