@@ -98,22 +98,67 @@ function level2_map() {
     start_pos: [2000, 2000],
     level: 2
   });
+
+  map.add_obstacle({ pos: [2, 1], size: [3997, 98] });
+  map.add_obstacle({ pos: [3, 81], size: [178, 1215] });
+  map.add_obstacle({ pos: [143, 786], size: [350, 502] });
+  map.add_obstacle({ pos: [458, 788], size: [634, 182] });
+  map.add_obstacle({ pos: [1070, 786], size: [308, 532] });
+  map.add_obstacle({ pos: [430, 226], size: [218, 196] });
+  map.add_obstacle({ pos: [1910, 89], size: [134, 310] });
+  map.add_obstacle({ pos: [2292, 87], size: [87, 1076] });
+  map.add_obstacle({ pos: [2045, 1115], size: [320, 56] });
+  map.add_obstacle({ pos: [1907, 631], size: [142, 552] });
+  map.add_obstacle({ pos: [1910, 1163], size: [224, 448] });
+  map.add_obstacle({ pos: [1077, 1548], size: [834, 68] });
+  map.add_obstacle({ pos: [1075, 1603], size: [90, 458] });
+  map.add_obstacle({ pos: [907, 1917], size: [176, 142] });
+  map.add_obstacle({ pos: [1161, 1969], size: [316, 88] });
+  map.add_obstacle({ pos: [1741, 1973], size: [282, 84] });
+  map.add_obstacle({ pos: [3, 1576], size: [496, 486] });
+  map.add_obstacle({ pos: [497, 1920], size: [176, 140] });
+  map.add_obstacle({ pos: [2, 2056], size: [67, 941] });
+  map.add_obstacle({ pos: [68, 2931], size: [3931, 70] });
+  map.add_obstacle({ pos: [3426, 2695], size: [148, 146] });
+  map.add_obstacle({ pos: [2439, 2162], size: [432, 340] });
+  map.add_obstacle({ pos: [1258, 2118], size: [154, 142] });
+  map.add_obstacle({ pos: [256, 2562], size: [302, 242] });
+  map.add_obstacle({ pos: [2023, 1933], size: [1290, 124] });
+  map.add_obstacle({ pos: [2773, 1877], size: [540, 56] });
+  map.add_obstacle({ pos: [2771, 1707], size: [144, 172] });
+  map.add_obstacle({ pos: [2209, 1676], size: [242, 180] });
+  map.add_obstacle({ pos: [2022, 1614], size: [112, 362] });
+  map.add_obstacle({ pos: [1273, 482], size: [308, 238] });
+  map.add_obstacle({ pos: [3797, 1879], size: [198, 1047] });
+  map.add_obstacle({ pos: [3577, 1883], size: [230, 178] });
+  map.add_obstacle({ pos: [3627, 1620], size: [160, 140] });
+  map.add_obstacle({ pos: [3923, 983], size: [75, 893] });
+  map.add_obstacle({ pos: [3784, 983], size: [154, 140] });
+  map.add_obstacle({ pos: [3939, 5], size: [56, 975] });
+  map.add_obstacle({ pos: [3431, 975], size: [168, 152] });
+  map.add_obstacle({ pos: [3419, 1121], size: [60, 228] });
+  map.add_obstacle({ pos: [2779, 1305], size: [640, 44] });
+  map.add_obstacle({ pos: [2783, 1345], size: [134, 136] });
+  map.add_obstacle({ pos: [2770, 1093], size: [74, 210] });
+  map.add_obstacle({ pos: [2347, 1089], size: [426, 78] });
+  map.add_obstacle({ pos: [2419, 775], size: [230, 204] });
+
   // setTimeout(() => {
   //   map.complete();
   // }, 1000);
 
-  let enemies_left = 1;
+  // let enemies_left = 1;
 
-  on_death = () => {
-    enemies_left--;
-    if (enemies_left <= 0) spawn_boss();
-  };
+  // on_death = () => {
+  //   enemies_left--;
+  //   if (enemies_left <= 0) spawn_boss();
+  // };
 
-  map.add_enemy(
-    new RangedEnemy({ pos: [600, 1400], size: [85, 100], on_death })
-  );
+  // map.add_enemy(
+  //   new RangedEnemy({ pos: [600, 1400], size: [85, 100], on_death })
+  // );
 
-  function spawn_boss() {}
+  // function spawn_boss() {}
 
   return map;
 }
