@@ -42,9 +42,9 @@ class GameManager {
 
     let level_ended = { val: false };
     this.level_promise = new Promise(resolve => {
-      this.on_finish_level = () => {
+      this.on_finish_level = inventory => {
         level_ended.val = true;
-        resolve();
+        resolve(inventory);
       };
     });
 
@@ -65,7 +65,11 @@ class GameManager {
       this.collected.matter += this.inventory.matter;
     }
 
-    if (!level_ended.val && this.on_finish_level) this.on_finish_level();
+    if (!level_ended.val && this.on_finish_level) {
+      this.on_finish_level(
+        this.player.health > 0 ? { ...this.inventory } : null
+      );
+    }
   }
 
   handle_click() {

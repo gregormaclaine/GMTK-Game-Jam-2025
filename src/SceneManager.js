@@ -3,11 +3,12 @@ class SceneManager {
   static DEV_SKIP_MENU = false; // Set to false to enable menu
 
   constructor() {
-    // this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
-    this.state = 'hub';
+    this.state = SceneManager.DEV_SKIP_MENU ? 'game' : 'menu';
+    // this.state = 'hub';
 
     this.progression = {
-      completed_levels: []
+      completed_levels: [],
+      post_win: false
     };
     this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
 
@@ -29,11 +30,12 @@ class SceneManager {
       progression: this.progression
     });
 
-    // this.gameover_scene = new GameOverScene(async () => {
-    //   await this.fade('out');
-    //   this.state = 'planet';
-    //   await this.fade('in');
-    // });
+    this.gamewin_scene = new GameWinScene(async () => {
+      await this.fade('out');
+      this.progression.post_win = true;
+      this.state = 'hub';
+      await this.fade('in');
+    });
 
     this.fade_mode = null;
     this.fade_progress = 0;
@@ -49,13 +51,31 @@ class SceneManager {
     this.state = 'game';
     this.game_scene.run_level(level);
     await this.fade('in');
-    await this.dialogue.send(DIALOGUE.TEST);
+
+    switch (level) {
+      case 1:
+        await this.dialogue.send(DIALOGUE.TEST);
+        break;
+      case 2:
+        // await this.dialogue.send(DIALOGUE.LEVEL_2);
+        break;
+      case 3:
+        // await this.dialogue.send(DIALOGUE.LEVEL_3);
+        break;
+    }
+
     this.replay_manager.start(level);
-    await this.game_scene.level_promise;
+    const success = await this.game_scene.level_promise;
     await this.fade('out');
-    this.replay_manager.finish();
+    this.replay_manager.finish(success);
     this.hub_scene.reset();
-    this.state = 'hub';
+
+    if (level === 3) {
+      this.state = 'gamewin';
+    } else {
+      this.state = 'hub';
+    }
+
     await this.fade('in');
   }
 
@@ -78,10 +98,8 @@ class SceneManager {
         return this.menu_scene.handle_click();
       case 'hub':
         return this.hub_scene.handle_click();
-      // case 'gameover':
-      //   return this.gameover_scene.handle_click();
-      // case 'end':
-      //   return this.end_scene.handle_click();
+      case 'gamewin':
+        return this.gamewin_scene.handle_click();
     }
   }
 
@@ -107,13 +125,9 @@ class SceneManager {
         this.hub_scene.show();
         break;
 
-      // case 'gameover':
-      //   this.gameover_scene.show();
-      //   break;
-
-      // case 'end':
-      //   this.end_scene.show();
-      //   break;
+      case 'gamewin':
+        this.gamewin_scene.show();
+        break;
     }
 
     if (this.dialogue.active) this.dialogue.show();
@@ -148,13 +162,9 @@ class SceneManager {
         this.menu_scene.update();
         break;
 
-      // case 'gameover':
-      //   this.gameover_scene.update();
-      //   break;
-
-      // case 'end':
-      //   this.end_scene.update();
-      //   break;
+      case 'gamewin':
+        this.gamewin_scene.update();
+        break;
     }
   }
 }

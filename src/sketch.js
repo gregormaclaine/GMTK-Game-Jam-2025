@@ -9,7 +9,8 @@ const audio = new JL.Audio(
     'dash.wav',
     'scream.wav',
     'pickup.wav',
-    'enemy-death.wav'
+    'enemy-death.wav',
+    'dud.wav'
   ]
 );
 let fonts = {};
@@ -23,6 +24,7 @@ function preload() {
 
   images['square'] = loadImage('assets/img/square.png');
   images['player'] = loadImage('assets/img/mc/right.png');
+  images['lock'] = loadImage('assets/img/lock.png');
 
   images['dialogue-profile'] = images['square'];
   images['dialogue-box'] = images['square'];
@@ -33,6 +35,8 @@ function preload() {
 
   images['backgrounds'] = {
     level1: loadImage('assets/img/levels/level1.png'),
+    level2: loadImage('assets/img/levels/level2.png'),
+    level3: loadImage('assets/img/levels/level3.png'),
     menu: loadImage('assets/img/backgrounds/menu.png'),
     hub: loadImage('assets/img/backgrounds/hub.png')
   };

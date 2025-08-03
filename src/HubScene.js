@@ -33,14 +33,25 @@ class HubScene {
       replay_manager: this.replay_manager,
       dialogue: this.dialogue,
       start_level: this.start_level,
-      progression: this.progression
+      progression: this.progression,
+      collected: this.collected
     };
 
     this.totems = [
       new LevelTotem({
         ...totem_props,
         level: 1,
-        pos: [1893, 631]
+        pos: [1930 - 600, 450]
+      }),
+      new LevelTotem({
+        ...totem_props,
+        level: 2,
+        pos: [1930, 450]
+      }),
+      new LevelTotem({
+        ...totem_props,
+        level: 3,
+        pos: [1930 + 600, 450]
       })
     ];
   }
@@ -53,7 +64,11 @@ class HubScene {
   }
 
   handle_key_press() {
+    if (keyCode === DEV_BOUNDARY_CREATE_KEY_CODE)
+      return this.boundary_tool.toggle();
+
     this.totems.forEach(totem => totem.handle_key_press());
+    this.player.handle_key_press();
   }
 
   totem_shrinking() {

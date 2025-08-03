@@ -40,17 +40,24 @@ class GameReplay {
 }
 
 class FrameReplayer {
-  constructor(replay, pos, size) {
+  constructor(replay, pos, size, collected = {}) {
     this.replay = replay;
     this.pos = pos;
     this.size = size;
+    this.collected = collected;
 
     this.start_time = null;
+    this.on_complete = null;
+    this.promise = new Promise(resolve => {
+      this.on_complete = resolve;
+    });
+
+    this.time_scale = 0.8; // Speed of replay
   }
 
   get elapsed() {
     if (!this.start_time) return 0;
-    return millis() - this.start_time;
+    return (millis() - this.start_time) * this.time_scale;
   }
 
   get_frame() {
@@ -62,11 +69,6 @@ class FrameReplayer {
       )
     );
 
-    // if (this.frame_index < frameIndex) {
-    //   this.replay.frames.splice(0, frameIndex);
-    //   this.frame_index = frameIndex;
-    // }
-
     return this.replay.frames[frameIndex];
   }
 
@@ -75,7 +77,11 @@ class FrameReplayer {
       this.start_time = millis();
     }
 
-    if (this.elapsed >= this.replay.duration) return;
+    if (this.elapsed >= this.replay.duration) {
+      this.on_complete?.();
+      this.on_complete = null;
+      return;
+    }
 
     imageMode(CORNER);
     image(this.get_frame(), ...this.pos, ...this.size);
@@ -85,27 +91,38 @@ class FrameReplayer {
 class ReplayManager {
   constructor() {
     this.replays = {};
+    this.inventories = {};
     this.current = null;
+    this.current_id = null;
   }
 
   start(id) {
-    if (this.replays[id]) {
-      this.replays[id].delete();
-      delete this.replays[id];
-    }
+    this.current_id = id;
     this.current = new GameReplay();
     this.current.start_recording();
-    this.replays[id] = this.current;
   }
 
-  finish() {
+  finish(collected = null) {
     if (!this.current) throw new Error('No replay in progress to finish.');
     this.current.stop_recording();
+
+    if (collected) {
+      if (this.replays[this.current_id]) {
+        this.replays[this.current_id].delete();
+        delete this.replays[this.current_id];
+      }
+      this.replays[this.current_id] = this.current;
+      this.inventories[this.current_id] = collected;
+    } else {
+      this.current.delete();
+    }
+
     this.current = null;
+    this.current_id = null;
   }
 
   get_replay(id, pos, size) {
     if (!this.replays[id]) throw new Error(`No replay found for ID: ${id}`);
-    return new FrameReplayer(this.replays[id], pos, size);
+    return new FrameReplayer(this.replays[id], pos, size, this.inventories[id]);
   }
 }
