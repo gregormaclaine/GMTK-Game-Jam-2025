@@ -491,28 +491,28 @@ function level3_map() {
   map.add_obstacle({ pos: [1084, -2], size: [1697, 86] });
   map.add_obstacle({ pos: [1407, 994], size: [296, 258] });
 
-  map.enemies.push(
+  map.add_enemy(
     new ExplodeEnemy({ pos: [691, 975], size: [60, 76], health: 30000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new ExplodeEnemy({ pos: [385, 1679], size: [60, 76], health: 30000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new RangedEnemy({ pos: [1484, 1730], size: [60, 76], health: 20000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new ExplodeEnemy({ pos: [1422, 2658], size: [60, 76], health: 30000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new RangedEnemy({ pos: [2016, 2604], size: [60, 76], health: 20000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new ExplodeEnemy({ pos: [2116, 1714], size: [60, 76], health: 30000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new RangedEnemy({ pos: [2456, 1925], size: [60, 76], health: 20000 })
   );
-  map.enemies.push(
+  map.add_enemy(
     new ExplodeEnemy({ pos: [2798, 2621], size: [60, 76], health: 30000 })
   );
 
