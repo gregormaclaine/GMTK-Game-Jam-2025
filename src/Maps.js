@@ -198,7 +198,7 @@ function level2_map() {
   const map = new GameMap({
     background: images['backgrounds'].level2,
     color: '#2A1F24',
-    start_pos: [2000, 2000],
+    start_pos: [230, 1451],
     level: 2
   });
 
@@ -246,6 +246,53 @@ function level2_map() {
   map.add_obstacle({ pos: [2347, 1089], size: [426, 78] });
   map.add_obstacle({ pos: [2419, 775], size: [230, 204] });
 
+  map.barrels.push(new Barrel([790, 1122], { wood: 1 }));
+  map.barrels.push(new Barrel([2170, 207], { matter: 4 }));
+  map.barrels.push(new Barrel([2168, 1007], { matter: 3 }));
+  map.barrels.push(new Barrel([327, 671], { iron: 3 }));
+  map.barrels.push(new Barrel([1291, 1805], { wood: 6 }));
+  map.barrels.push(new Barrel([1893, 1805], { wood: 3 }));
+  map.barrels.push(new Barrel([174, 2836], { iron: 5 }));
+  map.barrels.push(new Barrel([3678, 2171], { wood: 1 }));
+  map.barrels.push(new Barrel([2459, 1329], { matter: 5 }));
+  map.barrels.push(new Barrel([3837, 1268], { iron: 2 }));
+
+  map.barrels.push(new Barrel([3837, 1268], { health: 3 })); // pre-boss
+
+  // First hall
+  map.add_trigger({
+    pos: [402, 1289],
+    size: [82, 284],
+    on_enter: () => {
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [787, 1272], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [791, 1802], size: [60, 76], health: 20000 })
+      );
+    }
+  });
+
+  // Upper hall
+  map.add_trigger({
+    pos: [402, 1289],
+    size: [82, 284],
+    on_enter: () => {
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1629, 478], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1903, 480], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1629, 882], size: [60, 76], health: 20000 })
+      );
+      map.add_enemy(
+        new ExplodeEnemy({ pos: [1897, 876], size: [60, 76], health: 20000 })
+      );
+    }
+  });
+
   // setTimeout(() => {
   //   map.complete();
   // }, 1000);
@@ -263,6 +310,30 @@ function level2_map() {
 
   // function spawn_boss() {}
 
+  map.add_trigger({
+    pos: [3599, 1030],
+    size: [184, 82],
+    on_enter: () => {
+      const boss_door = map.add_obstacle({
+        image: images['square'],
+        pos: [144, 1132],
+        size: [276, 90]
+      });
+      map.add_enemy(
+        new BossEnemy({
+          image: images.bosses[0],
+          pos: [3206, 596],
+          size: [150, 200],
+          drops: { matter: 10, slime: 20 },
+          on_death: () => {
+            boss_door.delete();
+          },
+          can_shoot: true
+        })
+      );
+    }
+  });
+
   const interval = setInterval(() => {
     if (map.enemies.length === 0 && map.triggers.length === 0) {
       clearInterval(interval);
@@ -277,7 +348,7 @@ function level3_map() {
   const map = new GameMap({
     background: images['backgrounds'].level3,
     color: '#000000',
-    start_pos: [2000, 2000],
+    start_pos: [683, 163],
     level: 3
   });
 

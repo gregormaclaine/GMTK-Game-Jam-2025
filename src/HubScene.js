@@ -95,25 +95,25 @@ class HubScene {
         ...selector_props,
         pos: createVector(mid_x - x_spacing, 1650),
         sword: 1,
-        recipe: { wood: 5, iron: 5 }
+        recipe: { wood: 10, iron: 10 }
       }),
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x, 1650),
         sword: 2,
-        recipe: { iron: 10, matter: 10 }
+        recipe: { iron: 20, matter: 20 }
       }),
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x + x_spacing, 1650),
         sword: 3,
-        recipe: { wood: 5, iron: 15, matter: 15 }
+        recipe: { wood: 35, iron: 30, matter: 30 }
       }),
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x + x_spacing * 2, 1650),
         sword: 4,
-        recipe: { matter: 30 }
+        recipe: { matter: 50 }
       })
     ];
   }
