@@ -17,8 +17,11 @@ class Bullet {
 
     if (map.progression?.selected_ability === 'slash') {
       // If the player has the slash ability, check for collision with the sword
-      if (this.hitbox.is_colliding(player.sword.hitbox)) {
-        audio.play_sound('slash.wav');
+      if (
+        this.hitbox.is_colliding(player.sword.hitbox) &&
+        player.sword.swinging
+      ) {
+        audio.play_sound('slash.wav', 0.3);
         this.destroy();
         return;
       }

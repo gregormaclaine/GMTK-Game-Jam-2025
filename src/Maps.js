@@ -49,7 +49,7 @@ function level1_map() {
   // );
   // map.add_enemy(new ExplodeEnemy({ pos: [800, 800], size: [60, 76] }));
   // map.add_enemy(new ExplodeEnemy({ pos: [1500, 300], size: [60, 76] }));
-  // map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
+  map.add_enemy(new RangedEnemy({ pos: [600, 1400], size: [85, 100] }));
   // map.add_enemy(new RangedEnemy({ pos: [300, 1500], size: [85, 100] }));
 
   map.add_enemy(
