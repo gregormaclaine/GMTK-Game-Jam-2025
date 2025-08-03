@@ -50,7 +50,7 @@ function preload() {
     level1: loadImage('assets/img/levels/level1.png'),
     level2: loadImage('assets/img/levels/level2.png'),
     level3: loadImage('assets/img/levels/level3.png'),
-    menu: loadImage('assets/img/backgrounds/menu.png'),
+    menu: loadImage('assets/img/backgrounds/menu.jpg'),
     hub: loadImage('assets/img/backgrounds/hub.png')
   };
 
