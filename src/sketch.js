@@ -42,6 +42,7 @@ function preload() {
   ];
 
   images['indicator'] = loadImage('assets/img/indicator.png');
+  images['damage-trail'] = null;
 
   images['backgrounds'] = {
     level1: loadImage('assets/img/levels/level1.png'),

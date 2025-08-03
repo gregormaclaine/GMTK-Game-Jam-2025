@@ -140,7 +140,7 @@ class HubScene {
 
   update() {
     if (!this.totem_shrinking()) {
-      this.player.update(this.map.obstacles);
+      this.player.update(this.map);
       this.camera.set_pos(this.player.pos);
     }
     this.totems.forEach(totem => totem.update());

@@ -33,6 +33,14 @@ class Player {
 
     this.max_health = 3;
     this.health = this.max_health;
+
+    this.trail = [];
+    this.trail_cooldown = new AbilityCooldown({
+      cooldown: 0.35,
+      run: () => {
+        this.trail.push(new DamageTrail(this.pos.copy()));
+      }
+    });
   }
 
   set_bounds(bounds) {
@@ -81,7 +89,7 @@ class Player {
     if (keyCode === 32) this.dash_cooldown.activate();
   }
 
-  update(obstacles) {
+  update(map) {
     const dir_vel = createVector(
       keyIsDown(68) - keyIsDown(65),
       keyIsDown(83) - keyIsDown(87)
@@ -99,12 +107,26 @@ class Player {
     const delta_adjusted_vel = this.vel.copy();
     delta_adjusted_vel.mult(60 / (frameRate() || 1));
 
+    if (
+      this.vel.mag() > 0.1 &&
+      this.progression?.selected_ability === 'trail'
+    ) {
+      this.trail_cooldown.activate();
+    }
+    this.trail_cooldown.update();
+
     this.pos.add(delta_adjusted_vel);
 
-    obstacles.forEach(obstacle => {
+    map.obstacles.forEach(obstacle => {
       const offset = obstacle.hitbox.repel(this.hitbox);
       this.pos.add(offset);
     });
+
+    for (let i = this.trail.length - 1; i >= 0; i--) {
+      const trail = this.trail[i];
+      trail.update(this, map);
+      if (trail.deletable()) this.trail.splice(i, 1);
+    }
 
     this.force_on_screen();
     this.update_hitbox();
@@ -113,6 +135,8 @@ class Player {
   }
 
   show({ is_paused = false, scaler = 1 }) {
+    this.trail.forEach(t => t.show());
+
     push();
     translate(this.pos.x, this.pos.y);
     scale(this.vel.x < 0 ? -1 : 1, 1);

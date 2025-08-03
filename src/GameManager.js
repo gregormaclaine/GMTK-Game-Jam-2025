@@ -120,7 +120,7 @@ class GameManager {
   update() {
     switch (this.state) {
       case 'game':
-        this.player.update(this.map?.obstacles || []);
+        this.player.update(this.map);
         this.camera.set_pos(this.player.pos);
         this.map?.update_sprites(this.player);
 
