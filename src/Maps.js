@@ -163,6 +163,53 @@ function level2_map() {
   return map;
 }
 
+function level3_map() {
+  const map = new GameMap({
+    background: images['backgrounds'].level3,
+    color: '#000000',
+    start_pos: [2000, 2000],
+    level: 3
+  });
+
+  map.add_obstacle({ pos: [164, 4], size: [180, 1180] });
+  map.add_obstacle({ pos: [1015, 5], size: [96, 1520] });
+  map.add_obstacle({ pos: [761, 1179], size: [280, 346] });
+  map.add_obstacle({ pos: [154, 1181], size: [404, 340] });
+  map.add_obstacle({ pos: [146, 1858], size: [380, 68] });
+  map.add_obstacle({ pos: [413, 1931], size: [116, 682] });
+  map.add_obstacle({ pos: [529, 2129], size: [274, 484] });
+  map.add_obstacle({ pos: [807, 2479], size: [396, 134] });
+  map.add_obstacle({ pos: [947, 2153], size: [202, 216] });
+  map.add_obstacle({ pos: [1105, 1467], size: [1886, 57] });
+  map.add_obstacle({ pos: [2733, 1160], size: [262, 302] });
+  map.add_obstacle({ pos: [1677, 1526], size: [212, 968] });
+  map.add_obstacle({ pos: [2126, 1892], size: [170, 168] });
+  map.add_obstacle({ pos: [2512, 1720], size: [170, 188] });
+  map.add_obstacle({ pos: [-13, 1521], size: [164, 338] });
+  map.add_obstacle({ pos: [23, 1929], size: [124, 994] });
+  map.add_obstacle({ pos: [146, 2918], size: [268, 88] });
+  map.add_obstacle({ pos: [414, 2800], size: [795, 133] });
+  map.add_obstacle({ pos: [1206, 2835], size: [686, 110] });
+  map.add_obstacle({ pos: [1680, 2713], size: [212, 170] });
+  map.add_obstacle({ pos: [1892, 2855], size: [323, 71] });
+  map.add_obstacle({ pos: [2177, 2156], size: [66, 734] });
+  map.add_obstacle({ pos: [2237, 2156], size: [370, 64] });
+  map.add_obstacle({ pos: [2517, 2220], size: [90, 226] });
+  map.add_obstacle({ pos: [2527, 2692], size: [80, 176] });
+  map.add_obstacle({ pos: [2240, 2858], size: [708, 128] });
+  map.add_obstacle({ pos: [2934, 2701], size: [795, 188] });
+  map.add_obstacle({ pos: [3719, 1545], size: [260, 1203] });
+  map.add_obstacle({ pos: [2936, 1555], size: [338, 919] });
+  map.add_obstacle({ pos: [3934, 86], size: [140, 1459] });
+  map.add_obstacle({ pos: [2779, -14], size: [1166, 112] });
+  map.add_obstacle({ pos: [2769, 94], size: [224, 516] });
+  map.add_obstacle({ pos: [3421, 426], size: [248, 248] });
+  map.add_obstacle({ pos: [1084, -2], size: [1697, 86] });
+  map.add_obstacle({ pos: [1407, 994], size: [296, 258] });
+
+  return map;
+}
+
 function HubMap() {
   const map = new GameMap({
     background: images.backgrounds.hub,
@@ -192,4 +239,4 @@ function HubMap() {
   return map;
 }
 
-const Maps = [level1_map, level2_map];
+const Maps = [level1_map, level2_map, level3_map];
