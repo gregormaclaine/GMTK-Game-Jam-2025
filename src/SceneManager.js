@@ -10,7 +10,8 @@ class SceneManager {
       completed_levels: [],
       post_win: false,
       selected_ability: null, // 'slow' | 'slash' | 'trail' | null
-      selected_weapon: 0
+      selected_weapon: 0,
+      unlocked_swords: [0]
     };
     this.collected = { wood: 0, iron: 0, slime: 0, matter: 0 };
 

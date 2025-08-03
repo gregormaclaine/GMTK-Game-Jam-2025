@@ -94,22 +94,26 @@ class HubScene {
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x - x_spacing, 1650),
-        sword: 1
+        sword: 1,
+        recipe: { wood: 2, iron: 2 }
       }),
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x, 1650),
-        sword: 2
+        sword: 2,
+        recipe: { iron: 2, matter: 2 }
       }),
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x + x_spacing, 1650),
-        sword: 3
+        sword: 3,
+        recipe: { wood: 4, iron: 5, matter: 5 }
       }),
       new WeaponSelector({
         ...selector_props,
         pos: createVector(mid_x + x_spacing * 2, 1650),
-        sword: 4
+        sword: 4,
+        recipe: { matter: 20 }
       })
     ];
   }
@@ -144,6 +148,7 @@ class HubScene {
     this.abilities.forEach(ability => ability.show());
     this.show_ability_description();
     this.weapons.forEach(weapon => weapon.show());
+    this.weapons.forEach(weapon => weapon.recipe && weapon.show_recipe());
     this.player.show({ scaler: 1 - this.totem_shrinking() });
     this.boundary_tool.show_boundary();
     pop();
