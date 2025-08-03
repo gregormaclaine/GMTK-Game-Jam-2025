@@ -265,9 +265,6 @@ function level2_map() {
     size: [82, 284],
     on_enter: () => {
       map.add_enemy(
-        new ExplodeEnemy({ pos: [787, 1272], size: [60, 76], health: 20000 })
-      );
-      map.add_enemy(
         new ExplodeEnemy({ pos: [791, 1802], size: [60, 76], health: 20000 })
       );
       map.add_enemy(
