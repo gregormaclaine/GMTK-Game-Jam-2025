@@ -30,7 +30,7 @@ class DamageTrail {
   show() {
     if (this.progress >= 1) return;
     push();
-    tint(255, lerp(255, 50, this.progress));
+    tint(255, 100, 100, lerp(255, 50, this.progress));
     imageMode(CENTER);
     image(
       images['damage-trail'] || images['square'],
